@@ -1,0 +1,15 @@
+div.room-main-container {
+  display: flex;
+}
+
+section.room-left-side {
+  width: 200px;
+  border: 1px solid black;
+  height: 800px;
+}
+
+section.room-right-side {
+  height: 800px;
+  width: 800px;
+  border: 1px solid blueviolet;
+}
