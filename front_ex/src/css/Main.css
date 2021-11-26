@@ -1,0 +1,26 @@
+header .logo {
+  width: 500px;
+  height: 100px;
+  margin-top: 20px;
+}
+
+/** profile box 와 feed 부분 과 오른쪽 사이드 인기 미니 홈페이지 가로로 정렬*/
+.main-container {
+  display: flex;
+  width: 1300px;
+  margin: 40px auto;
+}
+
+header {
+  height: 15vh;
+  line-height: 15vh;
+}
+
+.section-left,
+.section-right {
+  width: 25%;
+}
+
+.section-middle {
+  width: 50%;
+}
