@@ -1,6 +1,7 @@
 package com.roomy.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GalleryController {
 
-    @RequestMapping(value = {"/",""},method = RequestMethod.GET)
+    @GetMapping(value = {"/",""})
     public String list(){
-        return "";
+        return "hello";
     }
 }
