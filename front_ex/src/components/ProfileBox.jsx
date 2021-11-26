@@ -1,5 +1,6 @@
 import "../css/ProfileBox.css";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function ProfileBox() {
   const pStyle = {
@@ -11,6 +12,7 @@ function ProfileBox() {
   const loginClicked = () => {
     setLogin(true);
   };
+
   return (
     <div>
       {login ? (
@@ -25,7 +27,9 @@ function ProfileBox() {
             <button>수정</button>
             <button>로그아웃</button>
           </div>
-          <button className="btn-mini">내 미니홈피 가기</button>
+          <button className="btn-mini">
+            <NavLink to="/room">내 미니홈피 가기</NavLink>
+          </button>
         </div>
       ) : (
         <div className="profile-box-before">
