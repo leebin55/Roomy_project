@@ -1,0 +1,39 @@
+.profile-box-before,
+.profile-box-after {
+  border: 1px solid #ddd;
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+}
+
+.profile-box-before {
+  height: 300px;
+}
+
+.profile-box-after {
+  height: 450px;
+}
+
+.profile-p {
+  display: flex;
+  width: 200px;
+  height: 50px;
+  margin: auto;
+}
+
+.profile-box-after p {
+  margin: auto;
+}
+
+.profile-btn button {
+  background-color: #eee;
+  width: 100px;
+  height: 30px;
+  border: 1px solid lightgray;
+}
+
+.btn-mini {
+  width: 200px;
+  height: 50px;
+  margin: 15px auto;
+}

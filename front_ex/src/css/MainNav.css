@@ -1,0 +1,14 @@
+.main-nav {
+  display: flex;
+  width: 100vw;
+  height: 7vh;
+  background-color: #f8d17c;
+  justify-content: center;
+}
+
+.main-nav a {
+  color: white;
+  margin: auto 150px;
+  font-size: 20px;
+  cursor: pointer;
+}
