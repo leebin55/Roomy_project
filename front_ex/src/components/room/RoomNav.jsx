@@ -5,12 +5,47 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 function RoomNav() {
   return (
     <nav className="room-main-nav">
-      <NavLink to="/room">Home</NavLink>
-      <NavLink to="/room/board">Board</NavLink>
-      <NavLink to="/room/gallery">Gallery</NavLink>
-      <NavLink to="/room/todo">Todo</NavLink>
-      <NavLink to="/room/setting">Setting</NavLink>
-      <NavLink to="/">
+      <NavLink
+        className={({ isActive }) =>
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
+        }
+        to="/room"
+      >
+        Home
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
+        }
+        to="/room/board"
+      >
+        Board
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
+        }
+        to="/room/gallery"
+      >
+        Gallery
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
+        }
+        to="/room/todo"
+      >
+        Todo
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
+        }
+        to="/room/setting"
+      >
+        Setting
+      </NavLink>
+      <NavLink className="room-nav-box" to="/">
         <CancelPresentationIcon />
       </NavLink>
     </nav>

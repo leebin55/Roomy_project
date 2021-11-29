@@ -1,15 +1,107 @@
+div.room-background {
+  background-color: lightgray;
+  width: 100vw;
+  height: 100vh;
+}
+
 div.room-main-container {
   display: flex;
+  width: 1200px;
+  height: 700px;
+  margin: auto;
+}
+
+div.room-left-1,
+div.room-left-2,
+div.room-right-1,
+div.room-right-2,
+section.room-left-side,
+section.room-right-side {
+  border-radius: 10px;
+}
+
+div.room-left-1,
+div.room-right-1 {
+  height: 700px;
+  padding-top: 30px;
+  background-color: rgb(121, 185, 204);
+  border: none;
+}
+
+div.room-left-1 {
+  width: 25%;
+}
+
+div.room-right-1 {
+  width: 75%;
+}
+
+div.room-left-2,
+div.room-right-2 {
+  height: 635px;
+  padding-top: 55px;
+  background-color: #eee;
+  border: 1px solid gray;
+}
+
+div.room-left-2 {
+  width: 90%;
+  margin-left: auto;
+  border-right: none;
+}
+
+div.room-right-2 {
+  display: flex;
+  width: 95%;
+  border-left: none;
+  /* nav 위치 본인 영역 밖으로 못 나가게 */
+  position: relative;
+}
+
+section.room-left-side,
+section.room-right-side {
+  height: 550px;
+  border: 1px solid black;
+  background-color: white;
 }
 
 section.room-left-side {
-  width: 200px;
-  border: 1px solid black;
-  height: 800px;
+  width: 240px;
+  margin-left: auto;
+  margin-right: 5px;
 }
 
 section.room-right-side {
-  height: 800px;
-  width: 800px;
-  border: 1px solid blueviolet;
+  width: 750px;
+  margin-left: 5px;
+  z-index: 2;
+}
+
+/* -------------------- RoomNav -------------------- */
+
+section.room-main-nav {
+  position: absolute;
+  z-index: 1;
+  left: 745px;
+  top: 60px;
+  width: 100px;
+  border-left: none;
+  text-align: start;
+}
+
+.room-nav-box {
+  position: relative;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: rgb(253, 236, 181);
+  border: 1px solid black;
+  border-left: none;
+  border-radius: 10px;
+}
+
+.room-nav-click {
+  background-color: white;
 }
