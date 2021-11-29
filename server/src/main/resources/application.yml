@@ -1,0 +1,49 @@
+spring:
+ # ?? ??? ?? : src/main/resources/static
+ # classpath : spring src/main ??? ???? ???
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:static/
+      add-mappings: true
+
+########  JPA Setting
+  jpa:
+    hibernate:
+# ????? ?? ? ?? ?? (create)
+# ????? ??? ?? (create-drop)
+# ???? ?? (none) ??
+      ddl-auto: create
+# ?? ?? ??? ??
+      jdbc:
+        batch_size: 100
+      order_insert: true
+      order_update: true
+
+    database: mysql
+    database-platform: "org.hibernate.dialect.MySQL8Dialect"
+
+    #sql logger
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+############ DB Connection
+  datasource:
+    url: jdbc:mysql://localhost:3306/roomyDB
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: roomy
+    password: roomy1234
+
+
+########### logger
+logging:
+  level:
+    root: info
+    com.roomy:
+      config: debug
+      controller: debug
+      service: debug
+      repository: debug
