@@ -41,6 +41,14 @@ function RoomNav() {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
+        to="/room/guest"
+      >
+        Guest
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
+        }
         to="/room/setting"
       >
         Setting

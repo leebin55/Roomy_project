@@ -1,9 +1,9 @@
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import Main from './routes/Main';
-import Game from './routes/Game';
-import News from './routes/News';
-import Feeds from './components/Feeds';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Main from "./pages/Main";
+import News from "./pages/News";
+import Game from "./pages/Game";
+import Feeds from "./components/Feeds";
 import {
   RoomMain,
   Board,
@@ -11,8 +11,8 @@ import {
   Guest,
   Todo,
   Setting,
-} from './components/room/RoomComps';
-import Room from './routes/Room';
+} from "./components/room/RoomComps";
+import Room from "./pages/Room";
 
 function App() {
   return (
