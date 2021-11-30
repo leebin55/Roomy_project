@@ -12,6 +12,7 @@ public class GalleryController {
 
     @GetMapping({"/",""})
     public String list(){
+
         return "hello";
     }
 }
