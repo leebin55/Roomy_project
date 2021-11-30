@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GalleryController {
 
-    @GetMapping(value = {"/",""})
+    @GetMapping({"/",""})
     public String list(){
+
         return "hello";
     }
 }
