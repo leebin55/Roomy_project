@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RoomController {
 
 
-    @GetMapping(value = {"","/"})
+    @GetMapping( {"","/"})
     public String room(){
         return "room";
     }
