@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class GalleryServiceImpl implements GalleryService {
 
-    private GalleryRepository galleryRepository;
+    private final GalleryRepository galleryRepository;
 
     public GalleryServiceImpl(GalleryRepository galleryRepository) {
         this.galleryRepository = galleryRepository;
@@ -21,7 +21,7 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     public List<BoardVO> selectAll() {
         List<BoardVO> boardList=galleryRepository.findAll();
-        log.debug("selectAll(): []",boardList);
+        log.debug("selectAll(): {}",boardList.toString());
         return boardList;
     }
 

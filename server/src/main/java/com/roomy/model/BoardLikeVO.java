@@ -1,7 +1,14 @@
 package com.roomy.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="tbl_board_like" , schema = "roomyDB")
 public class BoardLikeVO {
