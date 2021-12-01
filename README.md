@@ -1,4 +1,4 @@
-# **** project
+# Roomy project
 
 ## 개발 기술 및 환경
 * Spring boot + React + MySQL +Spring Security

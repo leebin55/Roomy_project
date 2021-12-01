@@ -2,20 +2,20 @@ package com.roomy.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@ToString
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbl_gallery", schema="roomyDB")
-public class Board {
+@Table(name = "tbl_board", schema="roomyDB")
+public class BoardVO {
     // 게시물 번호 PK
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long board_seq;
     // 작성한 회원 번호 FK
     private Long board_user_seq;
