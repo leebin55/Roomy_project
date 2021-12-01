@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import GallerySingle from "./GallerySingle";
-import ImageList from "@mui/material/ImageList";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import GallerySingle from './GallerySingle';
+import ImageList from '@mui/material/ImageList';
 
 function GalleryList() {
   const [galleryList, setGalleryList] = useState([]);
-  const [checkeList, setCheckList] = useState([]);
+  const [checkList, setCheckList] = useState([]);
 
   // 화면띄워질때 한번만 실행
   useEffect(() => {
@@ -16,7 +16,7 @@ function GalleryList() {
   const viewGalleryList = async () => {
     try {
       await axios.get(`http://localhost:8080/room/gallery`).then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setGalleryList(res.data);
       }); //end then
     } catch (error) {

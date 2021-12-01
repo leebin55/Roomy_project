@@ -18,17 +18,20 @@ public class GalleryController {
     private final  GalleryService galleryService ;
 
     
-    // 갤러리 맨 처음 리스트 
+    // 갤러리 맨 처음 보여주는 리스트 return
     @GetMapping({"/",""})
     public List<BoardVO> list(){
         List<BoardVO> boardList = galleryService.selectAll();
         log.debug("select all : {}",boardList.toString());
         return boardList;
     }
-    @GetMapping("/")
-    public String detail(@RequestParam Long board_seq){
 
-        return "ok";
+    // 게시물 번호(seq)로 찾아 해당 게시물 return
+    @GetMapping("/detail")
+    public BoardVO detail(@RequestParam Long board_seq){
+        BoardVO boardVO = galleryService.findById(board_seq);
+        log.debug("findbyId : {}" , boardVO.toString());
+        return boardVO;
     }
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
@@ -39,7 +42,7 @@ public class GalleryController {
         return "ok";
 
     }
-// 수정
+// 갤러리 게시글 수정
     @PostMapping("/update")
     public String update(@RequestBody BoardVO boardVO){
         galleryService.update(boardVO);
