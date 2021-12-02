@@ -11,9 +11,16 @@ import {
   GuestMain,
   Todo,
   Setting,
+<<<<<<< HEAD
 } from "./components/room/RoomComps";
 import Room from "./pages/Room";
 import GalleryWrite from "./components/room/gallery/GalleryWrite";
+=======
+} from './components/room/RoomComps';
+import Room from './pages/Room';
+import GalleryWrite from './components/room/gallery/GalleryWrite';
+import GalleryUpdate from './components/room/gallery/GalleryDetail';
+>>>>>>> c6de329e463500ed010e7dcc9d30634d1c16648e
 
 function App() {
   return (
@@ -29,6 +36,7 @@ function App() {
           <Route path="board" element={<Board />} />
           <Route path="todo" element={<Todo />} />
           <Route path="gallery" element={<Gallery />} />
+          <Route path="gallery/:board_seq" element={<GalleryUpdate />} />
           <Route path="gallery/write" element={<GalleryWrite />} />
           <Route path="guest" element={<GuestMain />} />
           <Route path="setting" element={<Setting />} />

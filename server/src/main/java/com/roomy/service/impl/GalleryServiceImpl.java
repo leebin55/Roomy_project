@@ -48,3 +48,4 @@ public class GalleryServiceImpl implements GalleryService {
         galleryRepository.deleteById(board_seq);
     }
 }
+// 조회수 계속 증가 막기
