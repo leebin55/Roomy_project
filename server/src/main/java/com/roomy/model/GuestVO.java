@@ -8,7 +8,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@EntityListeners(AuditingEntityListener.class)
 @Setter
 @Getter
 @ToString
@@ -22,20 +21,26 @@ public class GuestVO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long guest_seq;
 
-    @CreatedDate
-    @Column(nullable = false)
-    private LocalDateTime guest_create_at;
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
+    private String guest_writer_name;
 
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime guest_update_at;
+    @Column(columnDefinition = "VARCHAR(20)",nullable = false)
+    private String guest_create_at;
 
-    @Column(columnDefinition = "VARCHAR(4000)", nullable = false)
-    private String guest_content;
+    @Column(columnDefinition = "VARCHAR(20)",nullable = false)
+    private String guest_update_at;
 
     @Column(columnDefinition = "INT", nullable = false)
     private Boolean guest_private;
 
+    @Column(columnDefinition = "VARCHAR(4000)", nullable = false)
+    private String guest_content;
+
     @Column(columnDefinition = "BIGINT", nullable = false)
-    private Long guest_writer;
+    private Long user_seq2;
+
+    @Column(columnDefinition = "BIGINT", nullable = false)
+    private Long guest_writer_seq;
+
+
 }

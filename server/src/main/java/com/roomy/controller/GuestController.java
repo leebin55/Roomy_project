@@ -21,8 +21,9 @@ public class GuestController {
     @GetMapping(value={"/",""})
     public List<GuestVO> list() {
         log.debug("방명록 입장하심");
-        List<GuestVO> gusetList = guestService.selectAll();
-        return gusetList;
+        List<GuestVO> guestList = guestService.selectAll();
+        log.debug(guestList.toString());
+        return guestList;
     }
     
 //    Map 으로 받기
