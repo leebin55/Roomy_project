@@ -1,6 +1,6 @@
 spring:
- # ?? ??? ?? : src/main/resources/static
- # classpath : spring src/main ??? ???? ???
+  # ?? ??? ?? : src/main/resources/static
+  # classpath : spring src/main ??? ???? ???
   mvc:
     static-path-pattern: /static/**
   web:
@@ -8,7 +8,7 @@ spring:
       static-locations: classpath:static/
       add-mappings: true
 
-########  JPA Setting
+  ########  JPA Setting
   jpa:
     hibernate:
       ddl-auto: create-drop

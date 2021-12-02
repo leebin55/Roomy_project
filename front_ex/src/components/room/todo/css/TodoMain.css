@@ -1,0 +1,109 @@
+.mainContainer {
+	margin:10px;
+
+}
+.headerContainer {
+	background-color: rgba(25,52,152,0.9);
+	color: #69DADB;
+	
+	height:10vh;
+
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #69DADB;
+
+}
+.formContainer, .listContainer{
+	border-left: 1px solid rgba(25,52,152,0.9);
+	border-right: 1px solid rgba(25,52,152,0.9);	
+}
+.listContainer {
+	border-bottom: 1px solid rgba(25,52,152,0.9);
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.headerContainer p{
+	color: #1597E5;
+}
+.formContainer .formHeader {
+	padding:7px;
+	
+}
+.formContainer .formBody input {
+	width: 70%;
+	height:50px;
+	border:1px solid transparent;
+	outline:none;
+	border-bottom: 1px solid #69DADB;
+	border-radius: 8px;
+	margin: 3px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+}
+.formContainer .formBody input:hover {
+	border: 1px solid #1597E5;
+}
+.formContainer .formBody input:focus {
+	background-color: #eee;
+}
+.formContainer .formBody button {
+	width: 20%;
+	height:50px;
+	border:none;
+	outline:none;
+	border-radius: 8px;
+
+	background-color: #69DADB;
+	color: white;
+	font-weight: bold;
+}
+.formContainer .formBody button:hover {
+	background-color: #1597E5;
+	color: #69DADB;
+}
+.formContainer .formBody input,
+.formContainer .formBody button {
+	font-size:20px;
+}
+.listContainer {
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	height:380px;
+	overflow-y:auto;
+}
+.listContainer .listItem {
+	display: flex;
+	font-size:18px;
+}
+.listDelete {
+	margin-left: 10px;
+	color:brown;
+	font-weight: 700;
+}
+.listDelete:hover {
+	color: red;
+	cursor:pointer;
+	font-weight: 900;
+}
+.listBody {
+	margin:auto;
+	padding:0.4rem;
+	cursor:pointer;
+}
+.listCheck {
+	margin-right:10px;
+	cursor:pointer;
+}
+.importNomal {
+	color: #1597E5;
+}
+.veryImport {
+	color: rgb(25,52,152);
+}
+.listOk {
+	text-decoration: line-through;
+	color: red;
+}

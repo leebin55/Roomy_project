@@ -1,10 +1,12 @@
 import React from "react";
+import TodoMain from "./todo/TodoMain";
+import TodoContextProvider from "../../context/TodoContextProvider";
 
 function Todo() {
   return (
-    <div>
-      <h1>여기는 TODO</h1>
-    </div>
+    <TodoContextProvider>
+      <TodoMain />
+    </TodoContextProvider>
   );
 }
 
