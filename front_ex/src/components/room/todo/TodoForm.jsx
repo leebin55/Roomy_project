@@ -1,6 +1,5 @@
 import React from "react";
 import { useTodoContext } from "../../../context/TodoContextProvider";
-
 function TodoForm() {
   const { todoVal, enterKeyPress, dataInsert, todo } = useTodoContext();
 

@@ -1,45 +1,57 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
 const AppContext = createContext();
 export const useTodoContext = () => useContext(AppContext);
 
 function TodoContextProvider({ children }) {
   const [todo, setTodo] = useState();
+  const [todoList, setTodoList] = useState([]);
 
   const todoVal = (e) => {
     setTodo(e.target.value);
-    console.log(todo);
   };
   const insertTodo = async () => {
-    // Axios.post("http://localhost:8080/todo/", {
-    //   app: todo,
-    // });
     await fetch("http://localhost:8080/todo/insert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: todo,
-    }).then(() => {
+    }).then((response) => {
+      console.log(response);
       console.log("insert success");
     });
   };
-  const todoClear = () => {
-    setTodo("");
+  const getList = async () => {
+    await fetch("http://localhost:8080/todo/list")
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setTodoList(result);
+        console.log(todoList);
+      });
   };
+  useEffect(() => {
+    getList();
+  }, []);
+
   const enterKeyPress = (e) => {
     if (e.key === "Enter") {
       insertTodo();
-      todoClear();
+      getList();
+      setTodo("");
     }
   };
 
   const dataInsert = () => {
     insertTodo();
-    todoClear();
+    getList();
+    setTodo("");
   };
 
   const todoData = {
     todo,
+    todoList,
     setTodo,
     todoVal,
     enterKeyPress,
