@@ -11,12 +11,10 @@ import {
   GuestMain,
   Todo,
   Setting,
-
-} from './components/room/RoomComps';
-import Room from './pages/Room';
-import GalleryWrite from './components/room/gallery/GalleryWrite';
-import GalleryUpdate from './components/room/gallery/GalleryDetail';
-
+} from "./components/room/RoomComps";
+import Room from "./pages/Room";
+import GalleryWrite from "./components/room/gallery/GalleryWrite";
+import GalleryUpdate from "./components/room/gallery/GalleryDetail";
 
 function App() {
   return (
