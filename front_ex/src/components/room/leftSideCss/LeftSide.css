@@ -1,7 +1,7 @@
 .settingContainer {
 	box-shadow: 0 0 50px rgba(0,0,0,0.1);
 	margin:5px 5%;
-	padding: 5%;
+	padding: 5%; 
 	height: 100%;
 	font-family: 'Josefin Sans', sans-serif;
 }
@@ -9,7 +9,7 @@
 	.settingContainer {
 		margin: auto;
 		max-width: 440px;
-		padding: 40px;
+		padding: 30px;
 	}
 }
 .headList ul{

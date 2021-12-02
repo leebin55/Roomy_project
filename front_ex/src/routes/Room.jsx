@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import { LeftSide } from "../components/room/RoomComps";
 import RoomNav from "../components/room/RoomNav";
 import "../css/Room.css";
-import SettingContextProvider from "../context/SettingContextProvider";
 
 function Room() {
   return (
@@ -12,14 +11,7 @@ function Room() {
         <div className="room-left-1">
           <div className="room-left-2">
             <section className="room-left-side">
-              {/**
-               * 해야할것1
-               * react-router-dom 으로
-               * /room/setting 일때 보여주는걸로 감싸기
-               */}
-              <SettingContextProvider>
-                <LeftSide />
-              </SettingContextProvider>
+              <LeftSide />
             </section>
           </div>
         </div>

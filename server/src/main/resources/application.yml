@@ -1,6 +1,6 @@
 spring:
- # ?? ??? ?? : src/main/resources/static
- # classpath : spring src/main ??? ???? ???
+  # ?? ??? ?? : src/main/resources/static
+  # classpath : spring src/main ??? ???? ???
   mvc:
     static-path-pattern: /static/**
   web:
@@ -8,14 +8,10 @@ spring:
       static-locations: classpath:static/
       add-mappings: true
 
-########  JPA Setting
+  ########  JPA Setting
   jpa:
     hibernate:
-# ????? ?? ? ?? ?? (create)
-# ????? ??? ?? (create-drop)
-# ???? ?? (none) ??
-      ddl-auto: update
-# ?? ?? ??? ??
+      ddl-auto: create-drop
       jdbc:
         batch_size: 100
       order_insert: true
@@ -29,8 +25,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        show_sql: true
+    defer-datasource-initialization: true
+  sql.init.mode: always
 
-############ DB Connection
+
+  ############ DB Connection
   datasource:
     url: jdbc:mysql://localhost:3306/roomyDB
     driver-class-name: com.mysql.cj.jdbc.Driver
