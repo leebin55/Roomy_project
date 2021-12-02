@@ -1,24 +1,36 @@
-import React, { useState } from "react";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function GallerySingle({ gallery, index }) {
   const [isLike, setIsLike] = useState(false);
+  const navigate = useNavigate();
 
   const likeClick = (event) => {
     setIsLike(!isLike);
+    likeEvent();
+  };
+  // 하트를 클릭하면 서버에 user와 board seq 를 넘겨준다
+  const likeEvent = async () => {
+    try {
+      axios
+        .post('http://localhost:8080/room/gallery/like', {
+          like_user_seq: 1,
+          like_board_seq: 1,
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
+    } catch (error) {
+      throw error;
+    }
   };
   const clickImg = (event) => {
-    axios
-      .get(`http://localhost:8080/room/gallery?board_seq=${event.target.alt}`)
-      .then((res) => {
-        if (res.data === "ok") {
-        }
-      });
+    navigate(`/room/gallery/${event.target.alt}`);
   };
   return (
     <ImageListItem key={gallery.board_seq}>
