@@ -9,11 +9,11 @@ function TodoContextProvider({ children }) {
     setTodo(e.target.value);
     console.log(todo);
   };
-  const insertTodo = () => {
+  const insertTodo = async () => {
     // Axios.post("http://localhost:8080/todo/", {
     //   app: todo,
     // });
-    fetch("http://localhost:8080/todo/insert", {
+    await fetch("http://localhost:8080/todo/insert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

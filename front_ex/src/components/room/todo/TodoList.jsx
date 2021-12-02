@@ -15,9 +15,7 @@ function TodoList() {
   const onSuccessClick = (e) => {
     const id = e.target.dataset.id;
     console.log("success id:", id);
-    // fetch(`http://localhost:8080/todo/comp/${id}`, {
-    //   method: "POST",
-    // });
+
     Axios.put(`http://localhost:8080/todo/success/${id}`);
   };
   const onSuccessCancel = (e) => {
