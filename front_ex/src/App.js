@@ -1,20 +1,22 @@
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import Main from './pages/Main';
-import News from './pages/News';
-import Game from './pages/Game';
-import Feeds from './components/Feeds';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Main from "./pages/Main";
+import News from "./pages/News";
+import Game from "./pages/Game";
+import Feeds from "./components/Feeds";
 import {
   RoomMain,
   Board,
   Gallery,
-  Guest,
+  GuestMain,
   Todo,
   Setting,
+
 } from './components/room/RoomComps';
 import Room from './pages/Room';
 import GalleryWrite from './components/room/gallery/GalleryWrite';
 import GalleryUpdate from './components/room/gallery/GalleryDetail';
+
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
           <Route path="gallery" element={<Gallery />} />
           <Route path="gallery/:board_seq" element={<GalleryUpdate />} />
           <Route path="gallery/write" element={<GalleryWrite />} />
-          <Route path="guest" element={<Guest />} />
+          <Route path="guest" element={<GuestMain />} />
           <Route path="setting" element={<Setting />} />
         </Route>
       </Routes>
