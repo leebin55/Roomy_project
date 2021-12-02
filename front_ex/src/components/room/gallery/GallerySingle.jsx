@@ -1,15 +1,33 @@
-import React, { useState } from "react";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function GallerySingle({ gallery, index }) {
   const [isLike, setIsLike] = useState(false);
+  // 좋아요 수 ( 하트를 클릭 하면 바로 좋아요수도 바뀌기 때문에 따로 변수 만듬)
+  const [likeNum, setLikeNum] = useState('');
   const navigate = useNavigate();
 
+  //화면이 실행될 때 likeNum에 gallery.boardLike 값으로
+  useEffect(() => {
+    setLikeNum(gallery.boardLike);
+  }, []);
+
+  //   const countLike = async () => {
+  //     try {
+  //       axios.get(
+  //         `http:/localhost:8080/room/gallery/countLike/${gallery.boardSeq}`
+  //       ).then((res)=>{
+  // 		  if(res.status===200){
+
+  // 		  }
+  // 	  });
+  //     } catch (error) {}
+  //   };
   const likeClick = (event) => {
     setIsLike(!isLike);
     likeEvent();
@@ -18,12 +36,13 @@ function GallerySingle({ gallery, index }) {
   const likeEvent = async () => {
     try {
       axios
-        .post("http://localhost:8080/room/gallery/like", {
+        .post('http://localhost:8080/room/gallery/like', {
           userSeq: gallery.boardUserSeq,
           boardSeq: gallery.boardSeq,
         })
         .then((res) => {
-          console.log(res.data);
+          // server에서 좋아요 Insert 혹은 delete하여 좋아요수 받아옴
+          setLikeNum(res.data);
         });
     } catch (error) {
       throw error;
@@ -53,7 +72,7 @@ function GallerySingle({ gallery, index }) {
         ) : (
           <FavoriteBorderIcon className="gallery-like" />
         )}
-        {gallery.boardLike}
+        {likeNum}
       </span>
     </ImageListItem>
   );

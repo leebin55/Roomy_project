@@ -5,7 +5,6 @@ import ImageList from '@mui/material/ImageList';
 
 function GalleryList() {
   const [galleryList, setGalleryList] = useState([]);
-  const [checkList, setCheckList] = useState([]);
 
   // 화면띄워질때 한번만 실행
   useEffect(() => {

@@ -45,17 +45,40 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public void insertOrDelete(LikeVO likeVO){
-        // 데이터가 이미 존재
+    public int insertOrDelete(LikeVO likeVO){
+        // 데이터가 이미 존재 > 데이터 삭제후 좋아요 수 리턴
         Boolean checkExist = likeCheck(likeVO);
         if(checkExist==true){
+<<<<<<< HEAD
+<<<<<<< HEAD
+            return delete(likeVO);
+=======
 
             delete(likeVO);
+>>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
+=======
+
+            delete(likeVO);
+>>>>>>> 0060080c1a6b39e2765999861fdc3c2e0b279b60
         }else{
-            insert(likeVO);
+            // 데이터 존재하지 않음 > 데이터 Insert후 좋아요수 리턴
+            return insert(likeVO);
         }
     }
 
+<<<<<<< HEAD
+
+
+    public int insert(LikeVO likeVO) {
+        // tbl_board_like 테이블에 데이터 저장
+        likeRepository.save(likeVO);
+        Long boardSeq=likeVO.getBoardSeq();
+        // 데이터 생성한 뒤 boardSeq 로 BoardVO 찾아 board_like+1 올려줌
+        BoardVO boardVO =galleryRepository.findById(boardSeq).get();
+        int countLike = boardVO.getBoardLike();
+        boardVO.setBoardLike(++countLike);
+        galleryRepository.save(boardVO);
+=======
     @Override
     public void insert(LikeVO likeVO) {
 
@@ -66,12 +89,39 @@ public class LikeServiceImpl implements LikeService {
         // 해당 게시물의 좋아요수를 1 증가
         boardVO.setBoardLike(boardVO.getBoardLike()+1);
     }
+>>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
 
+        return countLike;
+    }
     @Override
-    public void delete(Long like_seq) {
+    public int delete(LikeVO likeVO){
+        // user와 board seq 로 like seq 조회
+        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
+        // 좋아요 데이터 삭제
         likeRepository.deleteById(like_seq);
+        // 게시물에서 board_seq 로 해당 게시물 찾기
+        BoardVO boardVO=galleryRepository.getById(likeVO.getBoardSeq());
+        // 해당 게시물 좋아요 수
+        int countLike=boardVO.getBoardLike();
+        // 좋아요수 -1 해서 다시 setter
+        boardVO.setBoardLike(--countLike);
+        // update
+        galleryRepository.save(boardVO);
+        //좋아요 수를 return > client에서 바로 좋아요수를 axios를 통해 값을 변경하기 위해
+        return countLike;
+        
     }
 
+
+<<<<<<< HEAD
+=======
+    public void delete(LikeVO likeVO) {
+        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
+        //BoardVO boardVO = galleryRepository.findBy().get();
+
+    }
+
+>>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
 
     public void delete(LikeVO likeVO) {
         long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
