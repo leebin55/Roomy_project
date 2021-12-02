@@ -67,7 +67,6 @@ public class GalleryController {
     public String like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
         likeService.insertOrDelete(likeVO);
-
         return "ok";
     }
 

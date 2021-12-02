@@ -1,9 +1,10 @@
 INSERT INTO tbl_board (board_user_seq,board_title,board_content,board_create_at
-                      ,board_code,board_like )
-VALUES( 1,'첫번째 게시물','여기는 첫번째 게시물 테스트입니다.','2021-11-30',1,100);
+                      ,board_code,board_like,board_hit )
+VALUES( 1,'첫번째 게시물','여기는 첫번째 게시물 테스트입니다.','2021-11-30',1,0,10);
+
 INSERT INTO tbl_board (board_user_seq,board_title,board_content,board_create_at,board_code
-,board_like
-) VALUES( 1,'두번째 게시물','여기는 두번째~~ 게시물 테스트입니다.','2021-11-30',1,150);
+,board_like,board_hit
+) VALUES( 1,'두번째 게시물','여기는 두번째~~ 게시물 테스트입니다.','2021-11-30',1,0,0);
 
 
 /** User Data*/

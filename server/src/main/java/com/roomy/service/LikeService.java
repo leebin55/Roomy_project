@@ -23,4 +23,5 @@ public interface LikeService{
     void delete(Long like_seq);
 
 
+    void delete(LikeVO likeVO);
 }

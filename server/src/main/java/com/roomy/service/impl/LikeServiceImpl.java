@@ -1,6 +1,8 @@
 package com.roomy.service.impl;
 
+import com.roomy.model.BoardVO;
 import com.roomy.model.LikeVO;
+import com.roomy.repository.GalleryRepository;
 import com.roomy.repository.LikeRepository;
 import com.roomy.service.LikeService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class LikeServiceImpl implements LikeService {
 
     private final LikeRepository likeRepository;
+    private final GalleryRepository galleryRepository;
 
     @Override
     public List<LikeVO> findByUserSeq(Long user_seq) {
@@ -46,8 +49,8 @@ public class LikeServiceImpl implements LikeService {
         // 데이터가 이미 존재
         Boolean checkExist = likeCheck(likeVO);
         if(checkExist==true){
-            long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
-            delete(like_seq);
+
+            delete(likeVO);
         }else{
             insert(likeVO);
         }
@@ -55,12 +58,25 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public void insert(LikeVO likeVO) {
+
         likeRepository.save(likeVO);
+        //boardVO.setBoardLike(boardVO.getBoardLike()+1);
+        // boardSeq로 해당 게시물을 찾고
+        BoardVO boardVO = galleryRepository.findById(likeVO.getBoardSeq()).get();
+        // 해당 게시물의 좋아요수를 1 증가
+        boardVO.setBoardLike(boardVO.getBoardLike()+1);
     }
 
     @Override
     public void delete(Long like_seq) {
         likeRepository.deleteById(like_seq);
+    }
+
+
+    public void delete(LikeVO likeVO) {
+        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
+        //BoardVO boardVO = galleryRepository.findBy().get();
+
     }
 
 
