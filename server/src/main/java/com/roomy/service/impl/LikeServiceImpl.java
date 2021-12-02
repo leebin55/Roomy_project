@@ -49,48 +49,25 @@ public class LikeServiceImpl implements LikeService {
         // 데이터가 이미 존재 > 데이터 삭제후 좋아요 수 리턴
         Boolean checkExist = likeCheck(likeVO);
         if(checkExist==true){
-<<<<<<< HEAD
-<<<<<<< HEAD
             return delete(likeVO);
-=======
-
-            delete(likeVO);
->>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
-=======
-
-            delete(likeVO);
->>>>>>> 0060080c1a6b39e2765999861fdc3c2e0b279b60
         }else{
             // 데이터 존재하지 않음 > 데이터 Insert후 좋아요수 리턴
             return insert(likeVO);
         }
     }
 
-<<<<<<< HEAD
+
 
 
     public int insert(LikeVO likeVO) {
         // tbl_board_like 테이블에 데이터 저장
         likeRepository.save(likeVO);
-        Long boardSeq=likeVO.getBoardSeq();
+        Long boardSeq = likeVO.getBoardSeq();
         // 데이터 생성한 뒤 boardSeq 로 BoardVO 찾아 board_like+1 올려줌
-        BoardVO boardVO =galleryRepository.findById(boardSeq).get();
+        BoardVO boardVO = galleryRepository.findById(boardSeq).get();
         int countLike = boardVO.getBoardLike();
         boardVO.setBoardLike(++countLike);
         galleryRepository.save(boardVO);
-=======
-    @Override
-    public void insert(LikeVO likeVO) {
-
-        likeRepository.save(likeVO);
-        //boardVO.setBoardLike(boardVO.getBoardLike()+1);
-        // boardSeq로 해당 게시물을 찾고
-        BoardVO boardVO = galleryRepository.findById(likeVO.getBoardSeq()).get();
-        // 해당 게시물의 좋아요수를 1 증가
-        boardVO.setBoardLike(boardVO.getBoardLike()+1);
-    }
->>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
-
         return countLike;
     }
     @Override
@@ -109,25 +86,12 @@ public class LikeServiceImpl implements LikeService {
         galleryRepository.save(boardVO);
         //좋아요 수를 return > client에서 바로 좋아요수를 axios를 통해 값을 변경하기 위해
         return countLike;
-        
-    }
-
-
-<<<<<<< HEAD
-=======
-    public void delete(LikeVO likeVO) {
-        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
-        //BoardVO boardVO = galleryRepository.findBy().get();
 
     }
 
->>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
 
-    public void delete(LikeVO likeVO) {
-        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
-        //BoardVO boardVO = galleryRepository.findBy().get();
 
-    }
+
 
 
     public Long findByUserSeqAndBoardSeq(Long user_seq, Long board_seq) {

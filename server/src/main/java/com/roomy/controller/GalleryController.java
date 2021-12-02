@@ -21,7 +21,7 @@ public class GalleryController {
     private final  GalleryService galleryService ;
     private final LikeService likeService;
 
-    
+
     // 갤러리 맨 처음 보여주는 리스트 return
     @GetMapping({"/",""})
     public List<BoardVO> list(){
@@ -48,7 +48,7 @@ public class GalleryController {
         return "ok";
 
     }
-// 갤러리 게시글 수정
+    // 갤러리 게시글 수정
     @PostMapping("/update")
     public String update(@RequestBody BoardVO boardVO){
         galleryService.update(boardVO);
@@ -66,17 +66,10 @@ public class GalleryController {
     @PostMapping("/like")
     public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
-<<<<<<< HEAD
-<<<<<<< HEAD
-      int likeNum = likeService.insertOrDelete(likeVO);
+
+        int likeNum = likeService.insertOrDelete(likeVO);
 
         return likeNum;
-=======
-=======
->>>>>>> 0060080c1a6b39e2765999861fdc3c2e0b279b60
-        likeService.insertOrDelete(likeVO);
-        return "ok";
->>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
     }
 
 
