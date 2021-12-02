@@ -43,29 +43,20 @@ public class GuestController {
     // VO 로 받기
     @PostMapping(value = {"/", ""})
     public void insert(@RequestBody GuestVO guestVO) {
-        log.debug("컨트롤러실행");
+        log.debug("insert 컨트롤러 실행");
         log.debug(guestVO.toString());
         guestService.insert(guestVO);
     }
 
-//    Json 파싱
-//    @PostMapping(value={"/",""})
-//    public void insert(@RequestBody String jsonGuest) {
-//        log.debug("컨트롤러 실행됐다");
-//        JsonObject
-//        JSONObject obj = new JSONObject(jsonGuest);
-//        JSONPObject
-//
-//        String guest_content = gContent.get("content");
-//        Boolean guest_private = Boolean.valueOf(gContent.get("guest_private"));
-//        log.debug(guest_content);
-//        log.debug(String.valueOf(guest_private));
-//        guestService.insert();
-//    }
+    @PutMapping(value="/")
+    public void update(@RequestBody GuestVO guestVO) {
+        log.debug("update 컨트롤러 실행");
+        guestService.update(guestVO);
+    }
 
     @DeleteMapping(value = "/{guest_seq}")
     public void delete(@PathVariable Long guest_seq) {
-        log.debug("delete 컨트롤러", guest_seq);
+        log.debug("delete 컨트롤러 실행", guest_seq);
         guestService.delete(guest_seq);
     }
 

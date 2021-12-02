@@ -53,7 +53,7 @@ public class GuestServiceImplV1 implements GuestService {
 
     @Override
     public void update(GuestVO vo) {
-
+//        guestRepository.
     }
 
     @Override
