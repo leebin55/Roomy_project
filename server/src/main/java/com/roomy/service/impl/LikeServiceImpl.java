@@ -49,13 +49,19 @@ public class LikeServiceImpl implements LikeService {
         // 데이터가 이미 존재 > 데이터 삭제후 좋아요 수 리턴
         Boolean checkExist = likeCheck(likeVO);
         if(checkExist==true){
+<<<<<<< HEAD
             return delete(likeVO);
+=======
+
+            delete(likeVO);
+>>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
         }else{
             // 데이터 존재하지 않음 > 데이터 Insert후 좋아요수 리턴
             return insert(likeVO);
         }
     }
 
+<<<<<<< HEAD
 
 
     public int insert(LikeVO likeVO) {
@@ -67,6 +73,18 @@ public class LikeServiceImpl implements LikeService {
         int countLike = boardVO.getBoardLike();
         boardVO.setBoardLike(++countLike);
         galleryRepository.save(boardVO);
+=======
+    @Override
+    public void insert(LikeVO likeVO) {
+
+        likeRepository.save(likeVO);
+        //boardVO.setBoardLike(boardVO.getBoardLike()+1);
+        // boardSeq로 해당 게시물을 찾고
+        BoardVO boardVO = galleryRepository.findById(likeVO.getBoardSeq()).get();
+        // 해당 게시물의 좋아요수를 1 증가
+        boardVO.setBoardLike(boardVO.getBoardLike()+1);
+    }
+>>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
 
         return countLike;
     }
@@ -90,6 +108,15 @@ public class LikeServiceImpl implements LikeService {
     }
 
 
+<<<<<<< HEAD
+=======
+    public void delete(LikeVO likeVO) {
+        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
+        //BoardVO boardVO = galleryRepository.findBy().get();
+
+    }
+
+>>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
 
     public Long findByUserSeqAndBoardSeq(Long user_seq, Long board_seq) {
         return likeRepository.findByUserSeqAndBoardSeq(user_seq, board_seq);

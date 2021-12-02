@@ -24,4 +24,5 @@ public interface LikeService{
     int delete(LikeVO likeVO);
 
 
+    void delete(LikeVO likeVO);
 }

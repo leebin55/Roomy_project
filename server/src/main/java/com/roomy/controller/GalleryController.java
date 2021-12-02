@@ -66,9 +66,14 @@ public class GalleryController {
     @PostMapping("/like")
     public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
+<<<<<<< HEAD
       int likeNum = likeService.insertOrDelete(likeVO);
 
         return likeNum;
+=======
+        likeService.insertOrDelete(likeVO);
+        return "ok";
+>>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
     }
 
 
