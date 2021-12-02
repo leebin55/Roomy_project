@@ -28,7 +28,8 @@ public class TodoServiceImplV1 implements TodoService {
 
     @Override
     public List<Todo> getTodoList() {
-        return todoRepository.findAll();
+        List<Todo> getTodo = todoRepository.findAll();
+        return getTodo;
     }
 
 

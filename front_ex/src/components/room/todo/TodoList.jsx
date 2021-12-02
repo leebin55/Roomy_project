@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Axios from "axios";
+import { useTodoContext } from "../../../context/TodoContextProvider";
+
 function TodoList() {
-  const [todoList, setTodoList] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:8080/todo/list")
-      .then((response) => response.json())
-      .then((result) => {
-        setTodoList(result);
-        //console.log(result);
-        //console.log(todoList);
-      });
-  }, []);
+  const { todoList } = useTodoContext();
+
+  // await Axios.get("http://localhost:8080/todo/list").then((response) => {
+  //   console.log(response.data);
+  //   setTodoList(response.data);
+  //   console.log(todoList);
+  // });
 
   const onSuccessClick = (e) => {
     const id = e.target.dataset.id;
@@ -39,6 +38,7 @@ function TodoList() {
       Axios.delete(`http://localhost:8080/todo/delete/${id}`);
     }
   };
+
   return (
     <div>
       {todoList.map((item) => {
