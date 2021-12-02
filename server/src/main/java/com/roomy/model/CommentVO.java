@@ -14,13 +14,17 @@ import javax.persistence.*;
 public class CommentVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long comment_seq;
+    private Long commentSeq;
     // 댓글 쓴 게시물 번호
-    private Long comment_board_seq;
+    @Column(name = "comment_board_seq")
+    private Long boardSeq;
     // 댓글 단 날짜 시간
-    private String comment_date;
+    @Column(name="comment_date")
+    private String date;
     // 댓글 단 회원 아이디
-    private String comment_user_id;
+    @Column(name = "comment_user_seq")
+    private String userSeq;
     // 댓글 내용
-    private String comment_content;
+    @Column(name="")
+    private String content;
 }

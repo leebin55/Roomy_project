@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import moment from "moment";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function GalleryWrite() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   const titleChange = (event) => {
     setTitle(event.target.value);
@@ -17,26 +17,27 @@ function GalleryWrite() {
   };
 
   const writeSubmit = async () => {
-    if (title.trim() !== '' && content.trim() !== '') {
+    alert("글 등록 완료");
+    if (title.trim() !== "" && content.trim() !== "") {
       try {
         await axios
-          .post('http://localhost:8080/room/gallery/write', {
-            board_user_seq: 1,
-            board_title: title,
-            board_content: content,
-            board_create_at: moment().format('YYYY-MM-DD HH:mm'),
-            board_code: 1,
+          .post("http://localhost:8080/room/gallery/write", {
+            boarduserSeq: 1,
+            boardTitle: title,
+            boardContent: content,
+            boardCreateAt: moment().format("YYYY-MM-DD HH:mm"),
+            boardCode: 1,
           })
           .then((res) => {
-            if (res.data === 'ok') {
-              navigate('/room/gallery');
+            if (res.data === "ok") {
+              navigate("/room/gallery");
             }
           });
       } catch (error) {
         throw error;
       }
     } else {
-      alert('제목과 내용은 입력해야 합니다.');
+      alert("제목과 내용은 입력해야 합니다.");
     }
   };
 
