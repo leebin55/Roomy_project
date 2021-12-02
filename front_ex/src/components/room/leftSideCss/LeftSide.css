@@ -1,0 +1,56 @@
+.settingContainer {
+	box-shadow: 0 0 50px rgba(0,0,0,0.1);
+	margin:5px 5%;
+	padding: 5%;
+	height: 100%;
+	font-family: 'Josefin Sans', sans-serif;
+}
+@media (min-width: 544px){
+	.settingContainer {
+		margin: auto;
+		max-width: 440px;
+		padding: 40px;
+	}
+}
+.headList ul{
+	margin-left:10px;
+	padding-left:20px;
+	border-left: 1px dashed #eee;
+}
+.headList li {
+	list-style: none;
+	color: #888;
+	font-size:17px;
+	font-weight: normal;
+	font-style: italic;
+
+	border-bottom: 1px solid transparent;
+	color: #888;
+	transition: all 0.2s ease;
+	cursor:pointer;
+}
+.headList li:hover {
+	border-color: #eee;
+	color: #000;
+}
+.headList .folder {
+	color: #777;
+	font-weight: bold;
+}
+.headList li:before {
+	margin-right: 10px;
+	content:"__";
+	height:20px;
+	vertical-align: middle;
+	background-repeat:no-repeat;
+	display:inline-block;
+	
+	background-image: url(./image/outline_folder_open_black_24dp.png);
+	background-position: center 2px;
+	background-size: 60% auto;
+}
+.headList li.folder:before {
+  background-image: url(./image/outline_folder_special_black_24dp.png);
+  background-position: center top;
+  background-size: 75% auto;
+}
