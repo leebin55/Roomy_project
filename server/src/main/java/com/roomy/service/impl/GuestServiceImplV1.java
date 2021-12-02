@@ -57,7 +57,7 @@ public class GuestServiceImplV1 implements GuestService {
     }
 
     @Override
-    public void delete(Long pk) {
-
+    public void delete(Long guest_seq) {
+        guestRepository.deleteById(guest_seq);
     }
 }
