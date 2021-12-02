@@ -11,24 +11,10 @@ import {
   GuestMain,
   Todo,
   Setting,
-<<<<<<< HEAD
-<<<<<<< HEAD
 } from "./components/room/RoomComps";
 import Room from "./pages/Room";
 import GalleryWrite from "./components/room/gallery/GalleryWrite";
-=======
-=======
-
->>>>>>> 217fb0e25cf8030f7a8a7b579c847325de5a4e54
-} from './components/room/RoomComps';
-import Room from './pages/Room';
-import GalleryWrite from './components/room/gallery/GalleryWrite';
-import GalleryUpdate from './components/room/gallery/GalleryDetail';
-<<<<<<< HEAD
->>>>>>> c6de329e463500ed010e7dcc9d30634d1c16648e
-=======
-
->>>>>>> 217fb0e25cf8030f7a8a7b579c847325de5a4e54
+import GalleryUpdate from "./components/room/gallery/GalleryDetail";
 
 function App() {
   return (
