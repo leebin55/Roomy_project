@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { LeftSide } from "../components/room/RoomComps";
 import RoomNav from "../components/room/RoomNav";
 import "../css/Room.css";
+import SettingContextProvider from "../context/SettingContextProvider";
 
 function Room() {
   return (
@@ -11,7 +12,9 @@ function Room() {
         <div className="room-left-1">
           <div className="room-left-2">
             <section className="room-left-side">
-              <LeftSide />
+              <SettingContextProvider>
+                <LeftSide />
+              </SettingContextProvider>
             </section>
           </div>
         </div>
