@@ -64,11 +64,11 @@ public class GalleryController {
 
     //좋아요 클릭
     @PostMapping("/like")
-    public String like(@RequestBody LikeVO likeVO){
+    public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
-        likeService.insertOrDelete(likeVO);
+      int likeNum = likeService.insertOrDelete(likeVO);
 
-        return "ok";
+        return likeNum;
     }
 
 

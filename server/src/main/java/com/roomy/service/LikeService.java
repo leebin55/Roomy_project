@@ -12,15 +12,16 @@ public interface LikeService{
 
    //board 와 user seq 로 해당 데이터가 tbl_like에 있는지 확인
         Boolean likeCheck(LikeVO likeVO);
-        
-        //insert 또는 delete 실행
-    void insertOrDelete(LikeVO likeVO);
+
+        //좋아요 테이블에 해당 데이터를 조회하고 그에 따른 insert 또는 delete 실행
+    // 좋아요 수 리턴
+    int insertOrDelete(LikeVO likeVO);
 
     // 하트 클릭하면 좋아요 데이터 추가
-    void insert(LikeVO likeVO);
+    int insert(LikeVO likeVO);
 
     // 좋아요 취소
-    void delete(Long like_seq);
+    int delete(LikeVO likeVO);
 
 
 }
