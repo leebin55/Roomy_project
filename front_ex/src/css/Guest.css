@@ -1,18 +1,29 @@
-.guest_list {
+.guest_container {
   width: 100%;
-  border: 1px solid #eee;
+  height: 100%;
+  overflow: auto;
 }
 
-.guest_box {
+.guest_list {
+  width: 100%;
+}
+
+.guest_item_box {
   width: 90%;
   height: 150px;
   margin: 30px auto;
-  border: 1px solid black;
+  font-size: 14px;
+  border: 1px solid #eee;
 }
 
 .guest_head {
+  display: flex;
   height: 20%;
-  border: 1px solid lightgray;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgb(235, 247, 252);
+  border-top: 2px solid #eee;
 }
 
 .guest_body {
@@ -28,7 +39,23 @@
   width: 75%;
   padding: 15px;
   text-align: start;
-  border: 1px solid pink;
+}
+
+.guest_head p {
+  margin-right: 15px;
+}
+
+.guest_list_private {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.guest_list_update {
+  cursor: pointer;
+}
+
+.guest_list_delete {
+  cursor: pointer;
 }
 
 /* -------------------- <section> guest_write -------------------- */

@@ -5,7 +5,7 @@ import GuestItem from "./GuestItem";
 function GuestMain() {
   const [content, setContent] = useState(""); // 입력한 방명록 작성 내용
   const [pp, setPp] = useState(false); // 입력한 방명록 공개여부
-  const [contentList, setContentList] = useState([]);
+  const [guestList, setGuestList] = useState([]);
 
   const guestPrivate = () => {
     setPp((pp) => !pp);
@@ -34,21 +34,26 @@ function GuestMain() {
     });
     setPp(false);
     setContent("");
+    fetchList();
   };
 
-  // useEffect(() => {
-  //   guestList();
-  // }, []);
+  useEffect(() => {
+    fetchList();
+  }, []);
 
-  const guestList = () => {
-    const response = fetch("http://localhost:8080/room/guest");
-    const data = response.JSON();
+  const fetchList = async () => {
+    const response = await fetch("http://localhost:8080/room/guest");
+    const data = await response.json();
+    setGuestList(data.reverse());
   };
 
   return (
-    <>
+    <div className="guest_container">
       <section className="guest_list">
-        {contentList ? "아직 등록된 방명록이 없습니다" : "방명록 있음"}
+        {/* {guestList ? "아직 등록된 방명록이 없습니다" : <GuestItem />} */}
+        {guestList.map((item) => {
+          return <GuestItem data={item} />;
+        })}
       </section>
       <section className="guest_write">
         <div className="guest_write_private" onClick={guestPrivate}>
@@ -61,7 +66,7 @@ function GuestMain() {
         />
         <button onClick={guestInsert}>등록</button>
       </section>
-    </>
+    </div>
   );
 }
 
