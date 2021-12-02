@@ -67,10 +67,13 @@ public class GalleryController {
     public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
 <<<<<<< HEAD
+<<<<<<< HEAD
       int likeNum = likeService.insertOrDelete(likeVO);
 
         return likeNum;
 =======
+=======
+>>>>>>> 0060080c1a6b39e2765999861fdc3c2e0b279b60
         likeService.insertOrDelete(likeVO);
         return "ok";
 >>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2

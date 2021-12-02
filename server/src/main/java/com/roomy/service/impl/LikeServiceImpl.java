@@ -50,11 +50,16 @@ public class LikeServiceImpl implements LikeService {
         Boolean checkExist = likeCheck(likeVO);
         if(checkExist==true){
 <<<<<<< HEAD
+<<<<<<< HEAD
             return delete(likeVO);
 =======
 
             delete(likeVO);
 >>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
+=======
+
+            delete(likeVO);
+>>>>>>> 0060080c1a6b39e2765999861fdc3c2e0b279b60
         }else{
             // 데이터 존재하지 않음 > 데이터 Insert후 좋아요수 리턴
             return insert(likeVO);
@@ -117,6 +122,13 @@ public class LikeServiceImpl implements LikeService {
     }
 
 >>>>>>> 4efcafbb61d27a096191bcd0392776ea256e80c2
+
+    public void delete(LikeVO likeVO) {
+        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
+        //BoardVO boardVO = galleryRepository.findBy().get();
+
+    }
+
 
     public Long findByUserSeqAndBoardSeq(Long user_seq, Long board_seq) {
         return likeRepository.findByUserSeqAndBoardSeq(user_seq, board_seq);
