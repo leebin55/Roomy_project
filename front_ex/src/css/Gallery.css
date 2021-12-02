@@ -1,0 +1,12 @@
+/* .gallery-single-header {
+  display: flex;
+}
+
+.gallery-single {
+  border: 1px solid #ddd;
+}
+
+ */
+.gallery-like:hover {
+  cursor: pointer;
+}

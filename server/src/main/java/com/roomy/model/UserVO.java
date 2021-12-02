@@ -1,9 +1,15 @@
 package com.roomy.model;
 
+import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Entity
 @Table(name ="tbl_user" , schema = "roomyDB")
 public class UserVO {
