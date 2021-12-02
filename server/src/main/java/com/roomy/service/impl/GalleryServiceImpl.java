@@ -35,6 +35,7 @@ public class GalleryServiceImpl implements GalleryService {
 
     @Override
     public void insert(BoardVO boardVO) {
+
         galleryRepository.save(boardVO);
     }
 
