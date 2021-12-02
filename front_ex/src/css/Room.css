@@ -72,8 +72,10 @@ section.room-left-side {
 }
 
 section.room-right-side {
+  position: absolute;
   width: 750px;
   margin-left: 5px;
+  padding: 20px;
   z-index: 2;
 }
 
@@ -104,4 +106,6 @@ section.room-main-nav {
 
 .room-nav-click {
   background-color: white;
+  border-left: 1px solid transparent;
+  z-index: 3;
 }
