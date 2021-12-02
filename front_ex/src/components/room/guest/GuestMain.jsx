@@ -52,7 +52,7 @@ function GuestMain() {
       <section className="guest_list">
         {guestList.length > 0
           ? guestList.map((item) => {
-              return <GuestItem data={item} pp={pp} />;
+              return <GuestItem data={item} fetchList={fetchList} />;
             })
           : "아직 등록된 방명록이 없습니다"}
       </section>

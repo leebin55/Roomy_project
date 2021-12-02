@@ -65,6 +65,7 @@ public class GuestController {
 
     @DeleteMapping(value = "/{guest_seq}")
     public void delete(@PathVariable Long guest_seq) {
+        log.debug("delete 컨트롤러", guest_seq);
         guestService.delete(guest_seq);
     }
 
