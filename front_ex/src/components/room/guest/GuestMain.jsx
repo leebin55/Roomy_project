@@ -50,10 +50,11 @@ function GuestMain() {
   return (
     <div className="guest_container">
       <section className="guest_list">
-        {/* {guestList ? "아직 등록된 방명록이 없습니다" : <GuestItem />} */}
-        {guestList.map((item) => {
-          return <GuestItem data={item} />;
-        })}
+        {guestList.length > 0
+          ? guestList.map((item) => {
+              return <GuestItem data={item} pp={pp} />;
+            })
+          : "아직 등록된 방명록이 없습니다"}
       </section>
       <section className="guest_write">
         <div className="guest_write_private" onClick={guestPrivate}>

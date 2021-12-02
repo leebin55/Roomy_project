@@ -18,14 +18,14 @@ public class GuestController {
         this.guestService = guestService;
     }
 
-    @GetMapping(value={"/",""})
+    @GetMapping(value = {"/", ""})
     public List<GuestVO> list() {
         log.debug("방명록 입장하심");
         List<GuestVO> guestList = guestService.selectAll();
         log.debug(guestList.toString());
         return guestList;
     }
-    
+
 //    Map 으로 받기
 //    @PostMapping(value={"/",""})
 //    public void insert(@RequestBody Map<String, String> gContent) {
@@ -41,7 +41,7 @@ public class GuestController {
 //    }
 
     // VO 로 받기
-    @PostMapping(value={"/",""})
+    @PostMapping(value = {"/", ""})
     public void insert(@RequestBody GuestVO guestVO) {
         log.debug("컨트롤러실행");
         log.debug(guestVO.toString());
@@ -62,4 +62,10 @@ public class GuestController {
 //        log.debug(String.valueOf(guest_private));
 //        guestService.insert();
 //    }
+
+    @DeleteMapping(value = "/{guest_seq}")
+    public void delete(@PathVariable Long guest_seq) {
+        guestService.delete(guest_seq);
+    }
+
 }
