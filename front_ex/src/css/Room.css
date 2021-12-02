@@ -75,6 +75,7 @@ section.room-right-side {
   position: absolute;
   width: 750px;
   margin-left: 5px;
+  padding: 20px;
   z-index: 2;
 }
 
