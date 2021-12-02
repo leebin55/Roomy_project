@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name="tbl_board_comment")
-public class BoardCommentVO {
+public class CommentVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long comment_seq;

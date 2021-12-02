@@ -4,6 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function GallerySingle({ gallery, index }) {
   const [isLike, setIsLike] = useState(false);
@@ -11,6 +12,22 @@ function GallerySingle({ gallery, index }) {
 
   const likeClick = (event) => {
     setIsLike(!isLike);
+    likeEvent();
+  };
+  // 하트를 클릭하면 서버에 user와 board seq 를 넘겨준다
+  const likeEvent = async () => {
+    try {
+      axios
+        .post('http://localhost:8080/room/gallery/like', {
+          like_user_seq: 1,
+          like_board_seq: 1,
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
+    } catch (error) {
+      throw error;
+    }
   };
   const clickImg = (event) => {
     navigate(`/room/gallery/${event.target.alt}`);

@@ -12,6 +12,10 @@ function GalleryWrite() {
     setTitle(event.target.value);
   };
 
+  const contentChange = (event) => {
+    setContent(event.target.value);
+  };
+
   const writeSubmit = async () => {
     if (title.trim() !== '' && content.trim() !== '') {
       try {
@@ -20,7 +24,7 @@ function GalleryWrite() {
             board_user_seq: 1,
             board_title: title,
             board_content: content,
-            board_create_at: moment().format('YYYY-MM-DD HH:mm:ss'),
+            board_create_at: moment().format('YYYY-MM-DD HH:mm'),
             board_code: 1,
           })
           .then((res) => {
@@ -44,13 +48,7 @@ function GalleryWrite() {
           <label>Title : </label>
           <input name="board_title" value={title} onChange={titleChange} />
         </div>
-        <input
-          name="board_content"
-          value={content}
-          onChange={(event) => {
-            setContent(event.target.value);
-          }}
-        />
+        <input name="board_content" value={content} onChange={contentChange} />
         <button type="button" onClick={writeSubmit}>
           등록
         </button>

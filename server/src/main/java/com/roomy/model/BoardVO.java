@@ -1,6 +1,7 @@
 package com.roomy.model;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -33,4 +34,7 @@ public class BoardVO {
     private int board_like;
     // 게시물 구분코드
     private int board_code;
+    // 조회수
+    @ColumnDefault("0")
+    private int board_hit=0;
 }
