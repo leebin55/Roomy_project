@@ -2,9 +2,11 @@ package com.roomy.model;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
+@DynamicInsert
 @ToString
 @Setter
 @Getter
@@ -17,24 +19,26 @@ public class BoardVO {
     // 게시물 번호 PK
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long board_seq;
+    private Long boardSeq;
     // 작성한 회원 번호 FK
-    private Long board_user_seq;
+    private Long boardUserSeq;
     // 게시물 제목
-    private String board_title;
+    private String boardTitle;
     // 게시물 내용
-    private String board_content;
+    private String boardContent;
     // 게시물 작성 시간
-    private String board_create_at;
+    private String boardCreateAt;
     // 게시물 수정 시간
-    private String board_update_at;
-    // 게시물 공개 여부( 기본값 false(공개)/ ture(비공개) ) 
-    private Boolean board_private;
-    // 좋아요 수 
-    private int board_like;
+    private String boardUpdateAt;
+    // 게시물 공개 여부( 기본값 0(공개)/ 1(비공개) /2 친구공개)
+    @ColumnDefault("0")
+    private int boardPrivate;
+    // 좋아요 수
+    @ColumnDefault("0")
+    private int boardLike;
     // 게시물 구분코드
-    private int board_code;
+    private int boardCode;
     // 조회수
     @ColumnDefault("0")
-    private int board_hit=0;
+    private int boardHit=0;
 }

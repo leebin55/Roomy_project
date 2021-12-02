@@ -14,7 +14,7 @@ import {
 } from "./components/room/RoomComps";
 import Room from "./pages/Room";
 import GalleryWrite from "./components/room/gallery/GalleryWrite";
-import GalleryUpdate from "./components/room/gallery/GalleryDetail";
+import GalleryDetail from "./components/room/gallery/GalleryDetail";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
           <Route path="board" element={<Board />} />
           <Route path="todo" element={<Todo />} />
           <Route path="gallery" element={<Gallery />} />
-          <Route path="gallery/:board_seq" element={<GalleryUpdate />} />
+          <Route path="gallery/:board_seq" element={<GalleryDetail />} />
           <Route path="gallery/write" element={<GalleryWrite />} />
           <Route path="guest" element={<GuestMain />} />
           <Route path="setting" element={<Setting />} />

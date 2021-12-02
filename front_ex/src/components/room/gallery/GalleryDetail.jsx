@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router";
+import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 
 function GalleryDetail() {
+  const navigate = useNavigate();
+
   //http://localhost:3000/room/gallery/2 에 board_seq 값 가져오기
   const { board_seq } = useParams();
   const [galleryDetail, setGalleryDetail] = useState({
-    board_code: '',
-    board_content: '',
-    board_create_at: '',
-    board_like: '',
-    board_private: '',
-    board_seq: '',
-    board_title: '',
-    board_update_at: '',
-    board_user_seq: '',
+    boardCode: "",
+    boardContent: "",
+    boardCreateAt: "",
+    boardLike: "",
+    boardPrivate: "",
+    boardSeq: "",
+    boardTitle: "",
+    boardUpdateAt: "",
+    boardUserSeq: "",
   });
 
   useEffect(() => {
@@ -36,16 +40,41 @@ function GalleryDetail() {
     }
   };
 
+  const updateClick = () => {};
+  const deleteClick = async () => {
+    const result = window.confirm("삭제하시겠습니까?");
+    if (result) {
+      try {
+        axios
+          .get(
+            `http://localhost:8080/room/gallery/delete/${galleryDetail.boardSeq}`
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              alert("삭제되었습니다.");
+              navigate("/room/gallery");
+            }
+          });
+      } catch (error) {
+        throw error;
+      }
+    } else {
+      return;
+    }
+  };
+
   return (
     <div>
-      <button>수정</button>
-      <button>삭제</button>
+      <button onClick={updateClick}>수정</button>
+      <button onClick={deleteClick}>
+        <DeleteIcon /> 삭제
+      </button>
 
-      <p>{galleryDetail.board_seq}</p>
-      <p>{galleryDetail.board_title}</p>
-      <p>{galleryDetail.board_content}</p>
-      <p>{galleryDetail.board_create_at}</p>
-      <p>{galleryDetail.board_like}</p>
+      <p>{galleryDetail.boardSeq}</p>
+      <p>{galleryDetail.boardTitle}</p>
+      <p>{galleryDetail.boardContent}</p>
+      <p>{galleryDetail.boardCreateAt}</p>
+      <p>{galleryDetail.boardLike}</p>
     </div>
   );
 }

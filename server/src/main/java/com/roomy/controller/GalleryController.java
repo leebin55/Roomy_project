@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -20,7 +19,7 @@ import java.util.List;
 public class GalleryController {
 
     private final  GalleryService galleryService ;
-    //private final LikeService likeService;
+    private final LikeService likeService;
 
     
     // 갤러리 맨 처음 보여주는 리스트 return
@@ -36,7 +35,7 @@ public class GalleryController {
     public BoardVO detail(@RequestParam Long board_seq){
         BoardVO boardVO = galleryService.findById(board_seq);
         // 해당 게시물 클릭 할 때마다 board_hit +1 조회수 증가
-        boardVO.setBoard_hit(boardVO.getBoard_hit()+1);
+        boardVO.setBoardHit(boardVO.getBoardHit()+1);
         log.debug("findbyId : {}" , boardVO.toString());
         return boardVO;
     }
@@ -57,17 +56,18 @@ public class GalleryController {
     }
 
     //삭제
-    @GetMapping("/delete")
-    public String delete(@RequestParam Long board_seq){
+    @GetMapping("/delete/{board_seq}")
+    public void delete(@PathVariable Long board_seq){
         galleryService.delete(board_seq);
-        return "ok";
+
     }
 
     //좋아요 클릭
     @PostMapping("/like")
     public String like(@RequestBody LikeVO likeVO){
+        log.debug("likeVO {} ",likeVO.toString());
+        likeService.insertOrDelete(likeVO);
 
-          //  likeService.likeCheck(likeVO);
         return "ok";
     }
 

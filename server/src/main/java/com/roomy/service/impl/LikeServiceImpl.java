@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -16,40 +17,56 @@ public class LikeServiceImpl implements LikeService {
 
     private final LikeRepository likeRepository;
 
-//    @Override
-//    public List<LikeVO> findByUserSeq(Long user_seq) {
-//        List<LikeVO> likeVO=likeRepository.findByUserSeq(user_seq);
-//        return likeVO;
-//    }
+    @Override
+    public List<LikeVO> findByUserSeq(Long user_seq) {
+        List<LikeVO> likeVO = likeRepository.findByUserSeq(user_seq);
+        return likeVO;
+
+    }
+
+    @Override
+    public Boolean likeCheck(LikeVO likeVO) {
+        Long board_seq = likeVO.getBoardSeq();
+        Long user_seq = likeVO.getUserSeq();
+        boolean checkExist = likeRepository
+                .existsByBoardSeqAndUserSeq(board_seq, user_seq);
+        log.debug("exists: {}", checkExist);
+//        if (checkExist == false) {
+
 //
-//    @Override
-//    public void likeCheck(LikeVO likeVO) {
-//        log.debug("service : {}",likeVO.toString());
-//        Long userSeq = likeVO.getUser_seq();
-//        Long boardSeq = likeVO.getBoard_seq();
-//        // user 와 board  seq 를 이용해서 likeData 조회
-//        LikeVO likeData = likeRepository.findByUserSeqAndBoardSeq(userSeq,boardSeq);
-//        // likeData 가 null 이면 > 좋아요 누른 적 없음
-//        log.debug("likecheck : {} ",likeData.toString());
-//        if(likeData == null){
-//            likeRepository.save(likeVO);
-//            // likeData 가 있으면 like_seq 로 데이터 지우기
-//        }else{
-//            likeRepository.deleteById(likeData.getLike_seq());
+//        } else {
+//            long like_seq = findByUserSeqAndBoardSeq(board_seq, user_seq);
+//            delete(like_seq);
 //        }
-//    }
-//
-//
+        return checkExist;
+    }
+
+    @Override
+    public void insertOrDelete(LikeVO likeVO){
+        // 데이터가 이미 존재
+        Boolean checkExist = likeCheck(likeVO);
+        if(checkExist==true){
+            long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
+            delete(like_seq);
+        }else{
+            insert(likeVO);
+        }
+    }
+
+    @Override
+    public void insert(LikeVO likeVO) {
+        likeRepository.save(likeVO);
+    }
+
+    @Override
+    public void delete(Long like_seq) {
+        likeRepository.deleteById(like_seq);
+    }
 
 
-//    @Override
-//    public void insert(LikeVO likeVO) {
-//
-//    }
-//
-//
-//    @Override
-//    public void delete(Long like_seq) {
-//
-//    }
+    public Long findByUserSeqAndBoardSeq(Long user_seq, Long board_seq) {
+        return likeRepository.findByUserSeqAndBoardSeq(user_seq, board_seq);
+    }
 }
+
+

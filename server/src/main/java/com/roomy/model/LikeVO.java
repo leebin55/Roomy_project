@@ -4,18 +4,23 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
 @Setter
+@Getter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="tbl_board_like" ,schema="roomyDB")
+@Table(name="tbl_board_like" , schema = "roomyDB")
 public class LikeVO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long like_seq;
-    private Long like_board_seq;
-    private Long like_user_seq;
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Long likeSeq;
+    // 좋아요 게시물 seq FK
+    @Column(name="like_board_seq")
+    private Long boardSeq;
+    // 좋아요 누른 회원 Seq
+    @Column(name="like_user_seq")
+    private Long userSeq;
+
 }
