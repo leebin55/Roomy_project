@@ -40,10 +40,15 @@ function GuestMain() {
   //   guestList();
   // }, []);
 
+  const guestList = () => {
+    const response = fetch("http://localhost:8080/room/guest");
+    const data = reponse.JSON();
+  };
+
   return (
     <>
       <section className="guest_list">
-        {contentList == null ? "아직 등록된 방명록이 없습니다" : "방명록 있음"}
+        {contentList ? "아직 등록된 방명록이 없습니다" : "방명록 있음"}
       </section>
       <section className="guest_write">
         <div className="guest_write_private" onClick={guestPrivate}>
