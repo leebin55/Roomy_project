@@ -42,7 +42,7 @@ function GuestMain() {
 
   const guestList = () => {
     const response = fetch("http://localhost:8080/room/guest");
-    const data = reponse.JSON();
+    const data = response.JSON();
   };
 
   return (
