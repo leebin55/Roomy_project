@@ -28,8 +28,9 @@ public class GuestServiceImplV1 implements GuestService {
     }
 
     @Override
-    public GuestVO findById(Long pk) {
-        return null;
+    public GuestVO findById(Long guest_seq) {
+        GuestVO guestVO = guestRepository.findById(guest_seq).orElse(null);
+        return guestVO;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class GuestServiceImplV1 implements GuestService {
 
     @Override
     public void update(GuestVO vo) {
-
+        guestRepository.save(vo);
     }
 
     @Override

@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 function GuestItem({ data, fetchList }) {
+  const [updating, setUpdating] = useState(false);
+  const [update_content, setUpdate_content] = useState();
+
+  const onChange = (e) => {
+    setUpdate_content(e.target.value);
+  };
+
   const guestDelete = async () => {
     if (window.confirm("방명록을 삭제하시겠습니까?")) {
       //   alert(data.guest_seq);
@@ -13,6 +20,39 @@ function GuestItem({ data, fetchList }) {
         }
       });
     }
+  };
+
+  const clickUpdate = () => {
+    if (updating) {
+      if (update_content === "") {
+        alert("방명록을 입력하세요");
+        return;
+      } else if (update_content == data.guest_content) {
+        alert("변경된 내용이 없습니다");
+        return;
+      }
+      guestUpdate();
+    }
+    setUpdating(!updating);
+  };
+
+  const guestUpdate = async () => {
+    await fetch(`http://localhost:8080/room/guest/${data.guest_seq}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        guest_content: update_content,
+      }),
+    }).then((res) => {
+      if (res?.ok) {
+        alert("수정되었습니다");
+        fetchList();
+      }
+    });
+    setUpdate_content("");
+    fetchList();
   };
 
   return (
@@ -28,16 +68,29 @@ function GuestItem({ data, fetchList }) {
         <p className="guest_list_private">
           {data.guest_private ? "공개글로 전환" : "비밀글로 전환"}
         </p>
-        <p className="guest_list_update">수정</p>
-        <p className="guest_list_delete" onClick={guestDelete}>
+        <p className="guest_list_update" onClick={() => clickUpdate()}>
+          {updating ? "등록" : "수정"}
+        </p>
+        <p className="guest_list_delete" onClick={() => guestDelete()}>
           삭제
         </p>
       </section>
       <section className="guest_body">
         <div className="guest_img"></div>
         <div className="guest_content">
-          {data.guest_private ? "🔒 " : ""}
-          {data.guest_content}
+          {updating ? (
+            <textarea
+              className="guest_update_content"
+              defaultValue={data.guest_content}
+              value={update_content}
+              onChange={onChange}
+            ></textarea>
+          ) : (
+            <>
+              {data.guest_private ? "🔒 " : ""}
+              {data.guest_content}
+            </>
+          )}
         </div>
       </section>
     </div>

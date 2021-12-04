@@ -5,15 +5,13 @@ import GuestItem from "./GuestItem";
 function GuestMain() {
   const [content, setContent] = useState(""); // 입력한 방명록 작성 내용
   const [pp, setPp] = useState(false); // 입력한 방명록 공개여부
-  const [guestList, setGuestList] = useState([]);
+  const [guest_list, setGuest_list] = useState([]);
 
   const guestPrivate = () => {
     setPp((pp) => !pp);
   };
 
   const onChange = (e) => {
-    // const g_content = e.target.value;
-    // setContent({ ...content, g_content });
     setContent(e.target.value);
   };
 
@@ -44,20 +42,24 @@ function GuestMain() {
   const fetchList = async () => {
     const response = await fetch("http://localhost:8080/room/guest");
     const data = await response.json();
-    setGuestList(data.reverse());
+    setGuest_list(data.reverse());
   };
 
   return (
     <div className="guest_container">
       <section className="guest_list">
-        {guestList.length > 0
-          ? guestList.map((item) => {
-              return <GuestItem data={item} fetchList={fetchList} />;
-            })
-          : "아직 등록된 방명록이 없습니다"}
+        {guest_list.length > 0 ? (
+          guest_list.map((item) => {
+            return (
+              <GuestItem data={item} fetchList={fetchList} content={content} />
+            );
+          })
+        ) : (
+          <div className="guest_item_box">아직 등록된 방명록이 없습니다</div>
+        )}
       </section>
       <section className="guest_write">
-        <div className="guest_write_private" onClick={guestPrivate}>
+        <div className="guest_write_private" onClick={() => guestPrivate()}>
           {pp ? "비공개" : "공개"}
         </div>
         <textarea
@@ -65,7 +67,7 @@ function GuestMain() {
           value={content}
           onChange={onChange}
         />
-        <button onClick={guestInsert}>등록</button>
+        <button onClick={() => guestInsert()}>등록</button>
       </section>
     </div>
   );

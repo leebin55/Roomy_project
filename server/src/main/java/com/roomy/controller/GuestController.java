@@ -5,6 +5,8 @@ import com.roomy.service.GuestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -22,7 +24,6 @@ public class GuestController {
     public List<GuestVO> list() {
         log.debug("방명록 입장하심");
         List<GuestVO> guestList = guestService.selectAll();
-        log.debug(guestList.toString());
         return guestList;
     }
 
@@ -43,29 +44,26 @@ public class GuestController {
     // VO 로 받기
     @PostMapping(value = {"/", ""})
     public void insert(@RequestBody GuestVO guestVO) {
-        log.debug("컨트롤러실행");
+        log.debug("insert 컨트롤러 실행");
         log.debug(guestVO.toString());
         guestService.insert(guestVO);
     }
 
-//    Json 파싱
-//    @PostMapping(value={"/",""})
-//    public void insert(@RequestBody String jsonGuest) {
-//        log.debug("컨트롤러 실행됐다");
-//        JsonObject
-//        JSONObject obj = new JSONObject(jsonGuest);
-//        JSONPObject
-//
-//        String guest_content = gContent.get("content");
-//        Boolean guest_private = Boolean.valueOf(gContent.get("guest_private"));
-//        log.debug(guest_content);
-//        log.debug(String.valueOf(guest_private));
-//        guestService.insert();
-//    }
+    @PutMapping(value="/{guest_seq}")
+    public void update(@PathVariable  Long guest_seq, @RequestBody GuestVO vo) {
+        log.debug("update 컨트롤러 실행");
+        GuestVO guestVO = guestService.findById(guest_seq);
+        guestVO.setGuest_content(vo.getGuest_content());
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        guestVO.setGuest_update_at(dateTime);
+        guestService.update(guestVO);
+    }
 
     @DeleteMapping(value = "/{guest_seq}")
     public void delete(@PathVariable Long guest_seq) {
-        log.debug("delete 컨트롤러", guest_seq);
+        log.debug("delete 컨트롤러 실행", guest_seq);
         guestService.delete(guest_seq);
     }
 
