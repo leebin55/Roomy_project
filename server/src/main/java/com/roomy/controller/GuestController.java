@@ -5,6 +5,8 @@ import com.roomy.service.GuestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -22,7 +24,6 @@ public class GuestController {
     public List<GuestVO> list() {
         log.debug("방명록 입장하심");
         List<GuestVO> guestList = guestService.selectAll();
-        log.debug(guestList.toString());
         return guestList;
     }
 
@@ -48,9 +49,15 @@ public class GuestController {
         guestService.insert(guestVO);
     }
 
-    @PutMapping(value="/")
-    public void update(@RequestBody GuestVO guestVO) {
+    @PutMapping(value="/{guest_seq}")
+    public void update(@PathVariable  Long guest_seq, @RequestBody GuestVO vo) {
         log.debug("update 컨트롤러 실행");
+        GuestVO guestVO = guestService.findById(guest_seq);
+        guestVO.setGuest_content(vo.getGuest_content());
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        guestVO.setGuest_update_at(dateTime);
         guestService.update(guestVO);
     }
 
