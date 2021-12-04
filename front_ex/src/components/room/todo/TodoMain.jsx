@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import "./css/TodoMain.css";
+import { useTodoContext } from "../../../context/TodoContextProvider";
 
 function TodoMain() {
+  const { getList } = useTodoContext();
+  useEffect(() => {
+    getList();
+  }, []);
   return (
     <div className="mainContainer">
       <div className="headerContainer">

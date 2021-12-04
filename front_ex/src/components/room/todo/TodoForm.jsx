@@ -1,7 +1,27 @@
 import React from "react";
 import { useTodoContext } from "../../../context/TodoContextProvider";
 function TodoForm() {
-  const { todoVal, enterKeyPress, dataInsert, todo } = useTodoContext();
+  const { todoVal, insertTodo, getList, setTodo, todo } = useTodoContext();
+
+  const enterKeyPress = async (e) => {
+    if (e.key === "Enter") {
+      if (todo === "") {
+        alert("할일을 입력해주세요.");
+      }
+      await insertTodo();
+      await setTodo("");
+    }
+    await getList();
+  };
+
+  const dataInsert = async () => {
+    if (todo === "") {
+      alert("할일을 입력해주세요.");
+    }
+    await insertTodo();
+    await getList();
+    await setTodo("");
+  };
 
   return (
     <div>
