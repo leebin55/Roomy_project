@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
-import "./css/TodoMain.css";
+import "../../../css/todo/TodoMain.css";
 import { useTodoContext } from "../../../context/TodoContextProvider";
 
 function TodoMain() {

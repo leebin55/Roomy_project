@@ -1,47 +1,42 @@
-import "../css/ProfileBox.css";
-import { useState } from "react";
+import "../css/loginForm/ProfileBox.css";
 import { NavLink } from "react-router-dom";
+import MainModal from "./ProfileForm/MainModal";
+import { useLoginContext } from "../context/LoginContextProvider";
 
 function ProfileBox() {
-  const pStyle = {
-    fontSize: "30px",
-  };
-
-  const [login, setLogin] = useState(false);
-
-  const loginClicked = () => {
-    setLogin(true);
-  };
+  const { loginClick, findClick, joinClick, login, join, find } =
+    useLoginContext();
 
   return (
     <div>
-      {login ? (
-        <div className="profile-box-after">
-          <img className="profile-img" src="img/logo.svg" />
-          <p style={pStyle}>김이름</p>
-          <div className="profile-p">
-            <p>쪽지함 1</p>
-            <p>친구요청 10</p>
-          </div>
-          <div className="profile-btn">
-            <button>수정</button>
-            <button>로그아웃</button>
-          </div>
-          <button className="btn-mini">
-            <NavLink to="/room">내 미니홈피 가기</NavLink>
-          </button>
+      <div className="beforeContainer">
+        <div className="loginHeader">
+          <p>도움이 필요하세요?</p>
         </div>
-      ) : (
-        <div className="profile-box-before">
-          <img className="profile-img" src="img/logo.svg" />
-          <div className="profile-btn">
-            <button onClick={loginClicked}>로그인</button>
-            <button>회원가입</button>
-          </div>
+        <div className="loginBody">
+          <button onClick={loginClick}>CYWORLD 로그인</button>
         </div>
+        <div className="loginFooter">
+          <button onClick={findClick}>아이디/비밀번호 찾기</button>
+          <button onClick={joinClick}>회원가입</button>
+        </div>
+      </div>
+      {login && (
+        <div>
+          <MainModal />
+        </div>
+      )}
+      {join && (
+        <>
+          <MainModal />
+        </>
+      )}
+      {find && (
+        <>
+          <MainModal />
+        </>
       )}
     </div>
   );
 }
-
 export default ProfileBox;
