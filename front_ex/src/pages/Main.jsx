@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import ProfileBox from "../components/ProfileBox";
 import Popular from "../components/Popular";
 import "../css/Main.css";
+import LoginContextProvider from "../context/LoginContextProvider";
 
 function Main() {
   return (
@@ -14,7 +15,9 @@ function Main() {
       <MainNav />
       <div className="main-container">
         <section className="section-left">
-          <ProfileBox />
+          <LoginContextProvider>
+            <ProfileBox />
+          </LoginContextProvider>
         </section>
         <section className="section-middle">
           <Outlet />

@@ -1,0 +1,40 @@
+.mainContainer {
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	width:900px;
+	height:400px;
+
+	background-color: #E5DCC3;
+	color:white;
+	
+	z-index: 1000;
+}
+.modalHeader {
+	display:flex;
+}
+.item {
+	border-bottom:1px solid #C7BEA2;
+
+	margin:auto;
+	width:300px;
+	padding:12px;
+	cursor:pointer;
+}
+.item:hover {
+	color: #9A9483;
+}
+.loginTitle {
+	border-bottom:3px solid #9A9483;
+	color: #9A9483;
+}
+.joinTitle {
+	border-bottom:3px solid #9A9483;
+	color: #9A9483;
+}
+.findTitle {
+	border-bottom:3px solid #9A9483;
+	color: #9A9483;
+}
