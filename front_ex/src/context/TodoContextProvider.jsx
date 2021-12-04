@@ -26,27 +26,10 @@ function TodoContextProvider({ children }) {
     await fetch("http://localhost:8080/todo/list")
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         setTodoList(result);
-        console.log(todoList);
+        // console.log(todoList);
       });
-  };
-  useEffect(() => {
-    getList();
-  }, []);
-
-  const enterKeyPress = (e) => {
-    if (e.key === "Enter") {
-      insertTodo();
-      getList();
-      setTodo("");
-    }
-  };
-
-  const dataInsert = () => {
-    insertTodo();
-    getList();
-    setTodo("");
   };
 
   const todoData = {
@@ -54,8 +37,8 @@ function TodoContextProvider({ children }) {
     todoList,
     setTodo,
     todoVal,
-    enterKeyPress,
-    dataInsert,
+    insertTodo,
+    getList,
   };
   return <AppContext.Provider value={todoData}>{children}</AppContext.Provider>;
 }

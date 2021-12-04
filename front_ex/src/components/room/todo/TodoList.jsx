@@ -3,40 +3,46 @@ import Axios from "axios";
 import { useTodoContext } from "../../../context/TodoContextProvider";
 
 function TodoList() {
-  const { todoList } = useTodoContext();
+  const { todoList, getList } = useTodoContext();
 
-  // await Axios.get("http://localhost:8080/todo/list").then((response) => {
-  //   console.log(response.data);
-  //   setTodoList(response.data);
-  //   console.log(todoList);
-  // });
-
-  const onSuccessClick = (e) => {
+  const onSuccessClick = async (e) => {
     const id = e.target.dataset.id;
     console.log("success id:", id);
-
-    Axios.put(`http://localhost:8080/todo/success/${id}`);
+    if (window.confirm("정말 할일을 끝내셨나요?")) {
+      await Axios.put(`http://localhost:8080/todo/success/${id}`);
+    }
+    await getList();
   };
-  const onSuccessCancel = (e) => {
+  const onSuccessCancel = async (e) => {
     const id = e.target.dataset.id;
     console.log("cancel id:", id);
-    Axios.put(`http://localhost:8080/todo/cancel/${id}`);
+    if (window.confirm("다시 하시겠습니까?")) {
+      await Axios.put(`http://localhost:8080/todo/cancel/${id}`);
+    }
+    await getList();
   };
-  const onImportUpdate = (e) => {
+  const onImportUpdate = async (e) => {
     const id = e.target.dataset.id;
     console.log("importUpdated id:", id);
-    Axios.put(`http://localhost:8080/todo/important/${id}`);
+    if (window.confirm("정말 중요한 할일 인가요?")) {
+      await Axios.put(`http://localhost:8080/todo/important/${id}`);
+    }
+    await getList();
   };
-  const onNormalUpdate = (e) => {
+  const onNormalUpdate = async (e) => {
     const id = e.target.dataset.id;
     console.log("normalUpdated id:", id);
-    Axios.put(`http://localhost:8080/todo/normal/${id}`);
+    if (window.confirm("중요하지 않은 일인가요?")) {
+      await Axios.put(`http://localhost:8080/todo/normal/${id}`);
+    }
+    await getList();
   };
-  const onDeleteClick = (e) => {
+  const onDeleteClick = async (e) => {
     const id = e.target.dataset.id;
     if (window.confirm("삭제하시겠습니까?")) {
-      Axios.delete(`http://localhost:8080/todo/delete/${id}`);
+      await Axios.delete(`http://localhost:8080/todo/delete/${id}`);
     }
+    await getList();
   };
 
   return (
