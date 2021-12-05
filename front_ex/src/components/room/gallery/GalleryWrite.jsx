@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import EditorToolbox, { modules, formats } from './EditorToolbox';
+import Editor from './Editor';
+import QuillToolbar from './QuillToolbar';
 import 'react-quill/dist/quill.snow.css';
 
 function GalleryWrite() {
@@ -49,17 +49,8 @@ function GalleryWrite() {
           <label>Title : </label>
           <input name="board_title" value={title} onChange={titleChange} />
         </div>
-        <EditorToolbox toolbarId={'toolbar_gallery'} />
-        <ReactQuill
-          theme="snow"
-          ref={quillRef}
-          value={content}
-          onChange={(value) => {
-            setContent(value);
-          }}
-          modules={modules('toolbar_gallery')}
-          formats={formats}
-        />
+        <QuillToolbar toolbarId={'tg'} />
+        <Editor toolbarId={'tg'} content={content} setContent={setContent} />
 
         <button type="button" onClick={writeSubmit}>
           등록

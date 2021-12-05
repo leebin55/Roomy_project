@@ -49,9 +49,10 @@ public class GalleryController {
         return "ok";
 
     }
-    // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔주는 method
+    // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔줌
     @PostMapping("/img")
-    public String img(@RequestBody MultipartFile img){
+    public String img(@RequestParam("img") MultipartFile img){
+        System.out.println(">>>>>>>>>>>>>>> "+img);
 
         return "ok";
     }
