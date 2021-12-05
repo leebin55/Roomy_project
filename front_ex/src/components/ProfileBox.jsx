@@ -1,4 +1,4 @@
-import "../css/loginForm/ProfileBox.css";
+import "../css/userForm/ProfileBox.css";
 import { NavLink } from "react-router-dom";
 import MainModal from "./ProfileForm/MainModal";
 import { useLoginContext } from "../context/LoginContextProvider";
