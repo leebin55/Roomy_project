@@ -46,8 +46,8 @@ function GuestMain() {
   };
 
   return (
-    <div className="guest_container">
-      <section className="guest_list">
+    <div className="guest-container">
+      <section className="guest-list">
         {guest_list.length > 0 ? (
           guest_list.map((item) => {
             return (
@@ -55,15 +55,17 @@ function GuestMain() {
             );
           })
         ) : (
-          <div className="guest_item_box">아직 등록된 방명록이 없습니다</div>
+          <div className="guest-item-box">
+            <p>아직 등록된 방명록이 없습니다</p>
+          </div>
         )}
       </section>
-      <section className="guest_write">
-        <div className="guest_write_private" onClick={() => guestPrivate()}>
+      <section className="guest-write">
+        <div className="guest-write-private" onClick={() => guestPrivate()}>
           {pp ? "비공개" : "공개"}
         </div>
         <textarea
-          name="guest_write_content"
+          name="guest-write-content"
           value={content}
           onChange={onChange}
         />

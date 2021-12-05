@@ -1,11 +1,8 @@
 import React from "react";
+import BoardList from "./board/BoardList";
 
 function Board() {
-  return (
-    <div>
-      <h1>일반게시판</h1>
-    </div>
-  );
+  return <BoardList />;
 }
 
 export default Board;

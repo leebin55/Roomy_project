@@ -4,11 +4,7 @@ import "../../css/Guest.css";
 import GuestMain from "./guest/GuestMain";
 
 function Guest() {
-  return (
-    <GuestContextProvider>
-      <GuestMain />
-    </GuestContextProvider>
-  );
+  return <GuestMain />;
 }
 
 export default Guest;
