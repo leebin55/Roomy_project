@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../css/loginForm/LoginModal.css";
+import "../../../css/userForm/LoginModal.css";
 
 function LoginModal() {
   return (

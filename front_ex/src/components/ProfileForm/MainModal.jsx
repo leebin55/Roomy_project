@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../css/loginForm/MainModal.css";
+import "../../css/userForm/MainModal.css";
 import LoginModal from "./ModalItem/LoginModal";
 import JoinModal from "./ModalItem/JoinModal";
 import FindModal from "./ModalItem/FindModal";
@@ -7,7 +7,7 @@ import FindModal from "./ModalItem/FindModal";
 import { useLoginContext } from "../../context/LoginContextProvider";
 
 function MainModal() {
-  const { login, join, find, loginClick, joinClick, findClick } =
+  const { login, join, find, loginClick, joinClick, findClick, deleteClick } =
     useLoginContext();
 
   return (
@@ -23,6 +23,9 @@ function MainModal() {
             </div>
             <div className="item">
               <div onClick={findClick}>아이디/비밀번호찾기</div>
+            </div>
+            <div className="btnDelete">
+              <button onClick={deleteClick}>X</button>
             </div>
           </div>
           <LoginModal />
@@ -40,6 +43,9 @@ function MainModal() {
             <div className="item">
               <div onClick={findClick}>아이디/비밀번호찾기</div>
             </div>
+            <div className="btnDelete">
+              <button onClick={deleteClick}>X</button>
+            </div>
           </div>
           <JoinModal />
         </>
@@ -55,6 +61,9 @@ function MainModal() {
             </div>
             <div className="findTitle item">
               <div onClick={findClick}>아이디/비밀번호찾기</div>
+            </div>
+            <div className="btnDelete">
+              <button onClick={deleteClick}>X</button>
             </div>
           </div>
           <FindModal />

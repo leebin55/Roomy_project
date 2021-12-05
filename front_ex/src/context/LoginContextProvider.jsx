@@ -9,20 +9,35 @@ function LoginContextProvider({ children }) {
   const [find, setFind] = useState(false);
 
   const loginClick = () => {
+    if (join === true) {
+      setJoin(false);
+    } else if (find === true) {
+      setFind(false);
+    }
     setLogin(true);
-    setJoin(false);
-    setFind(false);
   };
   const joinClick = () => {
+    if (login === true) {
+      setLogin(false);
+    } else if (find === true) {
+      setFind(false);
+    }
     setJoin(true);
-    setLogin(false);
-    setFind(false);
   };
   const findClick = () => {
+    if (login === true) {
+      setLogin(false);
+    } else if (join === true) {
+      setJoin(false);
+    }
     setFind(true);
+  };
+  const deleteClick = () => {
     setLogin(false);
     setJoin(false);
+    setFind(false);
   };
+
   const data = {
     login,
     setLogin,
@@ -33,6 +48,7 @@ function LoginContextProvider({ children }) {
     find,
     setFind,
     findClick,
+    deleteClick,
   };
 
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;

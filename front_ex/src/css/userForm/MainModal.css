@@ -5,7 +5,7 @@
 	transform: translate(-50%, -50%);
 
 	width:900px;
-	height:400px;
+	height:500px;
 
 	background-color: #E5DCC3;
 	color:white;
@@ -14,12 +14,13 @@
 }
 .modalHeader {
 	display:flex;
+	border-bottom: 1px solid #C7BEA2;
 }
 .item {
-	border-bottom:1px solid #C7BEA2;
+	/* border-bottom:1px solid #C7BEA2; */
 
 	margin:auto;
-	width:300px;
+	width:280px;
 	padding:12px;
 	cursor:pointer;
 }
@@ -36,5 +37,27 @@
 }
 .findTitle {
 	border-bottom:3px solid #9A9483;
+	color: #9A9483;
+}
+.btnDelete {
+	width:60px;
+	border-left: 1px solid #C7BEA2;
+}
+.btnDelete button {
+	width:100%;
+	height: 100%;
+
+	border:none;
+	outline:none;
+
+	background-color:transparent;
+	color:white;
+	
+	font-size:30px;
+	font-weight: normal;
+}
+.btnDelete button:hover {
+	font-size:36px;
+	font-weight: bold;
 	color: #9A9483;
 }

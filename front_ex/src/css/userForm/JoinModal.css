@@ -1,0 +1,38 @@
+.joinItem {
+	width:900px;
+	height:430px;
+	margin:3px auto;
+}
+.joinBody {
+	padding:8px;
+	display:flex;
+	flex-direction: column;
+}
+.joinBody label {
+	margin-right:auto;
+}
+.joinBody input {
+	width: 80%;
+	height:28px;
+	border-radius: 5px;
+	border:none;
+	outline:none;
+}
+.selectSex {
+	width:10%;
+	height:28px;
+}
+.btnForm button {
+	width: 200px;
+	height: 40px;
+	margin:5px;
+	border:none;
+	outline:none;
+	font-size: 20px;
+	background-color: #95D1CC;
+	color:#F6F2D4; 
+	border-radius: 8px;
+}
+.btnForm button:hover {
+	background-color: #5584AC;
+}

@@ -1,7 +1,6 @@
 .loginItem {
 	width: 100%;
 	height: 80%;
-	border: 1px solid black;
 	margin:15px auto;
 	color: black;
 }
@@ -15,8 +14,15 @@
 	margin:6px auto;
 	border:1px solid #AAA492;
 	outline:none;
+
+	font-size: 30px;
+	border-top-left-radius: 12px;
+	border-bottom-right-radius: 12px;
 }
 .loginForm input:hover {
+	background-color: #eee;
+}
+.loginForm input:focus {
 	background-color: #eee;
 }
 
@@ -30,6 +36,7 @@
 	font-weight: normal;
 	font-size:32px;
 	border-radius: 12px;
+	margin:15px;
 }
 .btnLogin button:hover {
 	background-color:#9A9483;
