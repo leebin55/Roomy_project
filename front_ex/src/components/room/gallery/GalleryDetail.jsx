@@ -89,7 +89,6 @@ function GalleryDetail() {
 
           <p>{galleryDetail.boardSeq}</p>
           <p>{galleryDetail.boardTitle}</p>
-
           <div
             className="gallery-post-content"
             dangerouslySetInnerHTML={{ __html: galleryDetail.boardContent }}

@@ -53,7 +53,7 @@ logging:
     multipart:
       enabled: true
       file-size: 2KB
-      max-file-size: 200MB
-      max-request-size: 215MB
+      max-file-size: 50MB
+      max-request-size: 50MB
 file.upload-dir: /uploads
 
