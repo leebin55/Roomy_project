@@ -16,8 +16,8 @@ public class BoardImageVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long imgSeq;
-    // 이미지 파일명
-    private String imgFile;
+    // 이미지 파일 url
+    private String imgUrl;
     // 해당 게시물 번호 FK
     private Long imgBoardSeq;
 }

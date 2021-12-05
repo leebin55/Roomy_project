@@ -5,3 +5,4 @@
 - yarn add react-router-dom
 - yarn add axois
 - yarn add moment
+- text-editor : yarn add quill

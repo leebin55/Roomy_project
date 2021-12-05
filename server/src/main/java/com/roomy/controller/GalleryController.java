@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -48,6 +49,12 @@ public class GalleryController {
         return "ok";
 
     }
+    // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔주는 method
+    @PostMapping("/img")
+    public String img(@RequestBody MultipartFile img){
+
+        return "ok";
+    }
     // 갤러리 게시글 수정
     @PostMapping("/update")
     public String update(@RequestBody BoardVO boardVO){
@@ -66,9 +73,7 @@ public class GalleryController {
     @PostMapping("/like")
     public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
-
         int likeNum = likeService.insertOrDelete(likeVO);
-
         return likeNum;
     }
 
