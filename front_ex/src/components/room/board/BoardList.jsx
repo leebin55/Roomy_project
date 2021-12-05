@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../../css/Board.css";
 
 function BoardList() {
+  const [board_list, setBoard_list] = useState([]);
+
+  const fetchList = async () => {
+    const res = await fetch("http://localhost:8080/room/board");
+    const list = await res.json();
+    setBoard_list(list);
+  };
+
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  const boardList = board_list.map((item) => {
+    return (
+      <tr>
+        <td>{item.boardSeq}</td>
+        <td>{item.boardTitle}</td>
+        <td>{item.boardCreateAt}</td>
+        <td>{item.boardHit}</td>
+        <td>{item.boardLike}</td>
+      </tr>
+    );
+  });
+
   return (
     <div className="board_container">
       <table>
@@ -15,27 +39,11 @@ function BoardList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>988</td>
-            <td>ㅎㅇ</td>
-            <td>2021-12-05</td>
-            <td>50</td>
-            <td>8</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>방가방가 햄토리</td>
-            <td>2021-12-05</td>
-            <td>350</td>
-            <td>77</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>ㅎㅇ</td>
-            <td>ㅂㅇ</td>
-            <td>ㅎㅇ</td>
-            <td>ㅂㅇ</td>
-          </tr>
+          {boardList.length > 0 ? (
+            boardList
+          ) : (
+            <td colSpan="5">아직 게시물이 없습니다</td>
+          )}
         </tbody>
       </table>
       <div className="btn_write_box">

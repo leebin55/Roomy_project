@@ -1,7 +1,7 @@
 import React from "react";
 
 function BoardDetail() {
-  return <div></div>;
+  return <div>hi</div>;
 }
 
 export default BoardDetail;
