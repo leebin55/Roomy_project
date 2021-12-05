@@ -1,10 +1,16 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import BoardList from "./board/BoardList";
+import BoardDetail from "./board/BoardDetail";
+import BoardWrite from "./board/BoardWrite";
 
 function Board() {
   return (
-    <div>
-      <h1>일반게시판</h1>
-    </div>
+    <Routes>
+      <Route path="/" element={<BoardList />} />
+      <Route path=":id" element={<BoardDetail />} />
+      <Route path="write" element={<BoardWrite />} />
+    </Routes>
   );
 }
 

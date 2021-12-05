@@ -1,14 +1,14 @@
-.guest_container {
+.guest-container {
   width: 100%;
   height: 100%;
   overflow: auto;
 }
 
-.guest_list {
+.guest-list {
   width: 100%;
 }
 
-.guest_item_box {
+.guest-item-box {
   width: 100%;
   height: 150px;
   margin: 30px auto;
@@ -16,7 +16,11 @@
   border: 1px solid #eee;
 }
 
-.guest_head {
+.guest-item-box p {
+  line-height: 150px;
+}
+
+.guest-head {
   display: flex;
   height: 20%;
   align-items: center;
@@ -26,42 +30,42 @@
   border-top: 2px solid #eee;
 }
 
-.guest_body {
+.guest-body {
   display: flex;
   height: 80%;
   overflow: auto;
 }
 
-.guest_img {
+.guest-img {
   width: 25%;
 }
 
-.guest_content {
+.guest-content {
   width: 75%;
   padding: 15px;
   text-align: start;
 }
 
-.guest_head p {
+.guest-head p {
   margin-right: 15px;
 }
 
-.guest_list_private {
+.guest-list-private {
   margin-left: auto;
   cursor: pointer;
 }
 
-.guest_list_update {
+.guest-list-update {
   cursor: pointer;
 }
 
-.guest_list_delete {
+.guest-list-delete {
   cursor: pointer;
 }
 
 /* -------------------- <section> guest_write -------------------- */
 
-.guest_write {
+.guest-write {
   display: flex;
   width: 100%;
   height: 150px;
@@ -70,7 +74,7 @@
   background-color: rgb(248, 247, 247);
 }
 
-.guest_write_private {
+.guest-write-private {
   width: 10%;
   height: 70%;
   line-height: 50px;
@@ -79,7 +83,7 @@
   cursor: pointer;
 }
 
-.guest_write textarea {
+.guest-write textarea {
   width: 70%;
   height: 70%;
   margin: 10px;
@@ -88,11 +92,11 @@
   border: 1px solid lightgray;
 }
 
-.guest_write textarea:focus {
+.guest-write textarea:focus {
   border: 1px solid gray;
 }
 
-.guest_write button {
+.guest-write button {
   width: 10%;
   height: 70%;
   margin: 10px;
@@ -102,7 +106,7 @@
 
 /* -------------------- <section> guest_write -------------------- */
 
-.guest_update_content {
+.guest-update-content {
   width: 90%;
   height: 100%;
   padding: 15px;
@@ -110,6 +114,6 @@
   border: 1px solid lightgray;
 }
 
-.guest_update_content:focus {
+.guest-update-content:focus {
   border: 1px solid gray;
 }

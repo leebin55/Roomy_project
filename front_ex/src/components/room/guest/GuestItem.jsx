@@ -56,8 +56,8 @@ function GuestItem({ data, fetchList }) {
   };
 
   return (
-    <div className="guest_item_box">
-      <section className="guest_head">
+    <div className="guest-item-box">
+      <section className="guest-head">
         <p>
           <span>NO.</span>
           {data.guest_seq}
@@ -65,22 +65,22 @@ function GuestItem({ data, fetchList }) {
         <p>{data.guest_writer_name}</p>
         <p>&#127968;</p>
         <p>{data.guest_create_at}</p>
-        <p className="guest_list_private">
+        <p className="guest-list-private">
           {data.guest_private ? "공개글로 전환" : "비밀글로 전환"}
         </p>
-        <p className="guest_list_update" onClick={() => clickUpdate()}>
+        <p className="guest-list-update" onClick={() => clickUpdate()}>
           {updating ? "등록" : "수정"}
         </p>
-        <p className="guest_list_delete" onClick={() => guestDelete()}>
+        <p className="guest-list-delete" onClick={() => guestDelete()}>
           삭제
         </p>
       </section>
-      <section className="guest_body">
-        <div className="guest_img"></div>
-        <div className="guest_content">
+      <section className="guest-body">
+        <div className="guest-img"></div>
+        <div className="guest-content">
           {updating ? (
             <textarea
-              className="guest_update_content"
+              className="guest-update-content"
               defaultValue={data.guest_content}
               value={update_content}
               onChange={onChange}

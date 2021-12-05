@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
-@Service("guServiceV1")
+@Service("guestService")
 public class GuestServiceImplV1 implements GuestService {
 
     private final GuestRepository guestRepository;

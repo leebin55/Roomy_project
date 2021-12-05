@@ -2,10 +2,30 @@ import React from "react";
 
 function RoomMain() {
   return (
-    <div>
-      <h1> Right Side</h1>
-      <p>미니홈페이지에서 여기만 게시판 등으로 변경된다.</p>
-    </div>
+    <>
+      <section className="main-top">
+        <div className="main-recent-box"></div>
+        <div className="main-list-box"></div>
+      </section>
+      <section className="main-bottom">
+        <div className="main-guest-box">
+          <img src="/img/postit.png" />
+          <p>방가방가</p>
+        </div>
+        <div className="main-guest-box">
+          <img src="/img/postit.png" />
+          <p>하이하이</p>
+        </div>
+        <div className="main-guest-box">
+          <img src="/img/postit.png" />
+          <p>하이하이</p>
+        </div>
+        <div className="main-guest-box">
+          <img src="/img/postit.png" />
+          <p>하이하이</p>
+        </div>
+      </section>
+    </>
   );
 }
 
