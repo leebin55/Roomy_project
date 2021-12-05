@@ -89,7 +89,11 @@ function GalleryDetail() {
 
           <p>{galleryDetail.boardSeq}</p>
           <p>{galleryDetail.boardTitle}</p>
-          <p>{galleryDetail.boardContent}</p>
+
+          <div
+            className="gallery-post-content"
+            dangerouslySetInnerHTML={{ __html: galleryDetail.boardContent }}
+          />
           <p>{galleryDetail.boardCreateAt}</p>
           <p>{galleryDetail.boardLike}</p>
         </div>

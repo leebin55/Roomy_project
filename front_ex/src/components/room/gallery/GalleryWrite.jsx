@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import EditorToolbox, { modules, formats } from './EditorToolbox';
+import 'react-quill/dist/quill.snow.css';
 
 function GalleryWrite() {
+  const quillRef = useRef();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   const titleChange = (event) => {
     setTitle(event.target.value);
-  };
-
-  const contentChange = (event) => {
-    setContent(event.target.value);
   };
 
   const writeSubmit = async () => {
@@ -49,7 +49,18 @@ function GalleryWrite() {
           <label>Title : </label>
           <input name="board_title" value={title} onChange={titleChange} />
         </div>
-        <input name="board_content" value={content} onChange={contentChange} />
+        <EditorToolbox toolbarId={'toolbar_gallery'} />
+        <ReactQuill
+          theme="snow"
+          ref={quillRef}
+          value={content}
+          onChange={(value) => {
+            setContent(value);
+          }}
+          modules={modules('toolbar_gallery')}
+          formats={formats}
+        />
+
         <button type="button" onClick={writeSubmit}>
           등록
         </button>
