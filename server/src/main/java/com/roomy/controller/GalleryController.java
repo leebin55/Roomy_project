@@ -2,10 +2,11 @@ package com.roomy.controller;
 
 import com.roomy.model.BoardVO;
 import com.roomy.model.LikeVO;
+import com.roomy.service.BoardService;
 import com.roomy.service.FileService;
-import com.roomy.service.GalleryService;
 import com.roomy.service.LikeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,10 +18,11 @@ import java.util.List;
 public class GalleryController {
 
     private final FileService fileService;
-    private final  GalleryService galleryService ;
+    @Qualifier("galleryService")
+    private final BoardService galleryService ;
     private final LikeService likeService;
 
-    public GalleryController(FileService fileService, GalleryService galleryService, LikeService likeService) {
+    public GalleryController(FileService fileService, BoardService galleryService, LikeService likeService) {
         this.fileService = fileService;
         this.galleryService = galleryService;
         this.likeService = likeService;

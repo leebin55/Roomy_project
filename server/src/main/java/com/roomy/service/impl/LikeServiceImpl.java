@@ -2,7 +2,7 @@ package com.roomy.service.impl;
 
 import com.roomy.model.BoardVO;
 import com.roomy.model.LikeVO;
-import com.roomy.repository.GalleryRepository;
+import com.roomy.repository.BoardRepository;
 import com.roomy.repository.LikeRepository;
 import com.roomy.service.LikeService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -18,7 +17,7 @@ import java.util.Optional;
 public class LikeServiceImpl implements LikeService {
 
     private final LikeRepository likeRepository;
-    private final GalleryRepository galleryRepository;
+    private final BoardRepository galleryRepository;
 
     @Override
     public List<LikeVO> findByUserSeq(Long user_seq) {

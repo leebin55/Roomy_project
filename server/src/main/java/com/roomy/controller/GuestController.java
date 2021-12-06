@@ -2,7 +2,6 @@ package com.roomy.controller;
 
 import com.roomy.model.GuestVO;
 import com.roomy.service.GuestService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +10,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/room/guest")
 public class GuestController {
 
     private final GuestService guestService;
+
+    public GuestController(GuestService guestService) {
+        this.guestService = guestService;
+    }
 
     @GetMapping(value = {"/", ""})
     public List<GuestVO> list() {
