@@ -54,10 +54,9 @@ function GallerySingle({ gallery, index }) {
   return (
     <ImageListItem key={index}>
       <img
-        // src={`${item.img}?w=248&fit=crop&auto=format`}
+        src={gallery.imgURL}
         // srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-        // alt={item.title}
-        // loading="lazy"
+
         alt={gallery.boardSeq}
         onClick={clickImg}
       />
