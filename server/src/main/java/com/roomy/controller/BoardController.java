@@ -25,7 +25,8 @@ public class BoardController {
     }
 
     @PostMapping(value = {"/", ""})
-    public void insert(@RequestBody GuestVO guestVO) {
+    public void insert(@RequestBody BoardVO boardVO) {
         log.debug("write 컨트롤러 실행");
+        boardService.insert(boardVO);
     }
 }

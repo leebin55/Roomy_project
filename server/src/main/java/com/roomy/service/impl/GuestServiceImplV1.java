@@ -39,17 +39,14 @@ public class GuestServiceImplV1 implements GuestService {
         LocalDateTime localDateTime = LocalDateTime.now();
         String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        GuestVO vo = GuestVO.builder()
-                .guest_writer_name("서녕")
-                .guest_create_at(dateTime)
-                .guest_update_at(dateTime)
-                .guest_private(guestVO.getGuest_private())
-                .guest_content(guestVO.getGuest_content())
-                .user_seq2(1L)
-                .guest_writer_seq(1L)
-                .build();
-        log.debug(vo.toString());
-        guestRepository.save(vo);
+        guestVO.setGuest_writer_name("서녕");
+        guestVO.setGuest_create_at(dateTime);
+        guestVO.setGuest_update_at(dateTime);
+        guestVO.setUser_seq2(1L);
+        guestVO.setGuest_writer_seq(1L);
+
+        log.debug(guestVO.toString());
+        guestRepository.save(guestVO);
     }
 
     @Override

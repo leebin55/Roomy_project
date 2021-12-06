@@ -16,7 +16,7 @@ function GuestMain() {
   };
 
   const guestInsert = async () => {
-    if (content === "") {
+    if (content.trim() === "") {
       alert("방명록을 입력하세요");
       return;
     }
