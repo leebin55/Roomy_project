@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../../css/Board.css";
 
 function BoardList() {
+  const navigate = useNavigate();
   const [board_list, setBoard_list] = useState([]);
 
   const fetchList = async () => {
@@ -47,7 +49,7 @@ function BoardList() {
         </tbody>
       </table>
       <div className="btn_write_box">
-        <button>글쓰기</button>
+        <button onClick={() => navigate("/room/board/write")}>글쓰기</button>
       </div>
     </div>
   );

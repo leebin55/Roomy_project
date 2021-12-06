@@ -24,14 +24,16 @@ function GuestItem({ data, fetchList }) {
 
   const clickUpdate = () => {
     if (updating) {
-      if (update_content === "") {
+      if (update_content.trim() === "") {
         alert("방명록을 입력하세요");
         return;
-      } else if (update_content == data.guest_content) {
+      } else if (update_content === data.guest_content) {
         alert("변경된 내용이 없습니다");
         return;
       }
       guestUpdate();
+    } else if (!updating) {
+      setUpdate_content(data.guest_content);
     }
     setUpdating(!updating);
   };

@@ -37,7 +37,7 @@ public class BoardVO {
     // 좋아요 수
     @ColumnDefault("0")
     private int boardLike;
-    // 게시물 구분코드
+    // 게시물 구분코드 ( 1 갤러리 / 2 일반게시판 )
     private int boardCode;
     // 조회수
     @ColumnDefault("0")
