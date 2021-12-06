@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AppContext = createContext();
 export const useTodoContext = () => useContext(AppContext);
@@ -11,19 +11,19 @@ function TodoContextProvider({ children }) {
     setTodo(e.target.value);
   };
   const insertTodo = async () => {
-    await fetch("http://localhost:8080/todo/insert", {
-      method: "POST",
+    await fetch('http://localhost:8080/todo/insert', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: todo,
     }).then((response) => {
       console.log(response);
-      console.log("insert success");
+      console.log('insert success');
     });
   };
   const getList = async () => {
-    await fetch("http://localhost:8080/todo/list")
+    await fetch('http://localhost:8080/todo/list')
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);

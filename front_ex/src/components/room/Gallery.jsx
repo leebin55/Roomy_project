@@ -1,26 +1,36 @@
-import React from "react";
-import GalleryList from "./gallery/GalleryList";
-import { useNavigate } from "react-router-dom";
-import CreateIcon from "@mui/icons-material/Create";
-import "../../css/Gallery.css";
+import React, { useState } from 'react';
+import GalleryList from './gallery/GalleryList';
+
+import CreateIcon from '@mui/icons-material/Create';
+import '../../css/Gallery.css';
+import GalleryWrite from './gallery/GalleryWrite';
+import GalleryContextProvider from '../../context/GalleryContextProvider';
 
 function Gallery(props) {
-  const navigate = useNavigate();
+  const [isWrite, setIsWrite] = useState(false);
   return (
-    <div>
+    <GalleryContextProvider>
       <h1>갤러리</h1>
+
       <div className="gallery-btns">
-        <button
-          onClick={() => {
-            navigate("/room/gallery/write");
-          }}
-        >
-          <CreateIcon />
-          글쓰기
-        </button>
+        {!isWrite ? (
+          <div>
+            <button
+              onClick={() => {
+                setIsWrite(!isWrite);
+              }}
+            >
+              {' '}
+              <CreateIcon />
+              글쓰기
+            </button>
+            <GalleryList />
+          </div>
+        ) : (
+          <GalleryWrite isWrite={isWrite} setIsWrite={setIsWrite} />
+        )}
       </div>
-      <GalleryList />
-    </div>
+    </GalleryContextProvider>
   );
 }
 
