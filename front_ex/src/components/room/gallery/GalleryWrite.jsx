@@ -9,13 +9,15 @@ import QuillToolbar from './QuillToolbar';
 
 function GalleryWrite({ isWrite, setIsWrite }) {
   const navigate = useNavigate();
-  const { title, setTitle, content, setContent } = useGalleryContext();
+  const { title, setTitle, content, setContent, galleryImg, setGalleryImg } =
+    useGalleryContext();
 
   const titleChange = (event) => {
     setTitle(event.target.value);
   };
 
   const writeSubmit = async () => {
+    console.log(galleryImg);
     if (title.trim() !== '' && content.trim() !== '') {
       try {
         await axios
@@ -25,10 +27,13 @@ function GalleryWrite({ isWrite, setIsWrite }) {
             boardContent: content,
             boardCreateAt: moment().format('YYYY-MM-DD HH:mm'),
             boardCode: 1,
+            imgURL: [galleryImg],
           })
           .then((res) => {
             if (res.data === 'ok') {
               alert('글 등록 완료');
+              console.log(galleryImg);
+              setGalleryImg('');
               setIsWrite(!isWrite);
               setTitle('');
               setContent('');
@@ -51,7 +56,6 @@ function GalleryWrite({ isWrite, setIsWrite }) {
         <div>
           <label>Title : </label>
           <input name="board_title" value={title} onChange={titleChange} />
-          <p>{content}</p>
         </div>
         <QuillToolbar toolbarId={'tg'} />
         <Editor toolbarId={'tg'} />

@@ -5,6 +5,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @ToString
@@ -42,4 +43,7 @@ public class BoardVO {
     // 조회수
     @ColumnDefault("0")
     private int boardHit=0;
+
+    @Transient
+    private List<String> imgURL;
 }

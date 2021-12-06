@@ -20,4 +20,6 @@ public class BoardImageVO {
     private String imgUrl;
     // 해당 게시물 번호 FK
     private Long imgBoardSeq;
+
+
 }

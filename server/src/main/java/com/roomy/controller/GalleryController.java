@@ -46,8 +46,9 @@ public class GalleryController {
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
     @PostMapping("/write")
-    public String write(@RequestBody  BoardVO boardVO){
+    public String write( @RequestBody  BoardVO boardVO ) {//}, String imgURL){
         log.debug("controller_boardVO : {}",boardVO.toString());
+        log.debug("img file {} :",boardVO.getImgURL());
         galleryService.insert(boardVO);
         return "ok";
 
