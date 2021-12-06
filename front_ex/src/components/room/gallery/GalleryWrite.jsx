@@ -1,16 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Editor from './Editor';
-import QuillToolbar from './QuillToolbar';
-import 'react-quill/dist/quill.snow.css';
+import { useGalleryContext } from '../../../context/GalleryContextProvider';
 
-function GalleryWrite() {
-  const quillRef = useRef();
+import QuillToolbar from './QuillToolbar';
+
+function GalleryWrite({ isWrite, setIsWrite }) {
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const { title, setTitle, content, setContent } = useGalleryContext();
 
   const titleChange = (event) => {
     setTitle(event.target.value);
@@ -30,13 +29,17 @@ function GalleryWrite() {
           .then((res) => {
             if (res.data === 'ok') {
               alert('글 등록 완료');
+              setIsWrite(!isWrite);
+              setTitle('');
+              setContent('');
               navigate('/room/gallery');
             }
           });
       } catch (error) {
         throw error;
-      }
-    } else {
+      } //catch end
+    } //if end
+    else {
       alert('제목과 내용은 입력해야 합니다.');
     }
   };
@@ -48,10 +51,10 @@ function GalleryWrite() {
         <div>
           <label>Title : </label>
           <input name="board_title" value={title} onChange={titleChange} />
+          <p>{content}</p>
         </div>
         <QuillToolbar toolbarId={'tg'} />
-        <Editor toolbarId={'tg'} content={content} setContent={setContent} />
-
+        <Editor toolbarId={'tg'} />
         <button type="button" onClick={writeSubmit}>
           등록
         </button>

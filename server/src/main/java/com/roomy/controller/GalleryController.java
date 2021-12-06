@@ -2,26 +2,29 @@ package com.roomy.controller;
 
 import com.roomy.model.BoardVO;
 import com.roomy.model.LikeVO;
+import com.roomy.service.FileService;
 import com.roomy.service.GalleryService;
 import com.roomy.service.LikeService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Slf4j
-@DynamicInsert
-@RequiredArgsConstructor
 @RequestMapping("/room/gallery")
 @RestController
 public class GalleryController {
 
+    private final FileService fileService;
     private final  GalleryService galleryService ;
     private final LikeService likeService;
 
+    public GalleryController(FileService fileService, GalleryService galleryService, LikeService likeService) {
+        this.fileService = fileService;
+        this.galleryService = galleryService;
+        this.likeService = likeService;
+    }
 
     // 갤러리 맨 처음 보여주는 리스트 return
     @GetMapping({"/",""})
@@ -43,8 +46,8 @@ public class GalleryController {
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
     @PostMapping("/write")
-    public String write(@RequestBody BoardVO boardVO){
-        log.debug("boardVO : {}",boardVO.toString());
+    public String write(@RequestBody  BoardVO boardVO){
+        log.debug("controller_boardVO : {}",boardVO.toString());
         galleryService.insert(boardVO);
         return "ok";
 
@@ -52,13 +55,15 @@ public class GalleryController {
     // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔줌
     @PostMapping("/img")
     public String img(@RequestParam("img") MultipartFile img){
-        System.out.println(">>>>>>>>>>>>>>> "+img);
-
-        return "ok";
+      log.debug("받아온 파일 이름 {}",img.getOriginalFilename());
+      String newFileName = fileService.uploadFile(img);
+      log.debug("보낼 url {}:","http://localhost:8080/uploads/"+ newFileName);
+        return "http://localhost:8080/uploads/"+ newFileName;
     }
+
     // 갤러리 게시글 수정
     @PostMapping("/update")
-    public String update(@RequestBody BoardVO boardVO){
+    public String update(BoardVO boardVO){
         galleryService.update(boardVO);
         return "ok";
     }
@@ -77,7 +82,6 @@ public class GalleryController {
         int likeNum = likeService.insertOrDelete(likeVO);
         return likeNum;
     }
-
 
 
     //댓글

@@ -1,4 +1,3 @@
-import { height } from '@mui/system';
 import React from 'react';
 
 export const QuillToolbar = (props) => {

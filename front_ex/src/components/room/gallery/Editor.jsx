@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import axios from 'axios';
 import 'react-quill/dist/quill.snow.css';
+import { useGalleryContext } from '../../../context/GalleryContextProvider';
 
 //--------- toolbar handlers --------------------
 // Toolbar에서 작동하기 위한 redo , undo function
@@ -38,6 +39,7 @@ const formats = [
 /////////////////////////////////////////////////////////////////////////
 
 function Editor(props) {
+  const { content, setContent, setGalleryImg } = useGalleryContext();
   const quillRef = useRef();
   //useMemo 를 사용하여  modules 를 만들지 않느면
   // 랜더링 할때마다 modules 가 다시생성
@@ -68,7 +70,8 @@ function Editor(props) {
             // server에서 이미지 url 받아오기 (또는 여기서 url로 바꿔서 server 에 넘겨준다)
             console.log(result.data);
             //이 url을 img 태그의 src에 넣은 요소을 현재 에디터의 커서에 넣어주기
-            const img_url = result.data.url;
+            const img_url = result.data;
+            setGalleryImg(img_url);
             // 현재 에디터 내에서 커서 위치값 가져오기
             const editor = quillRef.current.getEditor(); // 에디터 정보 가져오기
             const range = editor.getSelection(); // 현재 커서 위치
@@ -85,7 +88,7 @@ function Editor(props) {
     () => ({
       // props > toolbarId 를 가져옴
       toolbar: {
-        // toolbar: container 내가 에디터에서 사용할 툴바 목록을 설정
+        // toolbar: container 내가 에디터에서 사용할 툴바 목록을 설정toolbarId 로
         container: '#' + props.toolbarId,
         //toolbar: handlers
         // editor에게 처리를 맞기지 않고 직접 핸들러 함수를 만들어 처리
@@ -109,9 +112,9 @@ function Editor(props) {
     <ReactQuill
       ref={quillRef}
       theme="snow"
-      value={props.content}
+      value={content}
       onChange={(value) => {
-        props.setContent(value);
+        setContent(value);
       }}
       modules={modules}
       formats={formats}

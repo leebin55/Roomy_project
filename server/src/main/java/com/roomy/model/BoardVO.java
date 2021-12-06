@@ -25,7 +25,7 @@ public class BoardVO {
     // 게시물 제목
     private String boardTitle;
     // 게시물 내용
-    @Column(columnDefinition = "VARCHAR(4000)", nullable = false)
+    @Column(columnDefinition = "VARCHAR(4000)")
     private String boardContent;
     // 게시물 작성 시간
     private String boardCreateAt;
