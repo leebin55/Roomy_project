@@ -1,10 +1,10 @@
-.board_container {
+.board-container {
   width: 100%;
   height: 100%;
   overflow: auto;
 }
 
-.board_container table {
+.board-container table {
   width: 100%;
   max-height: 80%;
   margin: 20px auto;
@@ -13,32 +13,52 @@
   /* border-spacing: 0px; */
 }
 
-.board_container table th {
+.board-container table th {
   background-color: #fff2d9;
   border-top: 2px solid gray;
   border-bottom: 1px solid lightgray;
 }
 
-.board_container table th,
-.board_container table td {
+.board-container table th,
+.board-container table td {
   padding: 7px 0px;
 }
 
-.board_container table td {
+.board-container table td {
   border-bottom: 1px solid #eee;
 }
 
-.btn_write_box {
+.btn-write-box {
   width: 100%;
   margin: auto;
   text-align: right;
 }
 
-.board_container button {
+.board-container button {
   width: 70px;
   height: 35px;
   background-color: #eee;
   border: 1px solid gray;
   border-radius: 10px;
   margin-left: auto;
+}
+
+/* -------------------- BoardWrite --------------------*/
+
+.board-write-container {
+}
+
+.board-write-title {
+  width: 80%;
+  height: 30px;
+  margin: 20px auto;
+  padding: 7px;
+  outline: none;
+  border: 1px solid gray;
+}
+
+.board-write-content {
+  width: 90%;
+  height: 60%;
+  margin: auto;
 }

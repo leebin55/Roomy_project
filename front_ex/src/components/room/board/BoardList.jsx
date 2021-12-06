@@ -29,7 +29,7 @@ function BoardList() {
   });
 
   return (
-    <div className="board_container">
+    <div className="board-container">
       <table>
         <thead>
           <tr>
@@ -48,7 +48,7 @@ function BoardList() {
           )}
         </tbody>
       </table>
-      <div className="btn_write_box">
+      <div className="btn-write-box">
         <button onClick={() => navigate("/room/board/write")}>글쓰기</button>
       </div>
     </div>
