@@ -40,13 +40,20 @@ function BoardWrite() {
 
   return (
     <div className="board-write-container">
-      <input
-        className="board-write-title"
-        ref={boardTitle}
-        placeholder="제목을 입력하세요"
-        value={title}
-        onChange={onChangeTitle}
-      />
+      <div className="board-write-header">
+        <select name="choice">
+          <option value="banana">전체공개</option>
+          <option value="apple">친구공개</option>
+          <option value="orange">비공개</option>
+        </select>
+        <input
+          className="board-write-title"
+          ref={boardTitle}
+          placeholder="제목을 입력하세요"
+          value={title}
+          onChange={onChangeTitle}
+        />
+      </div>
       <div className="board-write-content">
         <QuillToolbar toolbarId={"qb"} />
         <QuillEditor

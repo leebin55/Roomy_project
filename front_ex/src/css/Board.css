@@ -45,7 +45,9 @@
 
 /* -------------------- BoardWrite --------------------*/
 
-.board-write-container {
+.board-write-header {
+  width: 80%;
+  margin: auto;
 }
 
 .board-write-title {
