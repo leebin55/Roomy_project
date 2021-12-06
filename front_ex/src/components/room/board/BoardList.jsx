@@ -42,8 +42,7 @@ function BoardList() {
         </thead>
         <tbody>
           {board_list.length > 0 ? (
-            // board_list
-            <td colSpan="5">게시물 있음</td>
+            boardList
           ) : (
             <td colSpan="5">아직 게시물이 없습니다</td>
           )}

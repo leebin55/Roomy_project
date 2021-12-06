@@ -20,7 +20,7 @@ public class BoardServiceImplV1 implements BoardService {
 
     @Override
     public List<BoardVO> selectAll() {
-        List<BoardVO> list = boardRepository.findAll();
+        List<BoardVO> list = boardRepository.findAllByBoardCode(2);
         return list;
     }
 
