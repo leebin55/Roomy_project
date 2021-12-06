@@ -1,21 +1,21 @@
 package com.roomy.service.impl;
 
 import com.roomy.model.BoardVO;
-import com.roomy.repository.GalleryRepository;
-import com.roomy.service.GalleryService;
+import com.roomy.repository.BoardRepository;
+import com.roomy.service.BoardService;
+import com.roomy.service.GenericService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
-@Service
-public class GalleryServiceImpl implements GalleryService {
+@Service("galleryService")
+public class GalleryServiceImpl implements BoardService {
 
-    private final GalleryRepository galleryRepository;
+    private final BoardRepository galleryRepository;
 
-    public GalleryServiceImpl(GalleryRepository galleryRepository) {
+    public GalleryServiceImpl(BoardRepository galleryRepository) {
         this.galleryRepository = galleryRepository;
     }
 

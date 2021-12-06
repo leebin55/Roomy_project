@@ -1,9 +1,7 @@
 package com.roomy.controller;
 
 import com.roomy.model.BoardVO;
-import com.roomy.model.GuestVO;
 import com.roomy.service.BoardService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/room/board")
 public class BoardController {
 
     @Qualifier("boardService")
     private final BoardService boardService;
+
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping({"/",""})
     public List<BoardVO> list() {

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface GalleryRepository extends JpaRepository<BoardVO,Long> {
+public interface BoardRepository extends JpaRepository<BoardVO,Long> {
 
 }
