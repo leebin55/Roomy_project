@@ -1,5 +1,6 @@
 package com.roomy.service.impl;
 
+import com.roomy.repository.FileRepository;
 import com.roomy.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,13 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class FileServiceImpl implements FileService {
+
+
+    private final FileRepository fileRepository;
+
+    public FileServiceImpl(FileRepository fileRepository) {
+        this.fileRepository = fileRepository;
+    }
 
     //application.yml 파일에서 file.upload-dir: /uploads 를 가져오기
     @Value("${file.upload-dir}")
@@ -68,6 +76,11 @@ public class FileServiceImpl implements FileService {
     public List<String> uploadMultiFiles(MultipartHttpServletRequest files) {
 
         return null;
+    }
+
+    public void insert (List<String> imgURL){
+        //fileRepository.saveAll(List<imgURL>);
+
     }
 
     @Override

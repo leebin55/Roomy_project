@@ -26,6 +26,8 @@ public class LikeServiceImpl implements LikeService {
 
     }
 
+
+    // board seq  와 userSeq 로 체크를눌렀는지 확인
     @Override
     public Boolean likeCheck(LikeVO likeVO) {
         Long board_seq = likeVO.getBoardSeq();
@@ -35,7 +37,6 @@ public class LikeServiceImpl implements LikeService {
         log.debug("exists: {}", checkExist);
 //        if (checkExist == false) {
 
-//
 //        } else {
 //            long like_seq = findByUserSeqAndBoardSeq(board_seq, user_seq);
 //            delete(like_seq);
@@ -87,8 +88,6 @@ public class LikeServiceImpl implements LikeService {
         return countLike;
 
     }
-
-
 
 
 

@@ -48,9 +48,10 @@ public class GalleryController {
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
     @PostMapping("/write")
-    public String write( @RequestBody  BoardVO boardVO ) {//}, String imgURL){
+    public String write( @RequestBody  BoardVO boardVO ) {
         log.debug("controller_boardVO : {}",boardVO.toString());
         log.debug("img file {} :",boardVO.getImgURL());
+        List<String> imgURL = boardVO.getImgURL();
         galleryService.insert(boardVO);
         return "ok";
 
@@ -78,12 +79,20 @@ public class GalleryController {
 
     }
 
-    //좋아요 클릭
+    //좋아요 클릭 할때 실행되는 method
     @PostMapping("/like")
     public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
         int likeNum = likeService.insertOrDelete(likeVO);
         return likeNum;
+    }
+
+
+    @PutMapping("/beforeCheck")
+    // gallery 리스트가 뜰때 좋아요를 이전에 눌렀는지 처음 한번만 확인하는 method
+    public Boolean beforeLikeCheck(@RequestBody LikeVO likeVO){
+        return likeService.likeCheck(likeVO);
+
     }
 
 
