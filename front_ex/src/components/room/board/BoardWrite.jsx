@@ -6,12 +6,17 @@ import "../../../css/Board.css";
 
 function BoardWrite() {
   const navigate = useNavigate();
+  const [select, setSelect] = useState("0");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const boardTitle = useRef();
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
+  };
+
+  const selectHandler = (e) => {
+    setSelect(e.target.value);
   };
 
   const writeSubmit = async () => {
@@ -29,6 +34,7 @@ function BoardWrite() {
       body: JSON.stringify({
         boardTitle: title,
         boardContent: content,
+        boardPrivate: select,
         boardCode: 2,
       }),
     }).then((res) => {
@@ -40,13 +46,24 @@ function BoardWrite() {
 
   return (
     <div className="board-write-container">
-      <input
-        className="board-write-title"
-        ref={boardTitle}
-        placeholder="제목을 입력하세요"
-        value={title}
-        onChange={onChangeTitle}
-      />
+      <div className="board-write-header">
+        <select
+          className="board-write-select"
+          onChange={selectHandler}
+          value={select}
+        >
+          <option value="0">전체공개</option>
+          <option value="2">친구공개</option>
+          <option value="1">비공개</option>
+        </select>
+        <input
+          className="board-write-title"
+          ref={boardTitle}
+          placeholder="제목을 입력하세요"
+          value={title}
+          onChange={onChangeTitle}
+        />
+      </div>
       <div className="board-write-content">
         <QuillToolbar toolbarId={"qb"} />
         <QuillEditor

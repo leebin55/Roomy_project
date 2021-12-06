@@ -9,7 +9,7 @@ function BoardList() {
   const fetchList = async () => {
     const res = await fetch("http://localhost:8080/room/board");
     const list = await res.json();
-    setBoard_list(list);
+    setBoard_list(list.reverse());
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function BoardList() {
           </tr>
         </thead>
         <tbody>
-          {boardList.length > 0 ? (
+          {board_list.length > 0 ? (
             boardList
           ) : (
             <td colSpan="5">아직 게시물이 없습니다</td>

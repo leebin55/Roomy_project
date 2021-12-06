@@ -1,10 +1,10 @@
 package com.roomy.service.impl;
 
 import com.roomy.model.BoardVO;
+import com.roomy.repository.BoardRepository;
 import com.roomy.service.BoardService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -12,10 +12,16 @@ import java.util.List;
 @Service("boardService")
 public class BoardServiceImplV1 implements BoardService {
 
+    private final BoardRepository boardRepository;
+
+    public BoardServiceImplV1(BoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
+    }
 
     @Override
     public List<BoardVO> selectAll() {
-        return null;
+        List<BoardVO> list = boardRepository.findAllByBoardCode(2);
+        return list;
     }
 
     @Override
@@ -31,8 +37,9 @@ public class BoardServiceImplV1 implements BoardService {
         boardVO.setBoardUserSeq(1L);
         boardVO.setBoardCreateAt(dateTime);
         boardVO.setBoardUpdateAt(dateTime);
+//        덜씀
 
-
+        boardRepository.save(boardVO);
     }
 
     @Override

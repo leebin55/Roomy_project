@@ -45,14 +45,24 @@
 
 /* -------------------- BoardWrite --------------------*/
 
-.board-write-container {
+.board-write-header {
+  display: flex;
+  width: 90%;
+  height: 30px;
+  margin: 20px auto;
+}
+
+.board-write-select {
+  width: 15%;
+  height: 100%;
+  margin-right: 20px;
+  outline: none;
 }
 
 .board-write-title {
-  width: 80%;
-  height: 30px;
-  margin: 20px auto;
-  padding: 7px;
+  width: 85%;
+  height: 100%;
+  padding: 10px;
   outline: none;
   border: 1px solid gray;
 }
