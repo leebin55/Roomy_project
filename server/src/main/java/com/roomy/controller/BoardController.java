@@ -33,4 +33,12 @@ public class BoardController {
         log.debug(boardVO.toString());
         boardService.insert(boardVO);
     }
+
+    @GetMapping(value={"/{seq}"})
+    public BoardVO detail(@PathVariable String seq) {
+        log.debug("board detail 컨트롤러 실행 {}",seq);
+        Long board_seq = Long.valueOf(seq);
+        BoardVO boardVO = boardService.findById(board_seq);
+        return boardVO;
+    }
 }

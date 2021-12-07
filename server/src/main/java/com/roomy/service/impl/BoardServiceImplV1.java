@@ -3,12 +3,14 @@ package com.roomy.service.impl;
 import com.roomy.model.BoardVO;
 import com.roomy.repository.BoardRepository;
 import com.roomy.service.BoardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Slf4j
 @Service("boardService")
 public class BoardServiceImplV1 implements BoardService {
 
@@ -25,8 +27,10 @@ public class BoardServiceImplV1 implements BoardService {
     }
 
     @Override
-    public BoardVO findById(Long aLong) {
-        return null;
+    public BoardVO findById(Long board_seq) {
+        BoardVO boardVO = boardRepository.findById(board_seq).orElse(null);
+        log.debug("왜 안되니", boardVO.toString());
+        return boardVO;
     }
 
     @Override

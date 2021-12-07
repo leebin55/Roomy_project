@@ -21,7 +21,12 @@ function BoardList() {
     return (
       <tr>
         <td>{item.boardSeq}</td>
-        <td>{item.boardTitle}</td>
+        <td
+          className="board-list-title"
+          onClick={() => navigate(`/room/board/${item.boardSeq}`)}
+        >
+          {item.boardTitle}
+        </td>
         <td>{date[0]}</td>
         <td>{item.boardHit}</td>
         <td>{item.boardLike}</td>
@@ -34,8 +39,8 @@ function BoardList() {
       <table>
         <thead>
           <tr>
-            <th width="5%"></th>
-            <th width="60%">제목</th>
+            <th width="10%"></th>
+            <th width="55%">제목</th>
             <th width="15%">작성일</th>
             <th width="10%">조회</th>
             <th width="10%">좋아요</th>
