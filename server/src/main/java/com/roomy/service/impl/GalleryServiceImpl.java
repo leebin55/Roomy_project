@@ -8,6 +8,7 @@ import com.roomy.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class GalleryServiceImpl implements BoardService {
 
     @Override
     public List<BoardVO> selectAll() {
-        List<BoardVO> boardList=galleryRepository.findAll();
+        List<BoardVO> boardList=galleryRepository.findAllByBoardCode(1);
         log.debug("selectAll(): {}",boardList.toString());
         return boardList;
     }
@@ -60,9 +61,30 @@ public class GalleryServiceImpl implements BoardService {
 
     @Override
     public void update(BoardVO boardVO) {
+
         galleryRepository.save(boardVO);
+        Long board_seq =boardVO.getBoardSeq();
+
     }
 
+    // insert와 update 할때 tbl_board먼저 insert나 update한 후
+    // seq 를 가져와 tbl_board_image 에 insert나 save
+//    public List<BoardImageVO> forIMGs(BoardVO boardVO){
+//        List<BoardImageVO> imageVOList = new ArrayList<>();
+//        Long board_seq = boardVO.getBoardSeq();
+//        List<String> imgURLs = boardVO.getImgURL();
+//        // imageURL 개수만큼 반복
+//        for(String image:imgURLs){
+//            //BoardImageVO 객체 생성
+//            BoardImageVO imageVO = new BoardImageVO();
+//            // VO 에  imageurl 과 boardseq set
+//            imageVO.setImgUrl(image);
+//            imageVO.setImgBoardSeq(board_seq);
+//            imageVOList.add(imageVO);
+//         }
+//        return imageVOList;
+//
+//    }
     @Override
     public void delete(Long board_seq) {
         galleryRepository.deleteById(board_seq);

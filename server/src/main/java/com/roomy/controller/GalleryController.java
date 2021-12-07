@@ -49,12 +49,13 @@ public class GalleryController {
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
     @PostMapping("/write")
-    public String write( @RequestBody  BoardVO boardVO ) {
+    public String write( @ModelAttribute  BoardVO boardVO ) {
         log.debug("controller_boardVO : {}",boardVO.toString());
         galleryService.insert(boardVO);
         return "ok";
 
     }
+
     // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔줌
     @PutMapping("/img")
     public String img(@RequestParam("img") MultipartFile img){
@@ -65,10 +66,10 @@ public class GalleryController {
     }
 
     // 갤러리 게시글 수정
-    @PostMapping("/update")
-    public String update(BoardVO boardVO){
-        galleryService.update(boardVO);
-        return "ok";
+    @PutMapping("/update")
+    public void update(BoardVO boardVO){
+        galleryService.insert(boardVO);
+
     }
 
     //삭제
