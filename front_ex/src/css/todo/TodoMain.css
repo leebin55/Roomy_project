@@ -1,3 +1,6 @@
+.mainContainer {
+	width: 95%;
+}
 .headerContainer {
 	background-color: rgba(25,52,152,0.9);
 	color: #69DADB;

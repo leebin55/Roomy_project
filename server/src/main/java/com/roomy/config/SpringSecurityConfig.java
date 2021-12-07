@@ -1,5 +1,10 @@
 package com.roomy.config;
 
+import com.roomy.config.jwt.JwtAuthenticationFilter;
+import com.roomy.config.jwt.JwtAuthentizationFilter;
+import com.roomy.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,37 +13,38 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.filter.CorsFilter;
 
+import javax.servlet.http.HttpSession;
+
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("zzang").password(passwordEncoder().encode("test123")).authorities("USER", "ADMIN");
-//    }
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
+    private final UserRepository userRepository;
+    private final CorsFilter corsFilter;
+    private final HttpSession hSession;
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                // 우선 모든 url 에 대해 permit 해줌
-                authorizeRequests()
-                .antMatchers("/*").permitAll()
+        http.addFilter(corsFilter)
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                // post 방식을 사용할 때 403오류 방지하기 위해서 추가
-                .csrf().disable();
-        //http.authorizeRequests().anyRequest().permitAll();
-//        http.authorizeRequests().anyRequest().authenticated();
-//        http.formLogin();
-//        http.httpBasic();
+                .formLogin().disable()
+                .httpBasic().disable()
+                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthentizationFilter(authenticationManager(), userRepository, hSession))
+                .authorizeRequests()
+                .antMatchers("/room/**")
+                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/admin/**")
+                .access("hasRole('ROLE_ADMIN')")
+                .anyRequest().permitAll();
     }
 }
