@@ -5,14 +5,13 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
-@Getter
-@ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Entity
 @Table(name ="tbl_user" , schema = "roomyDB")
-public class UserVO {
+@Data
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //회원번호
@@ -23,8 +22,6 @@ public class UserVO {
     private String userPassword;
     // 이메일
     private String userEmail;
-    // 회원 등급
-    private int userRank;
     // 성별
     private int userGender;
     // 생년월일
@@ -34,5 +31,7 @@ public class UserVO {
     private String userprofile;
     // 회원 이름
     private String userName;
+
+    private String role;
 
 }

@@ -14,21 +14,21 @@ VALUES( 2,'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c');
 
 
 /** User Data*/
-INSERT INTO tbl_user(user_id,user_password, user_email, user_name,
-                     user_rank, user_gender)
-                     VALUES(
-                            'yub','1234','yub@gmail.com','이유빈',
-                            0,1
-                           );
-INSERT INTO tbl_user(user_id,user_password, user_email, user_name,
-                                              user_rank, user_gender)
-        VALUES(
-        'csy','1234','CSY@gmail.com','최선영',
-        1,1
-     );
-INSERT INTO tbl_user(user_id,user_password, user_email, user_name,
-                     user_rank, user_gender)
-VALUES(
-    'lsm','1234','sungmin@gmail.com','이성민',
-    1,0
-    );
+-- INSERT INTO tbl_user(user_id,user_password, user_email, user_name,
+--                      user_rank, user_gender)
+--                      VALUES(
+--                             'yub','1234','yub@gmail.com','이유빈',
+--                             0,1
+--                            );
+-- INSERT INTO tbl_user(user_id,user_password, user_email, user_name,
+--                                               user_rank, user_gender)
+--         VALUES(
+--         'csy','1234','CSY@gmail.com','최선영',
+--         1,1
+--      );
+-- INSERT INTO tbl_user(user_id,user_password, user_email, user_name,
+--                      user_rank, user_gender)
+-- VALUES(
+--     'lsm','1234','sungmin@gmail.com','이성민',
+--     1,0
+--     );

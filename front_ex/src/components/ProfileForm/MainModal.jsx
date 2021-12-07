@@ -11,7 +11,7 @@ function MainModal() {
     useLoginContext();
 
   return (
-    <div className="mainContainer">
+    <div className="modalContainer">
       {login && (
         <>
           <div className="modalHeader">
