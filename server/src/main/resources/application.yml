@@ -57,8 +57,8 @@ logging:
     multipart:
       enabled: true
       file-size: 2KB
-      max-file-size: 50MB
-      max-request-size: 50MB
+      max-file-size: 5MB
+      max-request-size: 5MB
 file.upload-dir: c:/bizwork/uploads
 real-path: file:///c:/bizwork/uploads/
 upload-path: /uploads/**

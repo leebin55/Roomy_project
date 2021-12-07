@@ -1,9 +1,10 @@
 package com.roomy.service.impl;
 
+import com.roomy.model.BoardImageVO;
 import com.roomy.model.BoardVO;
 import com.roomy.repository.BoardRepository;
+import com.roomy.repository.FileRepository;
 import com.roomy.service.BoardService;
-import com.roomy.service.GenericService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,11 @@ import java.util.List;
 public class GalleryServiceImpl implements BoardService {
 
     private final BoardRepository galleryRepository;
+    private final FileRepository fileRepository;
 
-    public GalleryServiceImpl(BoardRepository galleryRepository) {
+    public GalleryServiceImpl(BoardRepository galleryRepository, FileRepository fileRepository) {
         this.galleryRepository = galleryRepository;
+        this.fileRepository = fileRepository;
     }
 
     @Override
@@ -35,9 +38,25 @@ public class GalleryServiceImpl implements BoardService {
 
     @Override
     public void insert(BoardVO boardVO) {
-
+        // 먼저 boardVO  insert
         galleryRepository.save(boardVO);
+        // insert 한후  boardVO 에서  boardSeq 가져오기
+        Long board_seq = boardVO.getBoardSeq();
+        // boardVO 에서 imgURL get
+        List<String> imgURLs = boardVO.getImgURL();
+        // imageURL 개수만큼 반복
+        for(String image:imgURLs){
+            //BoardImageVO 객체 생성
+            BoardImageVO imageVO = new BoardImageVO();
+            // VO 에  imageurl 과 boardseq set
+            imageVO.setImgUrl(image);
+            imageVO.setImgBoardSeq(board_seq);
+            // insert
+            fileRepository.save(imageVO);
+        }
+
     }
+
 
     @Override
     public void update(BoardVO boardVO) {

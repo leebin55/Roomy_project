@@ -17,6 +17,19 @@ function GallerySingle({ gallery, index }) {
     setLikeNum(gallery.boardLike);
   }, []);
 
+  /*
+  // 유저가 이전에 하트를 눌렀는지 확인하고 보여줌
+//   const beforeCheckHeart = async () => {
+//     await axios
+//       .put('http://localhost:8080/room/gallery/beforeCheck', {
+//         userSeq: gallery.boardUserSeq,
+//         boardSeq: gallery.boardSeq,
+//       })
+//       .then((res) => {
+//         console.log(res.data);
+//       });
+//   };
+*/
   //   const countLike = async () => {
   //     try {
   //       axios.get(
@@ -48,6 +61,7 @@ function GallerySingle({ gallery, index }) {
       throw error;
     }
   };
+  // 사진을 클릭했을 때
   const clickImg = (event) => {
     navigate(`/room/gallery/${event.target.alt}`);
   };

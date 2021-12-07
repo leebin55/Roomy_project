@@ -32,8 +32,9 @@ public class GalleryController {
     @GetMapping({"/",""})
     public List<BoardVO> list(){
         List<BoardVO> boardList = galleryService.selectAll();
+        List<BoardVO> boardImgList= fileService.selectAllWithImage(boardList);
         log.debug("select all : {}",boardList.toString());
-        return boardList;
+        return boardImgList;
     }
 
     // 게시물 번호(seq)로 찾아 해당 게시물 return
@@ -48,15 +49,14 @@ public class GalleryController {
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
     @PostMapping("/write")
-    public String write( @RequestBody  BoardVO boardVO ) {//}, String imgURL){
+    public String write( @RequestBody  BoardVO boardVO ) {
         log.debug("controller_boardVO : {}",boardVO.toString());
-        log.debug("img file {} :",boardVO.getImgURL());
         galleryService.insert(boardVO);
         return "ok";
 
     }
     // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔줌
-    @PostMapping("/img")
+    @PutMapping("/img")
     public String img(@RequestParam("img") MultipartFile img){
       log.debug("받아온 파일 이름 {}",img.getOriginalFilename());
       String newFileName = fileService.uploadFile(img);
@@ -78,12 +78,20 @@ public class GalleryController {
 
     }
 
-    //좋아요 클릭
+    //좋아요 클릭 할때 실행되는 method
     @PostMapping("/like")
     public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
         int likeNum = likeService.insertOrDelete(likeVO);
         return likeNum;
+    }
+
+
+    @PutMapping("/beforeCheck")
+    // gallery 리스트가 뜰때 좋아요를 이전에 눌렀는지 처음 한번만 확인하는 method
+    public Boolean beforeLikeCheck(@RequestBody LikeVO likeVO){
+        return likeService.likeCheck(likeVO);
+
     }
 
 
