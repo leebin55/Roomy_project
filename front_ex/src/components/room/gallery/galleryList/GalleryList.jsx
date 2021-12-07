@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import GallerySingle from './GallerySingle';
 import ImageList from '@mui/material/ImageList';
+import GalleryDetail from '../GalleryDetail';
 
 function GalleryList() {
   const [galleryList, setGalleryList] = useState([]);
@@ -25,11 +26,13 @@ function GalleryList() {
   }; // end viewGalleryList;
 
   return (
-    <ImageList sx={{ width: 650, height: 450 }}>
-      {galleryList.map((gallery, index) => {
-        return <GallerySingle gallery={gallery} index={index} />;
-      })}
-    </ImageList>
+    <>
+      <ImageList sx={{ width: 650, height: 450 }}>
+        {galleryList.map((gallery, index) => {
+          return <GallerySingle gallery={gallery} index={index} />;
+        })}
+      </ImageList>
+    </>
   );
 }
 

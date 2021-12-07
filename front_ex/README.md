@@ -6,3 +6,4 @@
 - yarn add axois
 - yarn add moment
 - text-editor : yarn add quill
+- yarn add query-string

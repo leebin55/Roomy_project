@@ -12,6 +12,21 @@ const GalleryContextProvider = ({ children }) => {
   const [title, setTitle] = useState('');
   const [galleryImg, setGalleryImg] = useState('');
 
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [isDetail, setIsDetail] = useState([false]);
+  const [galleryList, setGalleryList] = useState([]);
+  const [galleryInfo, setGalleryInfo] = useState({
+    boardCode: '',
+    boardContent: '',
+    boardCreateAt: '',
+    boardLike: '',
+    boardPrivate: '',
+    boardSeq: '',
+    boardTitle: '',
+    boardUpdateAt: '',
+    boardUserSeq: '',
+  });
+
   const propsData = {
     content,
     setContent,
@@ -19,6 +34,14 @@ const GalleryContextProvider = ({ children }) => {
     setTitle,
     galleryImg,
     setGalleryImg,
+    isUpdate,
+    setIsUpdate,
+    galleryInfo,
+    setGalleryInfo,
+    isDetail,
+    setIsDetail,
+    galleryList,
+    setGalleryList,
   };
 
   return (
