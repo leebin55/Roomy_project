@@ -17,11 +17,12 @@ function BoardList() {
   }, []);
 
   const boardList = board_list.map((item) => {
+    const date = item.boardCreateAt.split(" ");
     return (
       <tr>
         <td>{item.boardSeq}</td>
         <td>{item.boardTitle}</td>
-        <td>{item.boardCreateAt}</td>
+        <td>{date[0]}</td>
         <td>{item.boardHit}</td>
         <td>{item.boardLike}</td>
       </tr>
