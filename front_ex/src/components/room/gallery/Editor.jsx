@@ -58,14 +58,19 @@ function Editor(props) {
     //img_input 에 변화가 생길때
     img_input.addEventListener('change', async () => {
       const file = img_input.files[0];
-      console.log(file);
+
+      if (file.size > 5242880) {
+        alert('파일용량을 초과하였습니다.');
+        return;
+      }
+      // console.log(file.size);
       // 이미지는  FormData 객체에 담아야됨
       const formData = new FormData();
       // FormData 는  key - value구조로 되어있음
       formData.append('img', file);
       try {
         await axios
-          .post('http://localhost:8080/room/gallery/img', formData)
+          .put('http://localhost:8080/room/gallery/img', formData)
           .then((result) => {
             // server에서 이미지 url 받아오기 (또는 여기서 url로 바꿔서 server 에 넘겨준다)
             console.log(result.data);

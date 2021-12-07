@@ -32,8 +32,9 @@ public class GalleryController {
     @GetMapping({"/",""})
     public List<BoardVO> list(){
         List<BoardVO> boardList = galleryService.selectAll();
+        List<BoardVO> boardImgList= fileService.selectAllWithImage(boardList);
         log.debug("select all : {}",boardList.toString());
-        return boardList;
+        return boardImgList;
     }
 
     // 게시물 번호(seq)로 찾아 해당 게시물 return
@@ -50,14 +51,12 @@ public class GalleryController {
     @PostMapping("/write")
     public String write( @RequestBody  BoardVO boardVO ) {
         log.debug("controller_boardVO : {}",boardVO.toString());
-        log.debug("img file {} :",boardVO.getImgURL());
-        List<String> imgURL = boardVO.getImgURL();
         galleryService.insert(boardVO);
         return "ok";
 
     }
     // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔줌
-    @PostMapping("/img")
+    @PutMapping("/img")
     public String img(@RequestParam("img") MultipartFile img){
       log.debug("받아온 파일 이름 {}",img.getOriginalFilename());
       String newFileName = fileService.uploadFile(img);

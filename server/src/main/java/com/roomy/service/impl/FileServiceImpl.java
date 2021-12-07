@@ -1,5 +1,7 @@
 package com.roomy.service.impl;
 
+import com.roomy.model.BoardImageVO;
+import com.roomy.model.BoardVO;
 import com.roomy.repository.FileRepository;
 import com.roomy.service.FileService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,9 +82,30 @@ public class FileServiceImpl implements FileService {
         return null;
     }
 
-    public void insert (List<String> imgURL){
-        //fileRepository.saveAll(List<imgURL>);
-
+    public void insertImages (List<String> imgURLs,Long board_seq){
+        for(String image:imgURLs){
+            BoardImageVO imageVO = new BoardImageVO();
+            imageVO.setImgUrl(image);
+            imageVO.setImgBoardSeq(board_seq);
+            fileRepository.save(imageVO);
+        }
+    }
+    @Override
+    public List<BoardVO> selectAllWithImage(List<BoardVO> boardList){
+        // 새로운 리스트를 생성 => tbl_board 에는 이미지에 관한 정보가 없기 때문에
+        List<BoardVO> boardWithImgList = new ArrayList<>();
+        for(BoardVO board:boardList){
+            // board_seq 를 뽑아와서
+            Long board_seq =board.getBoardSeq();
+            // 해당 개시물에 있는 image 를 tbl_board_image 테이블에서 imgURL들을 받아온다
+            List<String>imgURL=fileRepository.findByImgBoardSeq(board_seq);
+            // 이미지는 하나만 보여줄 거기 때문에 맨 처음 하나만  board 객체에 담음
+            board.setImgURL(Collections.singletonList(imgURL.get(0)));
+            // 리스트에 넣어줌
+            boardWithImgList.add(board);
+        }
+        //새로만든 리스트 리턴
+        return boardWithImgList;
     }
 
     @Override
