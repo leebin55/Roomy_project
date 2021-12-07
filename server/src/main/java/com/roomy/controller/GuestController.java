@@ -35,7 +35,7 @@ public class GuestController {
     }
 
     @PutMapping(value="/{guest_seq}")
-    public void update(@PathVariable  Long guest_seq, @RequestBody GuestVO vo) {
+    public void update(@PathVariable Long guest_seq, @RequestBody GuestVO vo) {
         log.debug("update 컨트롤러 실행");
         GuestVO guestVO = guestService.findById(guest_seq);
         guestVO.setGuest_content(vo.getGuest_content());

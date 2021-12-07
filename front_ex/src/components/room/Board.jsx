@@ -8,7 +8,7 @@ function Board() {
   return (
     <Routes>
       <Route path="/" element={<BoardList />} />
-      <Route path=":id" element={<BoardDetail />} />
+      <Route path=":board_seq" element={<BoardDetail />} />
       <Route path="write" element={<BoardWrite />} />
     </Routes>
   );
