@@ -39,7 +39,11 @@ const formats = [
 /////////////////////////////////////////////////////////////////////////
 
 function Editor(props) {
+	if(props.boardState==='update'){
+		
+	}
   const { content, setContent, setGalleryImg } = useGalleryContext();
+
   const quillRef = useRef();
   //useMemo 를 사용하여  modules 를 만들지 않느면
   // 랜더링 할때마다 modules 가 다시생성
@@ -59,7 +63,7 @@ function Editor(props) {
     img_input.addEventListener('change', async () => {
       const file = img_input.files[0];
 
-      if (file.size > 5242880) {
+      if (file.size > 2097152) {
         alert('파일용량을 초과하였습니다.');
         return;
       }
@@ -84,6 +88,7 @@ function Editor(props) {
             editor.insertEmbed(range, 'image', img_url);
           });
       } catch (error) {
+        alert('다시 시도해 주세요');
         throw error;
       }
     });

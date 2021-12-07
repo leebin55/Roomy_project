@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
-import GalleryUpdate from './GalleryUpdate';
+import '../../../css/gallery/GalleryDetail.css';
 
 function GalleryDetail() {
   const navigate = useNavigate();
-  const [isUpdate, setIsUpdate] = useState(false);
-
   //http://localhost:3000/room/gallery/2 에 board_seq 값 가져오기
   const { board_seq } = useParams();
-  const [galleryDetail, setGalleryDetail] = useState({
+  const [galleryInfo, setGalleryInfo] = useState({
     boardCode: '',
     boardContent: '',
     boardCreateAt: '',
@@ -24,26 +22,28 @@ function GalleryDetail() {
   });
 
   useEffect(() => {
-    viewGalleryDetail();
+    viewGalleryInfo();
   }, []);
 
-  const viewGalleryDetail = async () => {
+  const viewGalleryInfo = async () => {
     try {
+      // userParam
       await axios
         .get(`http://localhost:8080/room/gallery/detail?board_seq=${board_seq}`)
         .then((res) => {
           if (res.status === 200) {
             //console.log(res.data);
-            setGalleryDetail(res.data);
+            setGalleryInfo(res.data);
           }
         });
     } catch (error) {
+      alert('데이터를 불러올수 없음.');
       throw error;
     }
   };
 
   const updateClick = () => {
-    setIsUpdate(!isUpdate);
+    navigate(`/room/gallery?board_state=update&board_seq=${board_seq}`);
     // try {
     //   axios
     //     .get(
@@ -62,7 +62,7 @@ function GalleryDetail() {
       try {
         axios
           .get(
-            `http://localhost:8080/room/gallery/delete/${galleryDetail.boardSeq}`
+            `http://localhost:8080/room/gallery/delete/${galleryInfo.boardSeq}`
           )
           .then((res) => {
             if (res.status === 200) {
@@ -80,25 +80,22 @@ function GalleryDetail() {
 
   return (
     <div>
-      {!isUpdate ? (
-        <div>
-          <button onClick={updateClick}>수정</button>
-          <button onClick={deleteClick}>
-            <DeleteIcon /> 삭제
-          </button>
+      <div>
+        <button onClick={updateClick}>수정</button>
+        <button onClick={deleteClick}>
+          <DeleteIcon /> 삭제
+        </button>
 
-          <p>{galleryDetail.boardSeq}</p>
-          <p>{galleryDetail.boardTitle}</p>
-          <div
-            className="gallery-post-content"
-            dangerouslySetInnerHTML={{ __html: galleryDetail.boardContent }}
-          />
-          <p>{galleryDetail.boardCreateAt}</p>
-          <p>{galleryDetail.boardLike}</p>
-        </div>
-      ) : (
-        <GalleryUpdate gallery={galleryDetail} setGallery={setGalleryDetail} />
-      )}
+        <p>{galleryInfo.boardSeq}</p>
+        <p>{galleryInfo.boardTitle}</p>
+        <div
+          c
+          className="gallery-post-content"
+          dangerouslySetInnerHTML={{ __html: galleryInfo.boardContent }}
+        />
+        <p>{galleryInfo.boardCreateAt}</p>
+        <p>{galleryInfo.boardLike}</p>
+      </div>
     </div>
   );
 }

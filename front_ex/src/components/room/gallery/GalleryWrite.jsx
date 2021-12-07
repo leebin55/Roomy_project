@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Editor from './Editor';
 import { useGalleryContext } from '../../../context/GalleryContextProvider';
-
 import QuillToolbar from './QuillToolbar';
 
 function GalleryWrite({ isWrite, setIsWrite }) {
@@ -32,7 +31,6 @@ function GalleryWrite({ isWrite, setIsWrite }) {
           .then((res) => {
             if (res.data === 'ok') {
               alert('글 등록 완료');
-              console.log(galleryImg);
               setGalleryImg('');
               setIsWrite(!isWrite);
               setTitle('');
