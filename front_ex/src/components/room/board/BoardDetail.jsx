@@ -53,15 +53,19 @@ function BoardDetail() {
           </div>
           <div className="board-detail-head-box">
             <p className="board-detail-head-like">
+
               <FavoriteIcon className="heart" />
+
               {detail.boardLike}
             </p>
             <p className="board-detail-head-date">{detail.boardCreateAt}</p>
           </div>
+
           <div
             className="board-detail-content"
             dangerouslySetInnerHTML={{ __html: detail.boardContent }}
           />
+
 
           <div>
             <FavoriteBorderIcon />

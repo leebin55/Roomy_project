@@ -44,6 +44,7 @@ public class BoardVO {
     @ColumnDefault("0")
     private int boardHit=0;
 
-    @Transient
+    // table 생성시에 들어가지않는 데이터
+    @Transient 
     private List<String> imgURL;
 }
