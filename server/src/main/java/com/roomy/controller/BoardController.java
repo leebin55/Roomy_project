@@ -34,11 +34,26 @@ public class BoardController {
         boardService.insert(boardVO);
     }
 
-    @GetMapping(value={"/{seq}"})
-    public BoardVO detail(@PathVariable String seq) {
-        log.debug("board detail 컨트롤러 실행 {}",seq);
-        Long board_seq = Long.valueOf(seq);
+    @GetMapping(value={"/{board_seq}"})
+    public BoardVO detail(@PathVariable Long board_seq) {
+        log.debug("board detail 컨트롤러 실행 {}",board_seq);
+//        Long board_seq = Long.valueOf(seq);
         BoardVO boardVO = boardService.findById(board_seq);
         return boardVO;
+    }
+
+    @DeleteMapping(value="/{board_seq}")
+    public void delete(@PathVariable Long board_seq) {
+        log.debug("board delete 컨트롤러 실행");
+        boardService.delete(board_seq);
+    }
+
+    @GetMapping(value="/search")
+    public List<BoardVO> search(@RequestParam String query, @RequestParam String select) {
+        // select : select box 에서 제목, 제목+내용, 내용 중 뭘 선택했는지
+        // query : 검색어
+        log.debug("board search 컨트롤러 실행");
+        List<BoardVO> list = boardService.search(select,query);
+        return list;
     }
 }

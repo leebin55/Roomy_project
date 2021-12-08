@@ -22,14 +22,13 @@ public class BoardServiceImplV1 implements BoardService {
 
     @Override
     public List<BoardVO> selectAll() {
-        List<BoardVO> list = boardRepository.findAllByBoardCode(2);
+        List<BoardVO> list = boardRepository.findAllByBoardCodeOrderByBoardSeqDesc(2);
         return list;
     }
 
     @Override
     public BoardVO findById(Long board_seq) {
         BoardVO boardVO = boardRepository.findById(board_seq).orElse(null);
-        log.debug("왜 안되니", boardVO.toString());
         return boardVO;
     }
 
@@ -52,7 +51,21 @@ public class BoardServiceImplV1 implements BoardService {
     }
 
     @Override
-    public void delete(Long aLong) {
+    public void delete(Long board_seq) {
+        boardRepository.deleteById(board_seq);
+    }
 
+    @Override
+    public List<BoardVO> search(String select, String query) {
+        List<BoardVO> list = null;
+
+        if(select.equals("0")) { // 제목만 선택했으면
+            list = boardRepository.findByTitle(query);
+        } else if(select.equals("1")) { // 제목+내용 선택했으면
+            list = boardRepository.findByTitleAndContent(query);
+        } else if(select.equals("2")) { // 내용만 선택했으면
+            list = boardRepository.findByContent(query);
+        }
+        return list;
     }
 }

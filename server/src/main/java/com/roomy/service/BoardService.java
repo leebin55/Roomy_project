@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface BoardService extends GenericService<BoardVO, Long> {
 
+    public List<BoardVO> search(String select, String query);
+
 }

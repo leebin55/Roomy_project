@@ -3,6 +3,7 @@ package com.roomy.service.impl;
 import com.roomy.model.Todo;
 import com.roomy.repository.TodoRepository;
 import com.roomy.service.TodoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +12,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service("todoService")
 public class TodoServiceImplV1 implements TodoService {
 
-    @Autowired
-    private TodoRepository todoRepository;
+
+    private final TodoRepository todoRepository;
 
 
 //    @Override

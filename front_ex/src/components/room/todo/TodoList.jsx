@@ -9,7 +9,7 @@ function TodoList() {
     const id = e.target.dataset.id;
     console.log("success id:", id);
     if (window.confirm("정말 할일을 끝내셨나요?")) {
-      await Axios.put(`http://localhost:8080/todo/success/${id}`);
+      await Axios.put(`http://localhost:8080/room/todo/success/${id}`);
     }
     await getList();
   };
@@ -17,7 +17,7 @@ function TodoList() {
     const id = e.target.dataset.id;
     console.log("cancel id:", id);
     if (window.confirm("다시 하시겠습니까?")) {
-      await Axios.put(`http://localhost:8080/todo/cancel/${id}`);
+      await Axios.put(`http://localhost:8080/room/todo/cancel/${id}`);
     }
     await getList();
   };
@@ -25,7 +25,7 @@ function TodoList() {
     const id = e.target.dataset.id;
     console.log("importUpdated id:", id);
     if (window.confirm("정말 중요한 할일 인가요?")) {
-      await Axios.put(`http://localhost:8080/todo/important/${id}`);
+      await Axios.put(`http://localhost:8080/room/todo/important/${id}`);
     }
     await getList();
   };
@@ -33,14 +33,14 @@ function TodoList() {
     const id = e.target.dataset.id;
     console.log("normalUpdated id:", id);
     if (window.confirm("중요하지 않은 일인가요?")) {
-      await Axios.put(`http://localhost:8080/todo/normal/${id}`);
+      await Axios.put(`http://localhost:8080/room/todo/normal/${id}`);
     }
     await getList();
   };
   const onDeleteClick = async (e) => {
     const id = e.target.dataset.id;
     if (window.confirm("삭제하시겠습니까?")) {
-      await Axios.delete(`http://localhost:8080/todo/delete/${id}`);
+      await Axios.delete(`http://localhost:8080/room/todo/delete/${id}`);
     }
     await getList();
   };
