@@ -42,7 +42,7 @@ function GuestMain() {
   const fetchList = async () => {
     const response = await fetch("http://localhost:8080/room/guest");
     const data = await response.json();
-    setGuest_list(data.reverse());
+    setGuest_list(data);
   };
 
   return (

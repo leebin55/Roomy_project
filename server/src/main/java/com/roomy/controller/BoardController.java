@@ -34,11 +34,23 @@ public class BoardController {
         boardService.insert(boardVO);
     }
 
-    @GetMapping(value={"/{seq}"})
-    public BoardVO detail(@PathVariable String seq) {
-        log.debug("board detail 컨트롤러 실행 {}",seq);
-        Long board_seq = Long.valueOf(seq);
+    @GetMapping(value={"/{board_seq}"})
+    public BoardVO detail(@PathVariable Long board_seq) {
+        log.debug("board detail 컨트롤러 실행 {}",board_seq);
+//        Long board_seq = Long.valueOf(seq);
         BoardVO boardVO = boardService.findById(board_seq);
         return boardVO;
+    }
+
+    @DeleteMapping(value="/{board_seq}")
+    public void delete(@PathVariable Long board_seq) {
+        log.debug("board delete 컨트롤러 실행");
+        boardService.delete(board_seq);
+    }
+
+    @GetMapping(value="/search")
+    public List<BoardVO> search(@RequestParam String query) {
+        List<BoardVO> list = boardService.search(query);
+        return list;
     }
 }

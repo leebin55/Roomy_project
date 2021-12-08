@@ -92,5 +92,10 @@ public class GalleryServiceImpl implements BoardService {
     public void delete(Long board_seq) {
         galleryRepository.deleteById(board_seq);
     }
+
+    @Override
+    public List<BoardVO> search(String query) {
+        return null;
+    }
 }
 // 조회수 계속 증가 막기

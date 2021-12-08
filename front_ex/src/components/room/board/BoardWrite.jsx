@@ -1,10 +1,10 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 import QuillEditor from "./QuillEditor";
 import QuillToolbar from "./QuillToolbar";
 import { useNavigate } from "react-router-dom";
 import "../../../css/Board.css";
 
-function BoardWrite() {
+function BoardWrite({ upData }) {
   const navigate = useNavigate();
   const [select, setSelect] = useState("0");
   const [title, setTitle] = useState("");
@@ -43,6 +43,18 @@ function BoardWrite() {
       }
     });
   };
+
+  const updating = () => {
+    setTitle(upData.boardTitle);
+    setContent(upData.boardContent);
+    setSelect(upData.boardPrivate);
+  };
+
+  useEffect(() => {
+    if (upData) {
+      updating();
+    }
+  }, []);
 
   return (
     <div className="board-write-container">

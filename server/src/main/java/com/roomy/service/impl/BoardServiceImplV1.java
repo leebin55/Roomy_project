@@ -29,7 +29,6 @@ public class BoardServiceImplV1 implements BoardService {
     @Override
     public BoardVO findById(Long board_seq) {
         BoardVO boardVO = boardRepository.findById(board_seq).orElse(null);
-        log.debug("왜 안되니", boardVO.toString());
         return boardVO;
     }
 
@@ -52,7 +51,13 @@ public class BoardServiceImplV1 implements BoardService {
     }
 
     @Override
-    public void delete(Long aLong) {
+    public void delete(Long board_seq) {
+        boardRepository.deleteById(board_seq);
+    }
 
+    @Override
+    public List<BoardVO> search(String query) {
+        List<BoardVO> list = boardRepository.findByBoardTitleContaining(query);
+        return list;
     }
 }

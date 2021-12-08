@@ -19,4 +19,5 @@ public interface BoardRepository extends JpaRepository<BoardVO,Long> {
 
     List<BoardVO> findAllByBoardCodeOrderByBoardSeqDesc(int boardCode);
 
+
 }
