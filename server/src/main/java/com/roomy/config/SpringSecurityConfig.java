@@ -41,10 +41,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthentizationFilter(authenticationManager(), userRepository, hSession))
                 .authorizeRequests()
-                .antMatchers("/room/**")
-                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-                .antMatchers("/admin/**")
-                .access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/room/**")
+//                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+//                .antMatchers("/admin/**")
+//                .access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll();
     }
 }
