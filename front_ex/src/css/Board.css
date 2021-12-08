@@ -54,6 +54,7 @@
 
 .search-box select {
   height: 25px;
+  outline: none;
   border: 1px solid lightgray;
 }
 

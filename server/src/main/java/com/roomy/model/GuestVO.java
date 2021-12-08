@@ -19,28 +19,28 @@ import java.time.LocalDateTime;
 public class GuestVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long guest_seq;
+    private Long guestSeq;
 
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
-    private String guest_writer_name;
+    private String guestWriterName;
 
     @Column(columnDefinition = "VARCHAR(20)",nullable = false)
-    private String guest_create_at;
+    private String guestCreateAt;
 
     @Column(columnDefinition = "VARCHAR(20)",nullable = false)
-    private String guest_update_at;
+    private String guestUpdateAt;
 
     @Column(columnDefinition = "INT", nullable = false)
-    private Boolean guest_private;
+    private Boolean guestPrivate;
 
     @Column(columnDefinition = "VARCHAR(4000)", nullable = false)
-    private String guest_content;
+    private String guestContent;
 
     @Column(columnDefinition = "BIGINT", nullable = false)
-    private Long user_seq2;
+    private Long userSeq2;
 
     @Column(columnDefinition = "BIGINT", nullable = false)
-    private Long guest_writer_seq;
+    private Long guestWriterSeq;
 
 
 }

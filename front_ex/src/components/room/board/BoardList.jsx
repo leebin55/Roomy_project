@@ -24,12 +24,15 @@ function BoardList() {
     setSearch(e.target.value);
   };
 
-  const clickSearch = useCallback(async () => {
+  // 검색 버튼 클릭하면 실행
+  const fetchSearch = useCallback(async () => {
     const res = await fetch(
       `http://localhost:8080/room/board/search?query=${search}&select=${select}`
     );
     const result = await res.json();
     setBoard_list(result);
+    setSelect("0");
+    setSearch("");
   });
 
   useEffect(() => {
@@ -70,7 +73,7 @@ function BoardList() {
           {board_list.length > 0 ? (
             boardList
           ) : (
-            <td colSpan="5">아직 게시물이 없습니다</td>
+            <td colSpan="5">게시물이 없습니다</td>
           )}
         </tbody>
       </table>
@@ -84,7 +87,7 @@ function BoardList() {
           <option value="2">내용만</option>
         </select>
         <input value={search} onChange={searchText} />
-        <button onClick={() => clickSearch()}>검색</button>
+        <button onClick={() => fetchSearch()}>검색</button>
       </div>
     </div>
   );

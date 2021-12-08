@@ -22,12 +22,13 @@ public class GuestController {
 
     @GetMapping(value = {"/", ""})
     public List<GuestVO> list(@RequestParam(name = "limit",required = false,defaultValue = "0") Long limit) {
-        log.debug("list 컨트롤러 실행");
+        // 미니홈피 main 화면에서 방명록 최근 4개 보여주기 위해 이렇게 설정
+        log.debug("guest list 컨트롤러 실행");
         List<GuestVO> guestList = null;
         if(limit == 0) {
             guestList = guestService.selectAll();
         } else  {
-            // guestList = guestService.
+             guestList = guestService.mainList();
         }
         return guestList;
     }
@@ -39,22 +40,22 @@ public class GuestController {
         guestService.insert(guestVO);
     }
 
-    @PutMapping(value="/{guest_seq}")
-    public void update(@PathVariable Long guest_seq, @RequestBody GuestVO vo) {
+    @PutMapping(value="/{guestSeq}")
+    public void update(@PathVariable Long guestSeq, @RequestBody GuestVO vo) {
         log.debug("update 컨트롤러 실행");
-        GuestVO guestVO = guestService.findById(guest_seq);
-        guestVO.setGuest_content(vo.getGuest_content());
+        GuestVO guestVO = guestService.findById(guestSeq);
+        guestVO.setGuestContent(vo.getGuestContent());
 
         LocalDateTime localDateTime = LocalDateTime.now();
         String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        guestVO.setGuest_update_at(dateTime);
+        guestVO.setGuestUpdateAt(dateTime);
         guestService.update(guestVO);
     }
 
-    @DeleteMapping(value = "/{guest_seq}")
-    public void delete(@PathVariable Long guest_seq) {
-        log.debug("delete 컨트롤러 실행", guest_seq);
-        guestService.delete(guest_seq);
+    @DeleteMapping(value = "/{guestSeq}")
+    public void delete(@PathVariable Long guestSeq) {
+        log.debug("delete 컨트롤러 실행", guestSeq);
+        guestService.delete(guestSeq);
     }
 
 }

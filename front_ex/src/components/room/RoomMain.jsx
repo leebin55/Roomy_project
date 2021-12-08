@@ -8,7 +8,7 @@ function RoomMain() {
   const fetchGuest = async () => {
     const res = await fetch("http://localhost:8080/room/guest?limit=4");
     const data = await res.json();
-    setGuest_list(data.reverse());
+    setGuest_list(data);
   };
 
   const guestPrivate = () => {
@@ -30,13 +30,13 @@ function RoomMain() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        guest_content: content,
-        guest_private: pp,
+        guestContent: content,
+        guestPrivate: pp,
       }),
     });
     setPp(false);
     setContent("");
-    // fetchList();
+    fetchGuest();
   };
 
   useEffect(() => {
@@ -51,22 +51,18 @@ function RoomMain() {
       </section>
       <section className="main-bottom">
         <div className="main-guest">
-          <div className="main-guest-box">
-            <img src="/img/postit.png" />
-            <p>{guest_list.length > 0 ? "있다" : "어서오세용^^"}</p>
-          </div>
-          <div className="main-guest-box">
-            <img src="/img/postit.png" />
-            <p>하이하이</p>
-          </div>
-          <div className="main-guest-box">
-            <img src="/img/postit.png" />
-            <p>하이하이</p>
-          </div>
-          <div className="main-guest-box">
-            <img src="/img/postit.png" />
-            <p>하이하이</p>
-          </div>
+          {guest_list.length > 0 ? (
+            guest_list.map((item) => (
+              <div className="main-guest-box">
+                <img src="/img/postit.png" />
+                <p>{item.guestContent}</p>
+              </div>
+            ))
+          ) : (
+            <div className="main-guest-empty">
+              💬 첫번째 방명록을 남겨보세요 ! 💖
+            </div>
+          )}
         </div>
         <div className="guest-write">
           <div className="guest-write-private" onClick={() => guestPrivate()}>

@@ -136,18 +136,32 @@ section.room-main-nav {
 
 .main-guest {
   display: flex;
-  justify-content: center;
+  width: 90%;
+  margin: auto;
+  max-height: 180px;
+  justify-content: left;
   margin-bottom: 15px;
 }
 
 .main-guest-box {
+  display: flex;
   position: relative;
   width: 25%;
+  height: 180px;
+}
+
+.main-guest-empty {
+  display: flex;
+  width: 100%;
+  height: 180px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-bottom img {
   width: 160px;
-  height: 180px;
+  height: 100%;
   margin: 5px;
 }
 
