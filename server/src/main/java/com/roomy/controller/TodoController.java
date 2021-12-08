@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/todo")
+@RequestMapping(value="/room/todo")
 public class TodoController {
 
     @Autowired
