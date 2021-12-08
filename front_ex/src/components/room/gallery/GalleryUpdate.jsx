@@ -22,33 +22,23 @@ function GalleryUpdate({ boardSeq }) {
   } = useGalleryContext();
 
   const viewGalleryInfo = async () => {
-    if (title.trim() !== '' && content.trim() !== '' && galleryImg !== '') {
-      try {
-        await axios
-          .get(
-            `http://localhost:8080/room/gallery/detail?board_seq=${boardSeq}`
-          )
-          .then(async (res) => {
-            if (res.status === 200) {
-              //res.data 에서 안빼오고
-              //setGalleryInfo에 넣어서 galleryInfo.boardContent
-              // 로 값을 넣어주면 값이 제대로 들어가지 않음
-              // 순차적으로 코드가 실행되지 않는다
-              setContent(res.data.boardContent);
-              setTitle(res.data.boardTitle);
-              setGalleryInfo(res.data);
-            } // end if
-          }); // end then
-      } catch (error) {
-        alert('데이터를 불러올수 없음.');
-        throw error;
-      }
-    } else {
-      if (galleryImg === '') {
-        alert('사진을 등록해 주세요');
-        return;
-      }
-      alert('제목과 내용은 입력해야 합니다.');
+    try {
+      await axios
+        .get(`http://localhost:8080/room/gallery/detail?board_seq=${boardSeq}`)
+        .then(async (res) => {
+          if (res.status === 200) {
+            //res.data 에서 안빼오고
+            //setGalleryInfo에 넣어서 galleryInfo.boardContent
+            // 로 값을 넣어주면 값이 제대로 들어가지 않음
+            // 순차적으로 코드가 실행되지 않는다
+            setContent(res.data.boardContent);
+            setTitle(res.data.boardTitle);
+            setGalleryInfo(res.data);
+          } // end if
+        }); // end then
+    } catch (error) {
+      alert('데이터를 불러올수 없음.');
+      throw error;
     }
   };
 

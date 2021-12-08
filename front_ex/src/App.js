@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import News from './pages/News';
 import Game from './pages/Game';
-import Feeds from './components/Feeds';
+import Feeds from './components/Feed/Feeds';
 import {
   RoomMain,
   Board,
@@ -13,7 +13,7 @@ import {
   Setting,
 } from './components/room/RoomComps';
 import Room from './pages/Room';
-import GalleryWrite from './components/room/gallery/GalleryWrite';
+
 import GalleryDetail from './components/room/gallery/GalleryDetail';
 
 function App() {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import '../../../css/gallery/GalleryDetail.css';
 
@@ -81,15 +80,15 @@ function GalleryDetail() {
   return (
     <div>
       <div>
-        <button onClick={updateClick}>수정</button>
-        <button onClick={deleteClick}>
-          <DeleteIcon /> 삭제
-        </button>
-
-        <p>{galleryInfo.boardSeq}</p>
-        <p>{galleryInfo.boardTitle}</p>
+        <div className="gallery-detail-header">
+          <p>{galleryInfo.boardSeq}</p>
+          <h3>{galleryInfo.boardTitle}</h3>
+          <button className="gallery-btn-modify" onClick={updateClick}>
+            수정
+          </button>
+          <button onClick={deleteClick}>삭제</button>
+        </div>
         <div
-          c
           className="gallery-post-content"
           dangerouslySetInnerHTML={{ __html: galleryInfo.boardContent }}
         />

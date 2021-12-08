@@ -1,4 +1,20 @@
+.gallery-detail-header {
+  display: flex;
+  height: 40px;
+}
+.gallery-detail-header button {
+  margin-right: 20px;
+  padding: 10px;
+}
+button.gallery-btn-modify {
+  margin-left: auto;
+}
+div.gallery-post-content {
+  height: 400px;
+  overflow: auto;
+}
+
 div.gallery-post-content img {
-  width: 300px;
+  width: 400px;
   height: 300px;
 }
