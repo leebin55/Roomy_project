@@ -25,7 +25,7 @@ public class GalleryServiceImpl implements BoardService {
 
     @Override
     public List<BoardVO> selectAll() {
-        List<BoardVO> boardList=galleryRepository.findAllByBoardCode(1);
+        List<BoardVO> boardList=galleryRepository.findAllByBoardCodeOrderByBoardSeqDesc(1);
         log.debug("selectAll(): {}",boardList.toString());
         return boardList;
     }
@@ -45,15 +45,18 @@ public class GalleryServiceImpl implements BoardService {
         Long board_seq = boardVO.getBoardSeq();
         // boardVO 에서 imgURL get
         List<String> imgURLs = boardVO.getImgURL();
-        // imageURL 개수만큼 반복
-        for(String image:imgURLs){
-            //BoardImageVO 객체 생성
-            BoardImageVO imageVO = new BoardImageVO();
-            // VO 에  imageurl 과 boardseq set
-            imageVO.setImgUrl(image);
-            imageVO.setImgBoardSeq(board_seq);
-            // insert
-            fileRepository.save(imageVO);
+        if(imgURLs != null){
+            log.debug(">>> ",imgURLs.toString());
+            //   imageURL 개수만큼 반복
+            for(String image:imgURLs){
+                //BoardImageVO 객체 생성
+                BoardImageVO imageVO = new BoardImageVO();
+                // VO 에  imageurl 과 boardseq set
+                imageVO.setImgUrl(image);
+                imageVO.setImgBoardSeq(board_seq);
+                // insert
+                fileRepository.save(imageVO);
+        }
         }
 
     }
