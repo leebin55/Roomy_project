@@ -38,13 +38,35 @@
   text-align: right;
 }
 
-.board-container button {
+.btn-write-box button {
   width: 70px;
   height: 35px;
   background-color: #eee;
   border: 1px solid gray;
   border-radius: 10px;
   margin-left: auto;
+}
+
+.search-box {
+  width: 100%;
+  text-align: center;
+}
+
+.search-box select {
+  height: 25px;
+  border: 1px solid lightgray;
+}
+
+.search-box input {
+  width: 250px;
+  height: 25px;
+  margin: 15px;
+}
+
+.search-box button {
+  width: 50px;
+  height: 25px;
+  border: 1px solid lightgray;
 }
 
 /* -------------------- BoardWrite --------------------*/

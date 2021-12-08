@@ -47,4 +47,10 @@ public class BoardController {
         log.debug("board delete 컨트롤러 실행");
         boardService.delete(board_seq);
     }
+
+    @GetMapping(value="/search")
+    public List<BoardVO> search(@RequestParam String query) {
+        List<BoardVO> list = boardService.search(query);
+        return list;
+    }
 }

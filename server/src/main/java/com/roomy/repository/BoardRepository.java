@@ -5,14 +5,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
+
+import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Repository
 public interface BoardRepository extends JpaRepository<BoardVO,Long> {
 
+
     List<BoardVO> findAllByBoardCode(int boardCode);
+
+    List<BoardVO> findAllByBoardCodeOrderByBoardSeqDesc(int boardCode);
 
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate, useParams } from "react-router";
+import BoardWrite from "./BoardWrite";
 import "../../../css/Board.css";
 
 function BoardDetail() {
@@ -9,6 +10,8 @@ function BoardDetail() {
   const { board_seq } = useParams();
 
   const [detail, setDetail] = useState([]);
+
+  const [isDetail, setIsDetail] = useState(true);
 
   const fetchDetail = async () => {
     const res = await fetch(`http://localhost:8080/room/board/${board_seq}`);
@@ -18,6 +21,7 @@ function BoardDetail() {
 
   const clickUpdate = async () => {
     if (window.confirm("글을 수정하시겠습니까?")) {
+      setIsDetail(false);
     }
   };
 
@@ -40,22 +44,30 @@ function BoardDetail() {
 
   return (
     <div className="board-detail-container">
-      <div className="board-detail-title">
-        <p>{detail.boardTitle}</p>
-        <button onClick={() => clickUpdate()}>수정</button>
-        <button onClick={() => fetchDelete()}>삭제</button>
-      </div>
-      <div className="board-detail-head-box">
-        <p className="board-detail-head-like">
-          <FavoriteIcon />
-          {detail.boardLike}
-        </p>
-        <p className="board-detail-head-date">{detail.boardCreateAt}</p>
-      </div>
-      <div className="board-detail-content">{detail.boardContent}</div>
-      <div>
-        <FavoriteBorderIcon />
-      </div>
+      {isDetail ? (
+        <div>
+          <div className="board-detail-title">
+            <p>{detail.boardTitle}</p>
+            <button onClick={() => clickUpdate()}>수정</button>
+            <button onClick={() => fetchDelete()}>삭제</button>
+          </div>
+          <div className="board-detail-head-box">
+            <p className="board-detail-head-like">
+              <FavoriteIcon />
+              {detail.boardLike}
+            </p>
+            <p className="board-detail-head-date">{detail.boardCreateAt}</p>
+          </div>
+          <div className="board-detail-content">{detail.boardContent}</div>
+          <div>
+            <FavoriteBorderIcon />
+          </div>
+        </div>
+      ) : (
+        <>
+          <BoardWrite upData={detail} />
+        </>
+      )}
     </div>
   );
 }

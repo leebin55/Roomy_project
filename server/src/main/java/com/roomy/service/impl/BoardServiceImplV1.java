@@ -54,4 +54,10 @@ public class BoardServiceImplV1 implements BoardService {
     public void delete(Long board_seq) {
         boardRepository.deleteById(board_seq);
     }
+
+    @Override
+    public List<BoardVO> search(String query) {
+        List<BoardVO> list = boardRepository.findByBoardTitleContaining(query);
+        return list;
+    }
 }
