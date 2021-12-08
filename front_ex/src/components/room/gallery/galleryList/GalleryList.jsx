@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import GallerySingle from './GallerySingle';
 import ImageList from '@mui/material/ImageList';
-import GalleryDetail from '../GalleryDetail';
+
 
 function GalleryList() {
   const [galleryList, setGalleryList] = useState([]);

@@ -49,7 +49,7 @@ public class GalleryController {
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
     @PostMapping("/write")
-    public String write( @ModelAttribute  BoardVO boardVO ) {
+    public String write(@RequestBody  BoardVO boardVO ) {
         log.debug("controller_boardVO : {}",boardVO.toString());
         galleryService.insert(boardVO);
         return "ok";
@@ -67,7 +67,7 @@ public class GalleryController {
 
     // 갤러리 게시글 수정
     @PutMapping("/update")
-    public void update(BoardVO boardVO){
+    public void update(@RequestBody BoardVO boardVO){
         galleryService.insert(boardVO);
 
     }

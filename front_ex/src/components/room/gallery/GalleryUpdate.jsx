@@ -9,6 +9,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 function GalleryUpdate({ boardSeq }) {
+  const navigate = useNavigate();
   const {
     galleryInfo,
     setGalleryInfo,
@@ -17,50 +18,65 @@ function GalleryUpdate({ boardSeq }) {
     title,
     content,
     setIsUpdate,
+    galleryImg,
   } = useGalleryContext();
+
+  const viewGalleryInfo = async () => {
+    if (title.trim() !== '' && content.trim() !== '' && galleryImg !== '') {
+      try {
+        await axios
+          .get(
+            `http://localhost:8080/room/gallery/detail?board_seq=${boardSeq}`
+          )
+          .then(async (res) => {
+            if (res.status === 200) {
+              //res.data 에서 안빼오고
+              //setGalleryInfo에 넣어서 galleryInfo.boardContent
+              // 로 값을 넣어주면 값이 제대로 들어가지 않음
+              // 순차적으로 코드가 실행되지 않는다
+              setContent(res.data.boardContent);
+              setTitle(res.data.boardTitle);
+              setGalleryInfo(res.data);
+            } // end if
+          }); // end then
+      } catch (error) {
+        alert('데이터를 불러올수 없음.');
+        throw error;
+      }
+    } else {
+      if (galleryImg === '') {
+        alert('사진을 등록해 주세요');
+        return;
+      }
+      alert('제목과 내용은 입력해야 합니다.');
+    }
+  };
 
   useEffect(() => {
     viewGalleryInfo();
   }, []);
 
-  const viewGalleryInfo = async () => {
+  const updateClick = async () => {
     try {
       await axios
-        .get(`http://localhost:8080/room/gallery/detail?board_seq=${boardSeq}`)
+        .put('http://localhost:8080/room/gallery/update', {
+          ...galleryInfo,
+          boardContent: content,
+          boardTitle: title,
+          boardUpdateAt: moment().format('YYYY-MM-DD HH:mm'),
+        })
         .then((res) => {
           if (res.status === 200) {
-            console.log(res.data);
-            setGalleryInfo(res.data);
-            setContent(galleryInfo.boardContent);
-            setTitle(galleryInfo.boardTitle);
+            navigate(`/room/gallery/${boardSeq}`);
           }
         });
-    } catch (error) {
-      alert('데이터를 불러올수 없음.');
-      throw error;
-    }
-  };
-
-  const updateClick = () => {
-    setGalleryInfo({
-      ...galleryInfo,
-      boardContent: content,
-      boardTitle: title,
-      boardUpdateAt: moment().format('YYYY-MM-DD HH:mm'),
-    });
-  };
-  const navigate = useNavigate();
-
-  const updateGallery = async () => {
-    try {
-      axios
-        .put('http://localhost:8080/room/gallery/update', galleryInfo)
-        .then((res) => {});
     } catch (error) {
       alert('갤러리 수정 실패');
       throw error;
     }
   };
+
+  const updateGallery = async () => {};
   return (
     <div>
       <div>

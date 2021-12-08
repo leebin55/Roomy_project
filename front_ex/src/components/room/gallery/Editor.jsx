@@ -39,9 +39,6 @@ const formats = [
 /////////////////////////////////////////////////////////////////////////
 
 function Editor(props) {
-	if(props.boardState==='update'){
-		
-	}
   const { content, setContent, setGalleryImg } = useGalleryContext();
 
   const quillRef = useRef();

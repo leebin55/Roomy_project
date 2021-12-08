@@ -1,5 +1,5 @@
 import React from 'react';
-
+// Editor Toolbar 부분
 export const QuillToolbar = (props) => {
   // Quill editor를 사용하기 위한 세팅
   //quill/assets/icons/undo.svg 에서 바로 이미지를 가져올수도 있지만 밑의 번호로도 가능
