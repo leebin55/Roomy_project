@@ -22,7 +22,7 @@ public class BoardServiceImplV1 implements BoardService {
 
     @Override
     public List<BoardVO> selectAll() {
-        List<BoardVO> list = boardRepository.findAllByBoardCode(2);
+        List<BoardVO> list = boardRepository.findAllByBoardCodeOrderByBoardSeqDesc(2);
         return list;
     }
 
@@ -56,8 +56,16 @@ public class BoardServiceImplV1 implements BoardService {
     }
 
     @Override
-    public List<BoardVO> search(String query) {
-        List<BoardVO> list = boardRepository.findByBoardTitleContaining(query);
+    public List<BoardVO> search(String select, String query) {
+        List<BoardVO> list = null;
+
+        if(select.equals("0")) { // 제목만 선택했으면
+            list = boardRepository.findByTitle(query);
+        } else if(select.equals("1")) { // 제목+내용 선택했으면
+            list = boardRepository.findByTitleAndContent(query);
+        } else if(select.equals("2")) { // 내용만 선택했으면
+            list = boardRepository.findByContent(query);
+        }
         return list;
     }
 }

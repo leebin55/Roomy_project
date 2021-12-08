@@ -10,8 +10,7 @@ function GuestItem({ data, fetchList }) {
 
   const guestDelete = async () => {
     if (window.confirm("방명록을 삭제하시겠습니까?")) {
-      //   alert(data.guest_seq);
-      await fetch(`http://localhost:8080/room/guest/${data.guest_seq}`, {
+      await fetch(`http://localhost:8080/room/guest/${data.guestSeq}`, {
         method: "DELETE",
       }).then((res) => {
         if (res?.ok) {
@@ -33,19 +32,19 @@ function GuestItem({ data, fetchList }) {
       }
       guestUpdate();
     } else if (!updating) {
-      setUpdate_content(data.guest_content);
+      setUpdate_content(data.guestContent);
     }
     setUpdating(!updating);
   };
 
   const guestUpdate = async () => {
-    await fetch(`http://localhost:8080/room/guest/${data.guest_seq}`, {
+    await fetch(`http://localhost:8080/room/guest/${data.guestSeq}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        guest_content: update_content,
+        guestContent: update_content,
       }),
     }).then((res) => {
       if (res?.ok) {
@@ -62,13 +61,13 @@ function GuestItem({ data, fetchList }) {
       <section className="guest-head">
         <p>
           <span>NO.</span>
-          {data.guest_seq}
+          {data.guestSeq}
         </p>
-        <p>{data.guest_writer_name}</p>
+        <p>{data.guestWriterName}</p>
         <p>&#127968;</p>
-        <p>{data.guest_create_at}</p>
+        <p>{data.guestCreateAt}</p>
         <p className="guest-list-private">
-          {data.guest_private ? "공개글로 전환" : "비밀글로 전환"}
+          {data.guestPrivate ? "공개글로 전환" : "비밀글로 전환"}
         </p>
         <p className="guest-list-update" onClick={() => clickUpdate()}>
           {updating ? "등록" : "수정"}
@@ -83,14 +82,14 @@ function GuestItem({ data, fetchList }) {
           {updating ? (
             <textarea
               className="guest-update-content"
-              defaultValue={data.guest_content}
+              defaultValue={data.guestContent}
               value={update_content}
               onChange={onChange}
             ></textarea>
           ) : (
             <>
-              {data.guest_private ? "🔒 " : ""}
-              {data.guest_content}
+              {data.guestPrivate ? "🔒 " : ""}
+              {data.guestContent}
             </>
           )}
         </div>

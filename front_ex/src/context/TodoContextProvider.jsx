@@ -14,7 +14,9 @@ function TodoContextProvider({ children }) {
     getList();
   }, []);
   const insertTodo = async () => {
+
     await fetch("http://localhost:8080/room/todo/insert", {
+
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +28,9 @@ function TodoContextProvider({ children }) {
     });
   };
   const getList = async () => {
+
     await fetch("http://localhost:8080/room/todo/list")
+
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);

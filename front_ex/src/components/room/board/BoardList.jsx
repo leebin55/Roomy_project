@@ -4,9 +4,9 @@ import "../../../css/Board.css";
 
 function BoardList() {
   const navigate = useNavigate();
-  const [board_list, setBoard_list] = useState([]);
-  const [select, setSelect] = useState("");
-  const [search, setSearch] = useState("");
+  const [board_list, setBoard_list] = useState([]); // 화면에 출력될 일반 게시판 글 list
+  const [select, setSelect] = useState("0"); // 검색 select box 선택한 것
+  const [search, setSearch] = useState(""); // 검색 input box 에 입력한 내용
 
   const fetchList = async () => {
     const res = await fetch("http://localhost:8080/room/board");
@@ -14,29 +14,29 @@ function BoardList() {
     setBoard_list(list);
   };
 
+  // 검색 select box 선택하면 실행
   const selectHandler = (e) => {
-    // 검색 select box 선택하면 실행되는 메서드
     setSelect(e.target.value);
   };
 
+  // 검색 input 입력하면 실행
   const searchText = (e) => {
     setSearch(e.target.value);
   };
 
-  // const clickSearch = useCallback(async () => {
-  //   await fetch(`http://localhost:8080/room/board/search?query=${search}`).then(
-  //     (res) => {
-  //       console.log(res.json());
-  //     }
-  //   );
-  // });
-
-  const clickSearch = useCallback(async () => {
+  // 검색 버튼 클릭하면 실행
+  const fetchSearch = useCallback(async () => {
+    if (search.trim() === "") {
+      alert("검색어를 입력하세요");
+      return;
+    }
     const res = await fetch(
-      `http://localhost:8080/room/board/search?query=${search}`
+      `http://localhost:8080/room/board/search?query=${search}&select=${select}`
     );
     const result = await res.json();
     setBoard_list(result);
+    setSelect("0");
+    setSearch("");
   });
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function BoardList() {
           {board_list.length > 0 ? (
             boardList
           ) : (
-            <td colSpan="5">아직 게시물이 없습니다</td>
+            <td colSpan="5">게시물이 없습니다</td>
           )}
         </tbody>
       </table>
@@ -86,12 +86,12 @@ function BoardList() {
       </div>
       <div className="search-box">
         <select value={select} onChange={selectHandler}>
-          <option>제목만</option>
-          <option>제목+내용</option>
-          <option>내용만</option>
+          <option value="0">제목만</option>
+          <option value="1">제목+내용</option>
+          <option value="2">내용만</option>
         </select>
         <input value={search} onChange={searchText} />
-        <button onClick={() => clickSearch()}>검색</button>
+        <button onClick={() => fetchSearch()}>검색</button>
       </div>
     </div>
   );

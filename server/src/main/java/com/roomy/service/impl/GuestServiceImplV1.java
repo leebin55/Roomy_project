@@ -39,11 +39,11 @@ public class GuestServiceImplV1 implements GuestService {
         LocalDateTime localDateTime = LocalDateTime.now();
         String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        guestVO.setGuest_writer_name("서녕");
-        guestVO.setGuest_create_at(dateTime);
-        guestVO.setGuest_update_at(dateTime);
-        guestVO.setUser_seq2(1L);
-        guestVO.setGuest_writer_seq(1L);
+        guestVO.setGuestWriterName("서녕");
+        guestVO.setGuestCreateAt(dateTime);
+        guestVO.setGuestUpdateAt(dateTime);
+        guestVO.setUserSeq2(1L);
+        guestVO.setGuestWriterSeq(1L);
 
         log.debug(guestVO.toString());
         guestRepository.save(guestVO);
@@ -55,7 +55,13 @@ public class GuestServiceImplV1 implements GuestService {
     }
 
     @Override
-    public void delete(Long guest_seq) {
-        guestRepository.deleteById(guest_seq);
+    public void delete(Long guestSeq) {
+        guestRepository.deleteById(guestSeq);
+    }
+
+    @Override
+    public List<GuestVO> mainList() {
+        List<GuestVO> list = guestRepository.findTop4ByOrderByGuestSeqDesc();
+        return list;
     }
 }
