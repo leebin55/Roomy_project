@@ -10,8 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
 @RequiredArgsConstructor
+@RestController
+@RequestMapping(value="/room")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -23,7 +24,7 @@ public class UserController {
         return userRepository.save(joinReqDTO.joinEntity());
     }
 
-    @GetMapping("/room/user")
+    @GetMapping("/user")
     public String user(Authentication authentication){
         Principal principal = (Principal) authentication.getPrincipal();
         System.out.println("principal : " + principal.getUser().getUserId());
