@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Navigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import "../../../css/Board.css";
 
 function BoardDetail() {
+  const navigate = useNavigate();
   const { board_seq } = useParams();
 
   const [detail, setDetail] = useState([]);
@@ -15,6 +16,11 @@ function BoardDetail() {
     setDetail(data);
   };
 
+  const clickUpdate = async () => {
+    if (window.confirm("글을 수정하시겠습니까?")) {
+    }
+  };
+
   const fetchDelete = async () => {
     if (window.confirm("글을 삭제하시겠습니까?")) {
       await fetch(`http://localhost:8080/room/board/${board_seq}`, {
@@ -22,6 +28,7 @@ function BoardDetail() {
       }).then((res) => {
         if (res?.ok) {
           alert("삭제되었습니다");
+          navigate("/room/board");
         }
       });
     }
@@ -35,7 +42,7 @@ function BoardDetail() {
     <div className="board-detail-container">
       <div className="board-detail-title">
         <p>{detail.boardTitle}</p>
-        <button>수정</button>
+        <button onClick={() => clickUpdate()}>수정</button>
         <button onClick={() => fetchDelete()}>삭제</button>
       </div>
       <div className="board-detail-head-box">
