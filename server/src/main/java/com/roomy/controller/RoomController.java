@@ -12,6 +12,7 @@ public class RoomController {
     @GetMapping( {"","/"})
     public String room(){
 
+        
         return "room";
     }
 }

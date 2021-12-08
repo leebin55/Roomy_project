@@ -93,8 +93,9 @@ public class GalleryServiceImpl implements BoardService {
         galleryRepository.deleteById(board_seq);
     }
 
+
     @Override
-    public List<BoardVO> search(String query) {
+    public List<BoardVO> search(String select, String query) {
         return null;
     }
 }

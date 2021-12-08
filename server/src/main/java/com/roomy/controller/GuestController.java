@@ -21,9 +21,14 @@ public class GuestController {
     }
 
     @GetMapping(value = {"/", ""})
-    public List<GuestVO> list() {
+    public List<GuestVO> list(@RequestParam(name = "limit",required = false,defaultValue = "0") Long limit) {
         log.debug("list 컨트롤러 실행");
-        List<GuestVO> guestList = guestService.selectAll();
+        List<GuestVO> guestList = null;
+        if(limit == 0) {
+            guestList = guestService.selectAll();
+        } else  {
+            // guestList = guestService.
+        }
         return guestList;
     }
 

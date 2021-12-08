@@ -49,8 +49,10 @@ public class BoardController {
     }
 
     @GetMapping(value="/search")
-    public List<BoardVO> search(@RequestParam String query) {
-        List<BoardVO> list = boardService.search(query);
+    public List<BoardVO> search(@RequestParam String query, @RequestParam String select) {
+        log.debug("board search 컨트롤러 실행");
+        // select : 제목, 제목+내용, 내용 중 뭘 선택했는지
+        List<BoardVO> list = boardService.search(select,query);
         return list;
     }
 }
