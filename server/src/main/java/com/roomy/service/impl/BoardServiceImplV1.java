@@ -59,16 +59,12 @@ public class BoardServiceImplV1 implements BoardService {
     public List<BoardVO> search(String select, String query) {
         List<BoardVO> list = null;
 
-        // 제목or내용 검색 매개변수 2개 넣어야 해서 변수 2개 선언하고 똑같은 값 넣음
-        String query1 = query;
-        String query2 = query;
-
         if(select.equals("0")) { // 제목만 선택했으면
-            list = boardRepository.findByBoardTitleContaining(query);
+            list = boardRepository.findByTitle(query);
         } else if(select.equals("1")) { // 제목+내용 선택했으면
-            list = boardRepository.findByBoardTitleOrBoardContentContaining(query1, query2);
+            list = boardRepository.findByTitleAndContent(query);
         } else if(select.equals("2")) { // 내용만 선택했으면
-            list = boardRepository.findByBoardContentContaining(query);
+            list = boardRepository.findByContent(query);
         }
         return list;
     }

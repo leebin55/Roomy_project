@@ -16,13 +16,16 @@ public interface BoardRepository extends JpaRepository<BoardVO,Long> {
 
     List<BoardVO> findAllByBoardCodeOrderByBoardSeqDesc(int boardCode);
 
-    // 제목만 검색 (%LIKE%)
-    List<BoardVO> findByBoardTitleContaining(String query);
+    // 제목만 검색
+    @Query("SELECT b FROM BoardVO b WHERE b.boardTitle LIKE %:query% AND b.boardCode = 2 ORDER BY b.boardSeq DESC")
+    List<BoardVO> findByTitle(String query);
 
-    // 제목+내용 검색 (%LIKE%)
-    List<BoardVO> findByBoardTitleOrBoardContentContaining(String query1, String query2);
+    // 제목+내용 검색
+    @Query("SELECT b FROM BoardVO b WHERE (b.boardTitle LIKE %:query% OR b.boardContent LIKE %:query%) AND b.boardCode=2 ORDER BY b.boardSeq DESC")
+    List<BoardVO> findByTitleAndContent(String query);
 
-    // 내용만 검색 (%LIKE%)
-    List<BoardVO> findByBoardContentContaining(String query);
+    // 내용만 검색
+    @Query("SELECT b FROM BoardVO b WHERE b.boardContent LIKE %:query% AND b.boardCode = 2 ORDER BY b.boardSeq DESC")
+    List<BoardVO> findByContent(String query);
 
 }

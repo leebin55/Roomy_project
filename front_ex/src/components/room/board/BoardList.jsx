@@ -26,6 +26,10 @@ function BoardList() {
 
   // 검색 버튼 클릭하면 실행
   const fetchSearch = useCallback(async () => {
+    if (search.trim() === "") {
+      alert("검색어를 입력하세요");
+      return;
+    }
     const res = await fetch(
       `http://localhost:8080/room/board/search?query=${search}&select=${select}`
     );
