@@ -6,6 +6,7 @@ import Editor from './Editor';
 import { useGalleryContext } from '../../../context/GalleryContextProvider';
 import QuillToolbar from './QuillToolbar';
 
+// 갤러리 글 등록하는 부분
 function GalleryWrite({ isWrite, setIsWrite }) {
   const navigate = useNavigate();
   const { title, setTitle, content, setContent, galleryImg, setGalleryImg } =
@@ -17,7 +18,7 @@ function GalleryWrite({ isWrite, setIsWrite }) {
 
   const writeSubmit = async () => {
     console.log(galleryImg);
-    if (title.trim() !== '' && content.trim() !== '') {
+    if (title.trim() !== '' && content.trim() !== '' && galleryImg !== '') {
       try {
         await axios
           .post('http://localhost:8080/room/gallery/write', {
@@ -43,6 +44,10 @@ function GalleryWrite({ isWrite, setIsWrite }) {
       } //catch end
     } //if end
     else {
+      if (galleryImg === '') {
+        alert('사진을 등록해 주세요');
+        return;
+      }
       alert('제목과 내용은 입력해야 합니다.');
     }
   };
