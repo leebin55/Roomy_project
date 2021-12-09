@@ -53,7 +53,6 @@ function BoardDetail() {
           </div>
           <div className="board-detail-head-box">
             <p className="board-detail-head-like">
-
               <FavoriteIcon className="heart" />
 
               {detail.boardLike}
@@ -65,8 +64,6 @@ function BoardDetail() {
             className="board-detail-content"
             dangerouslySetInnerHTML={{ __html: detail.boardContent }}
           />
-
-
           <div>
             <FavoriteBorderIcon />
           </div>

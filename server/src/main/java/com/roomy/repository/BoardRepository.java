@@ -1,10 +1,12 @@
 package com.roomy.repository;
 
 import com.roomy.model.BoardVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import java.awt.print.Pageable;
+
 import java.util.List;
 
 
@@ -27,5 +29,7 @@ public interface BoardRepository extends JpaRepository<BoardVO,Long> {
     // 내용만 검색
     @Query("SELECT b FROM BoardVO b WHERE b.boardContent LIKE %:query% AND b.boardCode = 2 ORDER BY b.boardSeq DESC")
     List<BoardVO> findByContent(String query);
+
+    Page<BoardVO> findAllByBoardCodeOrderByBoardSeqDesc(int boardCode, Pageable pageable);
 
 }

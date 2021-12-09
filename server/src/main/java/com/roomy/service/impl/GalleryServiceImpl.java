@@ -6,6 +6,8 @@ import com.roomy.repository.BoardRepository;
 import com.roomy.repository.FileRepository;
 import com.roomy.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -93,6 +95,11 @@ public class GalleryServiceImpl implements BoardService {
         galleryRepository.deleteById(board_seq);
     }
 
+
+    @Override
+    public Page<BoardVO> selectAll(Pageable pageable) {
+        return null;
+    }
 
     @Override
     public List<BoardVO> search(String select, String query) {
