@@ -54,7 +54,6 @@ function GalleryWrite({ isWrite, setIsWrite }) {
 
   return (
     <div>
-      <h1>gallery write</h1>
       <form>
         <div>
           <label>Title : </label>
