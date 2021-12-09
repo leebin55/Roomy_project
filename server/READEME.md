@@ -17,3 +17,7 @@ CREATE DATABASE roomyDB; -- db 생성
 CREATE USER roomy@localhost; -- 사용자 생성
 GRANT all privileges on  *.* TO roomy@localhost; -- 권한부여
 ALTER USER 'roomy'@'localhost' identified WITH mysql_native_password BY 'roomy1234';
+
+
+authentication 인증 
+authorization 권한 

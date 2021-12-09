@@ -13,7 +13,7 @@ function JoinModal() {
     username: "",
     email: "",
     birth: "",
-    gender: 0,
+    gender: "",
   });
 
   // 성별 고르기
