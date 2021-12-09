@@ -9,15 +9,15 @@ function GalleryDetail() {
   //http://localhost:3000/room/gallery/2 에 board_seq 값 가져오기
   const { board_seq } = useParams();
   const [galleryInfo, setGalleryInfo] = useState({
-    boardCode: "",
-    boardContent: "",
-    boardCreateAt: "",
-    boardLike: "",
-    boardPrivate: "",
-    boardSeq: "",
-    boardTitle: "",
-    boardUpdateAt: "",
-    boardUserSeq: "",
+    boardCode: '',
+    boardContent: '',
+    boardCreateAt: '',
+    boardLike: '',
+    boardPrivate: '',
+    boardSeq: '',
+    boardTitle: '',
+    boardUpdateAt: '',
+    boardUserSeq: '',
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function GalleryDetail() {
           }
         });
     } catch (error) {
-      alert("데이터를 불러올수 없음.");
+      alert('데이터를 불러올수 없음.');
       throw error;
     }
   };
@@ -56,7 +56,7 @@ function GalleryDetail() {
     // } catch (error) {}
   };
   const deleteClick = async () => {
-    const result = window.confirm("삭제하시겠습니까?");
+    const result = window.confirm('삭제하시겠습니까?');
     if (result) {
       try {
         axios
@@ -65,8 +65,8 @@ function GalleryDetail() {
           )
           .then((res) => {
             if (res.status === 200) {
-              alert("삭제되었습니다.");
-              navigate("/room/gallery");
+              alert('삭제되었습니다.');
+              navigate('/room/gallery');
             }
           });
       } catch (error) {
@@ -81,6 +81,13 @@ function GalleryDetail() {
     <div>
       <div>
         <div className="gallery-detail-header">
+          <button
+            onClick={() => {
+              navigate('/room/gallery');
+            }}
+          >
+            뒤로
+          </button>
           <p>{galleryInfo.boardSeq}</p>
           <h3>{galleryInfo.boardTitle}</h3>
           <button className="gallery-btn-modify" onClick={updateClick}>
