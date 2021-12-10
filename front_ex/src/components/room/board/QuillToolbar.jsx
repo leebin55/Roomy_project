@@ -27,9 +27,6 @@ export const QuillToolbar = (props) => {
             <select className="ql-color" />
             <select className="ql-background" />
           </span>
-          <span className="ql-formats">
-            <button className="ql-image" />
-          </span>
         </div>
       )}
     </>

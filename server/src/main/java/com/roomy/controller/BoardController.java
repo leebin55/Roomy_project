@@ -40,7 +40,6 @@ public class BoardController {
     public void insert(@RequestBody  BoardVO boardVO) {
         log.debug("write 컨트롤러 실행");
         log.debug(boardVO.toString());
-        log.debug(boardVO.getBoardContent());
         boardService.insert(boardVO);
     }
 

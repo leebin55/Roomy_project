@@ -28,13 +28,13 @@ public class BoardServiceImplV1 implements BoardService {
         return list;
     }
 
-    @Override
-    public Page<BoardVO> selectAll(Pageable pageable) {
-        // 페이지네이션 진행중
-        // repository 의 findAll 에는 매개변수가 있는 것과 없는 것 둘 다 기본으로 있다
-        log.debug("페이지네이션 서비스 실행");
-        return boardRepository.findAllByBoardCodeOrderByBoardSeqDesc(2, pageable);
-    }
+//    @Override
+//    public Page<BoardVO> selectAll(Pageable pageable) {
+//        // 페이지네이션 진행중
+//        // repository 의 findAll 에는 매개변수가 있는 것과 없는 것 둘 다 기본으로 있다
+//        log.debug("페이지네이션 서비스 실행");
+//        return boardRepository.findAllByBoardCodeOrderByBoardSeqDesc(2, pageable);
+//    }
 
     @Override
     public BoardVO findById(Long board_seq) {

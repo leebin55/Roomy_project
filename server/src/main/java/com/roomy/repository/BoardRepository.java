@@ -30,6 +30,7 @@ public interface BoardRepository extends JpaRepository<BoardVO,Long> {
     @Query("SELECT b FROM BoardVO b WHERE b.boardContent LIKE %:query% AND b.boardCode = 2 ORDER BY b.boardSeq DESC")
     List<BoardVO> findByContent(String query);
 
-    Page<BoardVO> findAllByBoardCodeOrderByBoardSeqDesc(int boardCode, Pageable pageable);
+//    페이지네이션
+//    Page<BoardVO> findAllByBoardCodeOrderByBoardSeqDesc(int boardCode, Pageable pageable);
 
 }

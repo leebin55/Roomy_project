@@ -27,7 +27,6 @@ function Editor(props) {
     "align", // 정렬
     "background", //글자 바탕색
     "color", //글자 색깔
-    "image", // 이미지
   ];
 
   return (

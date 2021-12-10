@@ -96,10 +96,10 @@ public class GalleryServiceImpl implements BoardService {
     }
 
 
-    @Override
-    public Page<BoardVO> selectAll(Pageable pageable) {
-        return null;
-    }
+//    @Override
+//    public Page<BoardVO> selectAll(Pageable pageable) {
+//        return null;
+//    }
 
     @Override
     public List<BoardVO> search(String select, String query) {
