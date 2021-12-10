@@ -47,6 +47,13 @@
   margin-left: auto;
 }
 
+.board-page-box {
+  width: 100%;
+  height: 30px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
 .search-box {
   width: 100%;
   text-align: center;
@@ -72,6 +79,11 @@
 
 /* -------------------- BoardWrite --------------------*/
 
+.board-write-container {
+  height: 100%;
+  overflow: auto;
+}
+
 .board-write-header {
   display: flex;
   width: 90%;
@@ -96,8 +108,23 @@
 
 .board-write-content {
   width: 90%;
-  height: 60%;
+  height: 390px;
   margin: auto;
+}
+
+.board-write-content #qb {
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-write-container button {
+  width: 80px;
+  height: 35px;
+  margin: 10px auto;
+  border: lightgray;
+  border-radius: 10px;
 }
 
 /* -------------------- BoardDetail -------------------- */

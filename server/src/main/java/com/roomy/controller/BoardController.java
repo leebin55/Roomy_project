@@ -27,8 +27,17 @@ public class BoardController {
         return boardList;
     }
 
+//    @GetMapping({"/",""})
+//    public Page<BoardVO> list(Pageable pageable) {
+//        // 페이지네이션 진행중
+//        log.debug("board list 컨트롤러 실행");
+//        Page<BoardVO> borderPages = boardService.selectAll(pageable);
+//        log.debug(borderPages.toString());
+//        return borderPages;
+//    }
+
     @PostMapping(value = {"/", ""})
-    public void insert(@RequestBody BoardVO boardVO) {
+    public void insert(@RequestBody  BoardVO boardVO) {
         log.debug("write 컨트롤러 실행");
         log.debug(boardVO.toString());
         boardService.insert(boardVO);

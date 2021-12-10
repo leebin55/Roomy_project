@@ -28,15 +28,18 @@ function BoardWrite({ upData }) {
       alert("내용을 입력하세요");
       return;
     }
+
+    const sendData = {
+      boardTitle: title,
+      boardContent: content,
+      boardPrivate: select,
+      boardCode: 2,
+    };
+
     await fetch("http://localhost:8080/room/board", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        boardTitle: title,
-        boardContent: content,
-        boardPrivate: select,
-        boardCode: 2,
-      }),
+      body: JSON.stringify(sendData),
     }).then((res) => {
       if (res?.ok) {
         navigate("/room/board");
