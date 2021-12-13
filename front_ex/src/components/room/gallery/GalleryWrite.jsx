@@ -9,16 +9,28 @@ import QuillToolbar from './QuillToolbar';
 // 갤러리 글 등록하는 부분
 function GalleryWrite({ isWrite, setIsWrite }) {
   const navigate = useNavigate();
-  const { title, setTitle, content, setContent, galleryImg, setGalleryImg } =
-    useGalleryContext();
+
+  const {
+    title,
+    setTitle,
+    content,
+    setContent,
+    galleryImgList,
+    setGalleryImgList,
+  } = useGalleryContext();
 
   const titleChange = (event) => {
     setTitle(event.target.value);
   };
 
   const writeSubmit = async () => {
-    console.log(galleryImg);
-    if (title.trim() !== '' && content.trim() !== '' && galleryImg !== '') {
+    // content 에 포함되어있는 img_url만 return
+    const saveURL = galleryImgList.filter((gallery) =>
+      content.includes(gallery)
+    );
+    // const saveImgList = galleryList.filter((img) => content.includes(img));
+    // console.log(saveImgList);
+    if (title.trim() !== '' && content.trim() !== '' && saveURL.length > 0) {
       try {
         await axios
           .post('http://localhost:8080/room/gallery/write', {
@@ -27,16 +39,18 @@ function GalleryWrite({ isWrite, setIsWrite }) {
             boardContent: content,
             boardCreateAt: moment().format('YYYY-MM-DD HH:mm'),
             boardCode: 1,
-            imgURL: [galleryImg],
+            imgURL: saveURL, // content에 포함된 url 만 보내줌
           })
           .then((res) => {
             if (res.data === 'ok') {
+              console.log(galleryImgList);
+              console.log('save: ', saveURL);
               alert('글 등록 완료');
-              setGalleryImg('');
               setIsWrite(!isWrite);
               setTitle('');
               setContent('');
               navigate('/room/gallery');
+              setGalleryImgList([]);
             }
           });
       } catch (error) {
@@ -44,7 +58,7 @@ function GalleryWrite({ isWrite, setIsWrite }) {
       } //catch end
     } //if end
     else {
-      if (galleryImg === '') {
+      if (saveURL.length < 1) {
         alert('사진을 등록해 주세요');
         return;
       }
