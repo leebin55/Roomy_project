@@ -50,4 +50,10 @@ public class UserController {
         return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
     }
 
+    @PostMapping("/refresh")
+    public String refreshLogin(){
+        // 새로고침될때마다 useEffect에 fetch로 새로고침토큰을 발행할 예정임
+        return "";
+    }
+
 }
