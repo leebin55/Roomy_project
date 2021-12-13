@@ -25,6 +25,7 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public void unFollowFriend(Long friend_seq) {
+
         friendRepository.deleteById(friend_seq);
     }
 

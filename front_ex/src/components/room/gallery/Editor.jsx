@@ -39,7 +39,16 @@ const formats = [
 /////////////////////////////////////////////////////////////////////////
 
 function Editor(props) {
-  const { content, setContent, setGalleryImg } = useGalleryContext();
+  const { content, setContent, setGalleryImgList } = useGalleryContext();
+  /**
+ *    이미지를 잘못 불러서 지울 때 이미지가 그대로 서버에 같이 리스트로 보내진다
+     보내기전에 글 본문에 이미지가 있는지 확인하기위해 galleryList에 담는다
+     setGalleryList([...galleryList, img_url]);
+	 imageHandler에서 처리하면  
+	 그리고 그전에 등록한 마지막 이미지 + 제일 마지막에 등록한 이미지만 url 
+	 이런식으로 list에 담김
+	 setGalleryList((gallery)=>[...gallery, img_url])
+ */
 
   const quillRef = useRef();
   //useMemo 를 사용하여  modules 를 만들지 않느면
@@ -77,7 +86,9 @@ function Editor(props) {
             console.log(result.data);
             //이 url을 img 태그의 src에 넣은 요소을 현재 에디터의 커서에 넣어주기
             const img_url = result.data;
-            setGalleryImg(img_url);
+            //   setGalleryImg(img_url);
+            // setGalleryImgList([...galleryImgList]) 하면 마지막 사진만 저장
+            setGalleryImgList((gallery) => [...gallery, img_url]);
             // 현재 에디터 내에서 커서 위치값 가져오기
             const editor = quillRef.current.getEditor(); // 에디터 정보 가져오기
             const range = editor.getSelection(); // 현재 커서 위치

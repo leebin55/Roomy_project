@@ -13,8 +13,8 @@ const GalleryContextProvider = ({ children }) => {
   const [galleryImg, setGalleryImg] = useState('');
 
   const [isUpdate, setIsUpdate] = useState(false);
-  const [isDetail, setIsDetail] = useState([false]);
-  const [galleryList, setGalleryList] = useState([]);
+  const [isDetail, setIsDetail] = useState(false);
+  const [galleryImgList, setGalleryImgList] = useState([]);
   const [galleryInfo, setGalleryInfo] = useState({
     boardCode: '',
     boardContent: '',
@@ -40,8 +40,8 @@ const GalleryContextProvider = ({ children }) => {
     setGalleryInfo,
     isDetail,
     setIsDetail,
-    galleryList,
-    setGalleryList,
+    galleryImgList,
+    setGalleryImgList,
   };
 
   return (

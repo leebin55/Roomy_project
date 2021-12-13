@@ -18,7 +18,8 @@ function GalleryUpdate({ boardSeq }) {
     title,
     content,
     setIsUpdate,
-    galleryImg,
+    setGalleryImgList,
+    galleryImgList,
   } = useGalleryContext();
 
   const viewGalleryInfo = async () => {
@@ -47,6 +48,9 @@ function GalleryUpdate({ boardSeq }) {
   }, []);
 
   const updateClick = async () => {
+    const saveURL = galleryImgList.filter((gallery) =>
+      content.includes(gallery)
+    );
     try {
       await axios
         .put('http://localhost:8080/room/gallery/update', {
@@ -54,9 +58,14 @@ function GalleryUpdate({ boardSeq }) {
           boardContent: content,
           boardTitle: title,
           boardUpdateAt: moment().format('YYYY-MM-DD HH:mm'),
+          imgURL: saveURL,
         })
         .then((res) => {
           if (res.status === 200) {
+            setTitle('');
+            setContent('');
+            navigate('/room/gallery');
+            setGalleryImgList([]);
             navigate(`/room/gallery/${boardSeq}`);
           }
         });
@@ -66,7 +75,6 @@ function GalleryUpdate({ boardSeq }) {
     }
   };
 
-  const updateGallery = async () => {};
   return (
     <div>
       <div>
