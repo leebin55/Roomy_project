@@ -39,6 +39,7 @@ public class BoardServiceImplV1 implements BoardService {
     @Override
     public BoardVO findById(Long board_seq) {
         BoardVO boardVO = boardRepository.findById(board_seq).orElse(null);
+//        log.debug("findById 나와라 {}",boardVO.toString());
         return boardVO;
     }
 
@@ -57,7 +58,12 @@ public class BoardServiceImplV1 implements BoardService {
 
     @Override
     public void update(BoardVO boardVO) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
+        boardVO.setBoardUpdateAt(dateTime);
+
+        boardRepository.save(boardVO);
     }
 
     @Override
