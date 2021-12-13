@@ -16,6 +16,7 @@ function BoardDetail() {
   const fetchDetail = async () => {
     const res = await fetch(`http://localhost:8080/room/board/${board_seq}`);
     const data = await res.json();
+    // console.log(data);
     setDetail(data);
   };
 

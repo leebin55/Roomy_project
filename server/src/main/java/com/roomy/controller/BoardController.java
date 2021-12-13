@@ -51,6 +51,12 @@ public class BoardController {
         return boardVO;
     }
 
+    @PutMapping(value={"/",""})
+    public void update(@RequestBody BoardVO boardVO) {
+        log.debug("board update 컨트롤러 실행 {}", boardVO.toString());
+        boardService.update(boardVO);
+    }
+
     @DeleteMapping(value="/{board_seq}")
     public void delete(@PathVariable Long board_seq) {
         log.debug("board delete 컨트롤러 실행");

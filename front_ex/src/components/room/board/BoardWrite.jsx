@@ -29,22 +29,44 @@ function BoardWrite({ upData }) {
       return;
     }
 
-    const sendData = {
-      boardTitle: title,
-      boardContent: content,
-      boardPrivate: select,
-      boardCode: 2,
-    };
-
-    await fetch("http://localhost:8080/room/board", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(sendData),
-    }).then((res) => {
-      if (res?.ok) {
-        navigate("/room/board");
-      }
-    });
+    if (upData != null) {
+      await fetch("http://localhost:8080/room/board", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          boardSeq: upData.boardSeq,
+          boardUserSeq: upData.boardUserSeq,
+          boardTitle: title,
+          boardContent: content,
+          boardCreateAt: upData.boardCreateAt,
+          boardPrivate: select,
+          boardLike: upData.boardLike,
+          boardCode: upData.boardCode,
+          boardHit: upData.boardHit,
+        }),
+      }).then((res) => {
+        if (res?.ok) {
+          navigate("/room/board");
+        }
+      });
+    } else {
+      await fetch("http://localhost:8080/room/board", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          boardTitle: title,
+          boardContent: content,
+          boardPrivate: select,
+          boardCode: 2,
+        }),
+      }).then((res) => {
+        if (res?.ok) {
+          navigate("/room/board");
+        }
+      });
+    }
   };
 
   const updating = () => {
