@@ -19,6 +19,7 @@ function Room() {
           </div>
         </div>
         <div className="room-right-1">
+          <p className="room-name">우당탕 님의 미니홈피 입니다.</p>
           <div className="room-right-2">
             <section className="room-right-side">
               <Outlet />
