@@ -37,9 +37,17 @@ function LoginContextProvider({ children }) {
     setJoin(false);
     setFind(false);
   };
-
+  const [temp, setTemp] = useState(false);
+  const [user, setUser] = useState({
+    userId: "",
+    password: "",
+  });
   const data = {
     login,
+    temp,
+    user,
+    setUser,
+    setTemp,
     setLogin,
     loginClick,
     join,
