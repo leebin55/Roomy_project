@@ -37,7 +37,7 @@ div.room-right-1 {
   width: 75%;
 }
 
-.room-right-1 p {
+.room-right-1 .room-name {
   position: absolute;
   z-index: 1;
   top: 50px;
