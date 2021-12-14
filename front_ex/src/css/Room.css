@@ -33,7 +33,17 @@ div.room-left-1 {
 }
 
 div.room-right-1 {
+  position: relative;
   width: 75%;
+}
+
+.room-right-1 p {
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  left: 30px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 div.room-left-2,
