@@ -185,3 +185,18 @@
   padding: 20px;
   text-align: left;
 }
+
+.board-heart-box {
+  display: flex;
+  width: 50px;
+  margin: auto;
+  justify-content: center;
+}
+
+.board-heart {
+  cursor: pointer;
+}
+
+.board-heart-box p {
+  margin-left: 5px;
+}

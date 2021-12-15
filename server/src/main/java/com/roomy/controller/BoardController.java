@@ -1,7 +1,9 @@
 package com.roomy.controller;
 
 import com.roomy.model.BoardVO;
+import com.roomy.model.LikeVO;
 import com.roomy.service.BoardService;
+import com.roomy.service.LikeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,11 @@ public class BoardController {
     @Qualifier("boardService")
     private final BoardService boardService;
 
-    public BoardController(BoardService boardService) {
+    private final LikeService likeService;
+
+    public BoardController(BoardService boardService, LikeService likeService) {
         this.boardService = boardService;
+        this.likeService = likeService;
     }
 
     @GetMapping({"/",""})
@@ -37,7 +42,7 @@ public class BoardController {
 //    }
 
     @PostMapping(value = {"/", ""})
-    public void insert(@RequestBody  BoardVO boardVO) {
+    public void insert(@RequestBody BoardVO boardVO) {
         log.debug("write 컨트롤러 실행");
         log.debug(boardVO.toString());
         boardService.insert(boardVO);
@@ -46,8 +51,20 @@ public class BoardController {
     @GetMapping(value={"/{board_seq}"})
     public BoardVO detail(@PathVariable Long board_seq) {
         log.debug("board detail 컨트롤러 실행 {}",board_seq);
-//        Long board_seq = Long.valueOf(seq);
         BoardVO boardVO = boardService.findById(board_seq);
+
+        //
+
+        // 좋아요 눌렀는지 여부 확인 위해 likeVO 생성하고 게시물번호, 유저번호 넣어줌
+        LikeVO likeVO = new LikeVO();
+        likeVO.setBoardSeq(board_seq);
+        likeVO.setUserSeq(1L);
+
+        Boolean check = likeService.likeCheck(likeVO);
+
+        boardVO.setCheckLike(check);
+
+        log.debug(boardVO.toString());
         return boardVO;
     }
 
@@ -70,5 +87,16 @@ public class BoardController {
         log.debug("board search 컨트롤러 실행");
         List<BoardVO> list = boardService.search(select,query);
         return list;
+    }
+
+    @PostMapping(value="/like")
+    public int like(@RequestBody LikeVO likeVO) {
+        log.debug("board like 컨트롤러 실행");
+        // user 생성되면 session 에서 userSeq 뽑아올 것
+        likeVO.setUserSeq(1L);
+        log.debug(likeVO.toString());
+        int likeNum = likeService.insertOrDelete(likeVO);
+        log.debug("하짜증나 {}", String.valueOf(likeNum));
+        return likeNum;
     }
 }

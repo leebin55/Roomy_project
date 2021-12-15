@@ -17,7 +17,7 @@ import java.util.List;
 public class LikeServiceImpl implements LikeService {
 
     private final LikeRepository likeRepository;
-    private final BoardRepository galleryRepository;
+    private final BoardRepository boardRepository;
 
     @Override
     public List<LikeVO> findByUserSeq(Long user_seq) {
@@ -57,19 +57,19 @@ public class LikeServiceImpl implements LikeService {
     }
 
 
-
-
+    @Override
     public int insert(LikeVO likeVO) {
         // tbl_board_like 테이블에 데이터 저장
         likeRepository.save(likeVO);
         Long boardSeq = likeVO.getBoardSeq();
         // 데이터 생성한 뒤 boardSeq 로 BoardVO 찾아 board_like+1 올려줌
-        BoardVO boardVO = galleryRepository.findById(boardSeq).get();
+        BoardVO boardVO = boardRepository.findById(boardSeq).get();
         int countLike = boardVO.getBoardLike();
         boardVO.setBoardLike(++countLike);
-        galleryRepository.save(boardVO);
+        boardRepository.save(boardVO);
         return countLike;
     }
+
     @Override
     public int delete(LikeVO likeVO){
         // user와 board seq 로 like seq 조회
@@ -77,13 +77,13 @@ public class LikeServiceImpl implements LikeService {
         // 좋아요 데이터 삭제
         likeRepository.deleteById(like_seq);
         // 게시물에서 board_seq 로 해당 게시물 찾기
-        BoardVO boardVO=galleryRepository.getById(likeVO.getBoardSeq());
+        BoardVO boardVO=boardRepository.getById(likeVO.getBoardSeq());
         // 해당 게시물 좋아요 수
         int countLike=boardVO.getBoardLike();
         // 좋아요수 -1 해서 다시 setter
         boardVO.setBoardLike(--countLike);
         // update
-        galleryRepository.save(boardVO);
+        boardRepository.save(boardVO);
         //좋아요 수를 return > client에서 바로 좋아요수를 axios를 통해 값을 변경하기 위해
         return countLike;
 
