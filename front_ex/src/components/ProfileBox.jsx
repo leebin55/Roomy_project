@@ -19,6 +19,7 @@ function ProfileBox() {
     setTemp,
     temp,
   } = useLoginContext();
+
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       fetch("http://localhost:8080/room/logout").then((response) => {
@@ -31,12 +32,19 @@ function ProfileBox() {
       });
     }
   };
+
   const navigate = useNavigate();
+
+  let localUser = window.localStorage.getItem("user");
+
   const goMini = () => {
-    navigate("/room");
+    if (localUser) {
+      const userId = JSON.parse(localUser).userId;
+      navigate(`/room/${userId}`);
+    }
   };
+
   useEffect(() => {
-    let localUser = window.localStorage.getItem("user");
     if (localUser) {
       console.log("localUser", localUser);
       const obj = JSON.parse(localUser);
