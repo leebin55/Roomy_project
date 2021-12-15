@@ -31,7 +31,7 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
+//    private final JwtTokenProvider jwtTokenProvider;
 
 
     // 회원가입
@@ -66,6 +66,11 @@ public class UserController {
     public ResponseEntity<?> logout(HttpSession session) {
         session.removeAttribute("user");
         return ResponseEntity.status(200).body("logout");
+    }
+
+    @PostMapping("/findByUsername")
+    public String findByUsername(){
+        return "";
     }
     // 로그인
     // postman으로 하면 토큰생성된거 보이는데 좀더 공부해야함
