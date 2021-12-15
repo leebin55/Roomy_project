@@ -37,31 +37,34 @@ function ProfileBox() {
   };
   useEffect(() => {
     let localUser = window.localStorage.getItem("user");
-    // console.log("id:", JSON.parse(localUser.userId));
-    console.log("localUser", localUser);
-    const obj = JSON.parse(localUser);
-    console.log("id:", obj.userId);
-    console.log("pw:", obj.password);
-    fetch("http://localhost:8080/room/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: obj.userId,
-        password: obj.password,
-      }),
-    }).then((res) => {
-      console.log(res);
-      if (res.status === 200) {
-        setTemp(true);
-        setUser({
+    if (localUser) {
+      console.log("localUser", localUser);
+      const obj = JSON.parse(localUser);
+      console.log("id:", obj.userId);
+      console.log("pw:", obj.password);
+      // console.log("id:", JSON.parse(localUser.userId));
+
+      fetch("http://localhost:8080/room/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           userId: obj.userId,
-        });
-      } else {
-        setTemp(false);
-      }
-    });
+          password: obj.password,
+        }),
+      }).then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setTemp(true);
+          setUser({
+            userId: obj.userId,
+          });
+        } else {
+          setTemp(false);
+        }
+      });
+    }
   }, []);
 
   return (
