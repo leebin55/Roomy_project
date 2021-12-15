@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../css/userForm/ProfileBox.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import MainModal from "./ProfileForm/MainModal";
@@ -6,6 +6,7 @@ import { useLoginContext } from "../context/LoginContextProvider";
 import "../css/userForm/Logout.css";
 
 function ProfileBox() {
+  const [set, setSet] = useState();
   const {
     loginClick,
     findClick,
@@ -24,6 +25,8 @@ function ProfileBox() {
         console.log(response);
         if (response.status === 200) {
           setTemp(false);
+
+          window.localStorage.removeItem("user");
         }
       });
     }
@@ -32,23 +35,55 @@ function ProfileBox() {
   const goMini = () => {
     navigate("/room");
   };
+  useEffect(() => {
+    let localUser = window.localStorage.getItem("user");
+    // console.log("id:", JSON.parse(localUser.userId));
+    console.log("localUser", localUser);
+    const obj = JSON.parse(localUser);
+    console.log("id:", obj.userId);
+    console.log("pw:", obj.password);
+    fetch("http://localhost:8080/room/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: obj.userId,
+        password: obj.password,
+      }),
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        setTemp(true);
+        setUser({
+          userId: obj.userId,
+        });
+      } else {
+        setTemp(false);
+      }
+    });
+  }, []);
 
   return (
     <div>
       {temp === true ? (
         <div className="afterContainer">
           <div className="logoutHeader">
-            <p>{user.userId}님 반갑습니다.</p>
+            <img className="logo" src="img/logo.svg" />
+            <p>{user.userId}님</p>
           </div>
           <div className="logoutBody">
-            <button onClick={logout}>CYWORLD 로그아웃</button>
+            <div>쪽지함 </div>
+            <div>팔로우 2.4k</div>
           </div>
           <div className="logoutFooter">
-            <button onClick={goMini}>미니홈피가기</button>
-            <p>친구</p>
-            <p>친구2</p>
-            <p>친구3안나옴</p>
-            <p>니가가라하와이</p>
+            <div className="footerDetail">
+              <button>수정하기</button>
+              <button onClick={logout}> 로그아웃</button>
+            </div>
+            <button id="mini" onClick={goMini}>
+              미니홈피가기
+            </button>
           </div>
         </div>
       ) : (

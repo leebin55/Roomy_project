@@ -1,4 +1,47 @@
 .afterContainer {
 	border: 1px solid black;
-	
+	width: 100%;
+	height:300px;
+}
+
+.logoutHeader {
+	margin:10px auto;
+	font-size:24px;
+}
+.logoutHeader img {
+	width:80%;
+	height: 120px;
+	border:1px solid black;
+}
+.logoutBody {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0.5rem;
+}
+.logoutBody div {
+	margin: 2px;
+}
+.logoutFooter {
+	display: flex;
+	flex-direction: column;
+	border:none;
+	outline: none;
+	margin:8px;
+}
+.logoutFooter button{
+	margin:3px;
+	background-color: lightblue;
+	color: white;
+	transition: all 0.3s ease;
+}
+#mini {
+	height:30px;
+}
+.footerDetail button {
+	width: 40%;
+	height:30px;
+}
+.logoutFooter button:hover {
+	background-color: lightseagreen;
 }

@@ -32,13 +32,14 @@ function LoginModal() {
         setLogin(false);
         setJoin(false);
         setFind(false);
+        window.localStorage.setItem("user", JSON.stringify(user));
       }
     });
   };
   return (
     <div className="loginItem">
       <div className="loginErr">
-        <h1>로그인을 진행해주세요{temp.userId}</h1>
+        <h1>로그인을 진행해주세요</h1>
       </div>
       <div className="loginForm idForm">
         <input

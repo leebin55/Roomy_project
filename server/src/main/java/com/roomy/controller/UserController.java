@@ -61,6 +61,7 @@ public class UserController {
         return ResponseEntity.status(200).body(user);
     }
 
+
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
         session.removeAttribute("user");
