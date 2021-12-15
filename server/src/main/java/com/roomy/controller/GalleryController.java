@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Slf4j
@@ -18,7 +21,7 @@ import java.util.List;
 public class GalleryController {
 
     private final FileService fileService;
-    @Qualifier("galleryService")
+    @Qualifier("galleryService") // Gallery 와 일반 게시판은 같은 galleryService interface  를 사용하기 때문에
     private final BoardService galleryService ;
     private final LikeService likeService;
 
@@ -39,13 +42,15 @@ public class GalleryController {
 
     // 게시물 번호(seq)로 찾아 해당 게시물 return
     @GetMapping("/detail")
-    public BoardVO detail(@RequestParam Long board_seq){
+    public BoardVO detail(@RequestParam Long board_seq , HttpServletRequest request, HttpServletResponse response){
         BoardVO boardVO = galleryService.findById(board_seq);
         // 해당 게시물 클릭 할 때마다 board_hit +1 조회수 증가
         boardVO.setBoardHit(boardVO.getBoardHit()+1);
         log.debug("findbyId : {}" , boardVO.toString());
         return boardVO;
     }
+
+
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
     @PostMapping("/write")
@@ -84,6 +89,7 @@ public class GalleryController {
     public int like(@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
         int likeNum = likeService.insertOrDelete(likeVO);
+
         return likeNum;
     }
 
@@ -97,7 +103,44 @@ public class GalleryController {
 
 
     //댓글
-
-
+    
 
 }
+
+// 쿠키를 사용하지 못하는 이유 :  client 와 server 가 분리되었기 때문에 cookie 는
+// 클라이언트 로컬에 저장함
+// 해당 쿠키가 존재하는지 검사하는 메서드
+//    public boolean checkCookie(HttpServletRequest request) {
+//        // 모든 쿠키를 다 가지고 옴
+//        Cookie[] cookies = null; // 쿠키가 하나도 없으면 null 반환 > NullPointerException 발생
+//        try {
+//            cookies = request.getCookies();
+//            log.debug("allcookie : {}",cookies.toString());
+//            //cookies가 하나라도 있으면
+//            if (cookies.length>0) {
+//                for (Cookie cookie : cookies) {
+//                    if (cookie.getName().equals("")) {
+//                        log.debug("이미 조회한 게시물입니다.");
+//                        return false; // 해당 쿠키 찾으면 return
+//                    }
+//                }
+//                return true;
+//            }
+//        }catch (NullPointerException e){
+//            return true;
+//        }
+//        return true;
+//    }
+//
+//        /** cookie를 이용해서 새로고침 할때나 시간이 얼마 지나지 않았을 때 조회수 올라가는 것 방지*/
+//        boolean findCookie =checkCookie(request);
+//
+//        if(findCookie == true){ // 해당 쿠키존재하지 않음
+//            //쿠키 key , value 형식 key 에는 쿠키 이름(detail+게시물번호)  , value에는 유저 아이디 가 들어감
+//            Cookie newCookie = new Cookie("detail"+board_seq,"1");
+//            log.debug("cookie {}", newCookie.getName(),newCookie.getValue());
+//            newCookie.setPath("/");
+//            newCookie.setMaxAge(60*60);//초단위
+//            response.addCookie(newCookie);
+//
+//    }

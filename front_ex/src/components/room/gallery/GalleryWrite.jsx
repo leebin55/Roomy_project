@@ -8,8 +8,6 @@ import QuillToolbar from './QuillToolbar';
 
 // 갤러리 글 등록하는 부분
 function GalleryWrite({ isWrite, setIsWrite }) {
-  const navigate = useNavigate();
-
   const {
     title,
     setTitle,
@@ -46,11 +44,10 @@ function GalleryWrite({ isWrite, setIsWrite }) {
               console.log(galleryImgList);
               console.log('save: ', saveURL);
               alert('글 등록 완료');
-              setIsWrite(!isWrite);
               setTitle('');
               setContent('');
-              navigate('/room/gallery');
               setGalleryImgList([]);
+              setIsWrite(!isWrite);
             }
           });
       } catch (error) {
