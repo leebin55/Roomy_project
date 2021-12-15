@@ -70,6 +70,7 @@ public class LikeServiceImpl implements LikeService {
         galleryRepository.save(boardVO);
         return countLike;
     }
+
     @Override
     public int delete(LikeVO likeVO){
         // user와 board seq 로 like seq 조회

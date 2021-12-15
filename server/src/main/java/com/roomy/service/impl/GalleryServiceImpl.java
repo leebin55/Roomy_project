@@ -6,11 +6,8 @@ import com.roomy.repository.BoardRepository;
 import com.roomy.repository.FileRepository;
 import com.roomy.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -58,9 +55,8 @@ public class GalleryServiceImpl implements BoardService {
                 imageVO.setImgBoardSeq(board_seq);
                 // insert
                 fileRepository.save(imageVO);
+            }
         }
-        }
-
     }
 
 
@@ -91,8 +87,14 @@ public class GalleryServiceImpl implements BoardService {
 //
 //    }
     @Override
-    public void delete(Long board_seq) {
-        galleryRepository.deleteById(board_seq);
+    public void delete(Long board_seq){
+    galleryRepository.deleteById(board_seq);
+    // boardImg 테이블에  해당 게시판 번호의 이미지가 하나라도 존재하면
+//        List<String> imgList = fileRepository.findByImgBoardSeq(board_seq);
+//    if(imgList.size()>0){
+//        fileRepository.deleteByImgBoardSeq(board_seq);
+//    }
+    
     }
 
 

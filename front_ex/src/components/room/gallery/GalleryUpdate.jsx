@@ -18,7 +18,6 @@ function GalleryUpdate({ boardSeq }) {
     title,
     content,
     setIsUpdate,
-    setGalleryImgList,
     galleryImgList,
   } = useGalleryContext();
 
@@ -62,10 +61,10 @@ function GalleryUpdate({ boardSeq }) {
         })
         .then((res) => {
           if (res.status === 200) {
-            setTitle('');
-            setContent('');
-            navigate('/room/gallery');
-            setGalleryImgList([]);
+            // setTitle('');
+            // setContent('');
+            // navigate('/room/gallery');
+            // setGalleryImgList([]);
             navigate(`/room/gallery/${boardSeq}`);
           }
         });
