@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/room/board")
+@RequestMapping("/room/{userId}/board")
 public class BoardController {
 
     @Qualifier("boardService")

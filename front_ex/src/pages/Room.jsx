@@ -1,15 +1,30 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useParams } from "react-router-dom";
 import { LeftSide } from "../components/room/RoomComps";
 import RoomNav from "../components/room/RoomNav";
 import "../css/Room.css";
 import SettingContextProvider from "../context/SettingContextProvider";
 
 function Room() {
+  // 현재 접속해있는 미니홈피 주인회원id URL에서 잘라오기
+  const { userId } = useParams();
+
+  // 미니홈피 정보들 불러오기 (미완)
+  const fetchRoom = async () => {
+    const res = await fetch(`http://localhost:8080/room/${userId}`);
+  };
+
+  useEffect(() => {
+    fetchRoom();
+  }, []);
+
   return (
     <div className="room-background">
       <div className="room-main-container">
         <div className="room-left-1">
+          <p className="room-visit">
+            today<span>0</span>total<span>0</span>
+          </p>
           <div className="room-left-2">
             <section className="room-left-side">
               <SettingContextProvider>
