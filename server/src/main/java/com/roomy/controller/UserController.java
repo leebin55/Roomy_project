@@ -71,7 +71,7 @@ public class UserController {
 
     @PostMapping("/findByUsername")
     public String findByUsername(@PathVariable("seq") Long id,
-            @RequestBody String username){
+                                 @RequestBody String username){
 
         userRepository.findById(id);
 

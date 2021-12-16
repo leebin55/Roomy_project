@@ -1,0 +1,21 @@
+#modal-update-description {
+  display: flex;
+}
+.profile-update-header {
+  display: flex;
+  padding: 5px;
+}
+.profile-update-header button {
+  margin-left: auto;
+}
+div.profile-update-img-container {
+  width: 250px;
+  height: 250px;
+}
+.profile-update-text-container {
+  width: 400px;
+}
+.profile-update-img-container img {
+  width: 100%;
+  height: 100%;
+}

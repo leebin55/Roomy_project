@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from 'react';
 
 const AppContext = createContext();
 export const useLoginContext = () => useContext(AppContext);
@@ -39,8 +39,8 @@ function LoginContextProvider({ children }) {
   };
   const [temp, setTemp] = useState(false);
   const [user, setUser] = useState({
-    userId: "",
-    password: "",
+    userId: '',
+    password: '',
   });
   const data = {
     login,
