@@ -49,15 +49,18 @@ function JoinModal() {
         },
         body: JSON.stringify({
           userId: join.userId,
-          password: join.password,
-          username: join.username,
-          email: join.email,
-          birth: join.birth,
-          gender: join.gender,
+          userPassword: join.password,
+          userEmail: join.email,
+          userGender: join.gender,
+          userBirth: join.birth,
+          userName: join.username,
         }),
+      }).then((res) => {
+        if (res?.ok) {
+          alert("가입완료! 로그인을 진행해주세요.");
+          loginClick();
+        }
       });
-      alert("가입완료 로그인을 진행해주세요.");
-      loginClick();
     }
   };
   return (

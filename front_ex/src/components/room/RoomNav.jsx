@@ -1,15 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 
-function RoomNav() {
+function RoomNav({ userId }) {
   return (
     <nav className="room-main-nav">
       <NavLink
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to="/room"
+        to={"/room/" + userId}
       >
         Home
       </NavLink>
@@ -17,7 +17,7 @@ function RoomNav() {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to="/room/board"
+        to={"/room/" + userId + "/board"}
       >
         Board
       </NavLink>
@@ -25,7 +25,7 @@ function RoomNav() {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to="/room/gallery"
+        to={"/room/" + userId + "/gallery"}
       >
         Gallery
       </NavLink>
@@ -33,7 +33,7 @@ function RoomNav() {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to="/room/todo"
+        to={"/room/" + userId + "/todo"}
       >
         Todo
       </NavLink>
@@ -41,7 +41,7 @@ function RoomNav() {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to="/room/guest"
+        to={"/room/" + userId + "/guest"}
       >
         Guest
       </NavLink>
@@ -49,7 +49,7 @@ function RoomNav() {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to="/room/setting"
+        to={"/room/" + userId + "/setting"}
       >
         Setting
       </NavLink>
