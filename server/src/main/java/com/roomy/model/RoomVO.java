@@ -12,12 +12,16 @@ public class RoomVO {
     // PK 는 회원번호
     @Id
     private Long userSeq;
+
     // room 이름
     private String roomName;
+
     // room 방문자수
     private int roomTotal;
-    //room 소개글
+
+    // room 소개글
     private String roomIntroduce;
+
     // room 좋아요 수
-    private int roomLike;
+    // private int roomLike;
 }

@@ -25,8 +25,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomVO findById(Long roomSeq) {
-        return roomRepository.findById(roomSeq).get();
+    public RoomVO findById(Long userSeq) {
+        return roomRepository.findById(userSeq).get();
     }
 
     // 회원 가입을 하면 자동으로 룸도 생성되게

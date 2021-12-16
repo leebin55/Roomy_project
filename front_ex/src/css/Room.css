@@ -29,7 +29,19 @@ div.room-right-1 {
 }
 
 div.room-left-1 {
+  position: relative;
   width: 25%;
+}
+
+.room-left-1 .room-visit {
+  position: absolute;
+  top: 55px;
+  left: 110px;
+  display: flex;
+  width: 130px;
+  justify-content: space-between;
+  margin: auto;
+  font-size: 17px;
 }
 
 div.room-right-1 {
