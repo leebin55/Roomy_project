@@ -3,7 +3,9 @@ package com.roomy.controller;
 
 import com.roomy.config.jwt.JwtProps;
 import com.roomy.config.jwt.JwtTokenProvider;
+import com.roomy.model.RoomVO;
 import com.roomy.model.User;
+import com.roomy.repository.RoomRepository;
 import com.roomy.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -31,25 +33,30 @@ import java.util.Map;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final RoomRepository roomRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 //    private final JwtTokenProvider jwtTokenProvider;
+
 
 
     // 회원가입
     // 뷰에서 정보넣고 회원가입하면 기능됨
     @PostMapping("/join")
-    public Long join(@RequestBody Map<String, String> user){
-        return userRepository.save(User.builder()
-                .userId(user.get("userId"))
-                .userPassword(bCryptPasswordEncoder.encode(user.get("password")))
-                .userName(user.get("username"))
-                .userEmail(user.get("email"))
-                .userBirth(user.get("birth"))
-                .userGender(user.get("gender"))
-                .userName(user.get("username"))
-//                .roles(Collections.singletonList("ROLE_USER"))
-                .build()).getId();
+    public String join(@RequestBody User user){
+        user.setUser_rank(1);
+        userRepository.save(user);
+
+        // 회원가입하면 미니홈피도 생성되게
+        RoomVO roomVO = RoomVO.builder().userId(user.getUserId()).roomName(user.getUsername() + "님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
+        roomRepository.save(roomVO);
+
+        log.debug("roomVO는 이렇게 생겼다 {}", roomVO.toString());
+
+//        roomRepository.save();
+        return user.getUserId();
     }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> user, HttpSession session){
         User member = userRepository.findByUserId(user.get("userId"))
@@ -82,6 +89,22 @@ public class UserController {
     public String update(@PathVariable("id") Long id){
         return "";
     }
+
+    // 회원정보 수정
+    @PutMapping("/update")
+    public Long update(@RequestBody User user){
+        log.debug("userupdate info : {}",user.toString());
+
+        return null;
+    }
+
+    @GetMapping("/user/{userId}")
+    public User getUserInfo(@PathVariable("userId") String userId){
+        User user = userRepository.findByUserId(userId).get();
+        log.debug("user 조회 : {}", user.toString());
+        return user;
+    }
+
     // 로그인
     // postman으로 하면 토큰생성된거 보이는데 좀더 공부해야함
 //    @PostMapping("/login")

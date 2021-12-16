@@ -19,13 +19,13 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping( "/{user_id}")
-    public RoomVO room(@PathVariable Long user_id){
-        log.debug("room 컨트롤러 실행 {}", user_id);
+    @GetMapping( "/{userId}")
+    public RoomVO room(@PathVariable Long userId){
+        log.debug("room 컨트롤러 실행 {}", userId);
 
 
 
-        RoomVO roomVO = roomService.findById(user_id);
+        RoomVO roomVO = roomService.findById(userId);
         return roomVO;
     }
 }

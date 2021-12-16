@@ -20,26 +20,37 @@ import java.util.stream.Collectors;
 @Table(name ="tbl_user" , schema = "roomyDB")
 @Data
 public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_seq")
-    //회원번호
-    private Long id;
+
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "user_seq")
+//    //회원번호
+//    private Long id;
+
     // 화원 아이디
+    @Id
     private String userId;
+
     // 비밀번호
     private String userPassword;
+
     // 이메일
     private String userEmail;
+
     // 성별
-    private String userGender;
+    private int userGender;
+
     // 생년월일
     private String userBirth;
+
     // 프로필 사진
     @Column(nullable = true)
     private String userprofile;
+
     // 회원 이름
     private String userName;
+
+    // 회원 등급 ( 0 관리자 / 1 일반회원 )
+    private int user_rank;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

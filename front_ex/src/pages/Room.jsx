@@ -40,7 +40,7 @@ function Room() {
               <Outlet />
             </section>
             <section className="room-main-nav">
-              <RoomNav />
+              <RoomNav userId={userId} />
             </section>
           </div>
         </div>

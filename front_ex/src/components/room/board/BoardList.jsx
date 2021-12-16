@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../../css/Board.css";
 
 function BoardList() {
@@ -10,9 +10,10 @@ function BoardList() {
   const [search, setSearch] = useState(""); // 검색 input box 에 입력한 내용
   // const [start_page, setStart_page] = useState("1");
   // const [end_page, setEnd_page] = useState("1");
+  const { userId } = useParams();
 
   const fetchList = async () => {
-    const res = await fetch("http://localhost:8080/room/board");
+    const res = await fetch(`http://localhost:8080/room/${userId}/board`);
     const result = await res.json();
     // if (result?.content?.length > 0) setBoard_list(result?.content);
     setBoard_list(result);
