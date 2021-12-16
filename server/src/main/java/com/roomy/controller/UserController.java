@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -69,7 +70,16 @@ public class UserController {
     }
 
     @PostMapping("/findByUsername")
-    public String findByUsername(){
+    public String findByUsername(@PathVariable("seq") Long id,
+            @RequestBody String username){
+
+        userRepository.findById(id);
+
+        return "";
+    }
+
+    @GetMapping("/mypage/{id}")
+    public String update(@PathVariable("id") Long id){
         return "";
     }
     // 로그인
