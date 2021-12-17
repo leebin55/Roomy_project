@@ -41,8 +41,8 @@ public class GalleryController {
     }
 
     // 게시물 번호(seq)로 찾아 해당 게시물 return
-    @GetMapping("/detail")
-    public BoardVO detail(@RequestParam Long board_seq , HttpServletRequest request, HttpServletResponse response){
+    @GetMapping("/{userId}/gallery/detail")
+    public BoardVO detail(@PathVariable("userId") String userId,@RequestParam Long board_seq ){
         BoardVO boardVO = galleryService.findById(board_seq);
         // 해당 게시물 클릭 할 때마다 board_hit +1 조회수 증가
         boardVO.setBoardHit(boardVO.getBoardHit()+1);
@@ -53,8 +53,8 @@ public class GalleryController {
 
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
-    @PostMapping("/write")
-    public String write(@RequestBody  BoardVO boardVO ) {
+    @PostMapping("/{userId}/gallery/write")
+    public String write(@PathVariable("userId") String userId,@RequestBody  BoardVO boardVO ) {
         log.debug("controller_boardVO : {}",boardVO.toString());
         galleryService.insert(boardVO);
         return "ok";
@@ -62,8 +62,8 @@ public class GalleryController {
     }
 
     // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔줌
-    @PutMapping("/img")
-    public String img(@RequestParam("img") MultipartFile img){
+    @PutMapping("/{userId}/gallery/img")
+    public String img(@PathVariable("userId") String userId,@RequestParam("img") MultipartFile img){
       log.debug("받아온 파일 이름 {}",img.getOriginalFilename());
       String newFileName = fileService.uploadFile(img);
       log.debug("보낼 url {}:","http://localhost:8080/uploads/"+ newFileName);
@@ -71,22 +71,22 @@ public class GalleryController {
     }
 
     // 갤러리 게시글 수정
-    @PutMapping("/update")
-    public void update(@RequestBody BoardVO boardVO){
+    @PutMapping("/{userId}/gallery/update")
+    public void update(@PathVariable("userId") String userId,@RequestBody BoardVO boardVO){
         galleryService.insert(boardVO);
 
     }
 
     //삭제
-    @GetMapping("/delete/{board_seq}")
-    public void delete(@PathVariable Long board_seq){
+    @GetMapping("/{userId}/gallery/delete/{board_seq}")
+    public void delete(@PathVariable("userId") String userId,@PathVariable("board_seq") Long board_seq){
         galleryService.delete(board_seq);
 
     }
 
     //좋아요 클릭 할때 실행되는 method
-    @PostMapping("/like")
-    public int like(@RequestBody LikeVO likeVO){
+    @PostMapping("/{userId}/gallery/like")
+    public int like(@PathVariable("userId") String userId,@RequestBody LikeVO likeVO){
         log.debug("likeVO {} ",likeVO.toString());
         int likeNum = likeService.insertOrDelete(likeVO);
 
@@ -94,9 +94,9 @@ public class GalleryController {
     }
 
 
-    @PutMapping("/beforeCheck")
+    @PutMapping("/{userId}/gallery/beforeCheck")
     // gallery 리스트가 뜰때 좋아요를 이전에 눌렀는지 처음 한번만 확인하는 method
-    public Boolean beforeLikeCheck(@RequestBody LikeVO likeVO){
+    public Boolean beforeLikeCheck(@PathVariable("userId") String userId, @RequestBody LikeVO likeVO){
         return likeService.likeCheck(likeVO);
 
     }

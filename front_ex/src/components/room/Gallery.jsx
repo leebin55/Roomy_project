@@ -8,6 +8,7 @@ import '../../css/Gallery.css';
 import GalleryWrite from './gallery/GalleryWrite';
 import GalleryContextProvider from '../../context/GalleryContextProvider';
 import GalleryUpdate from './gallery/GalleryUpdate';
+import { useParams } from 'react-router-dom';
 
 function Gallery() {
   // url 에서 boardState= 을 뽑아오기 위해서(GalleryContextProvider 이용하기 위해)
@@ -27,6 +28,7 @@ function Gallery() {
   const { board_state, board_seq } = queryString.parse(location.search);
   const [isWrite, setIsWrite] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
+  const { userId } = useParams();
 
   useEffect(() => {
     // board_state와  board_seq 가 존재하면
