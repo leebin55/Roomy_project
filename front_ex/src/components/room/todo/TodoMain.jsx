@@ -2,11 +2,13 @@ import React from "react";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import "../../../css/todo/TodoMain.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { useTodoContext } from "../../../context/TodoContextProvider";
 
 function TodoMain() {
   const navigate = useNavigate();
+  const { userId } = useParams();
+
   const onClick = () => {
     navigate("/");
   };

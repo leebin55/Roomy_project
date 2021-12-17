@@ -42,8 +42,8 @@ public class GuestServiceImplV1 implements GuestService {
         guestVO.setGuestWriterName("서녕");
         guestVO.setGuestCreateAt(dateTime);
         guestVO.setGuestUpdateAt(dateTime);
-        guestVO.setUserSeq2(1L);
-        guestVO.setGuestWriterSeq(1L);
+        guestVO.setUserId("testid");
+        guestVO.setGuestWriterId("sy");
 
         log.debug(guestVO.toString());
         guestRepository.save(guestVO);

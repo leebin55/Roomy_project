@@ -48,7 +48,7 @@ public class BoardServiceImplV1 implements BoardService {
         LocalDateTime localDateTime = LocalDateTime.now();
         String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        boardVO.setBoardUserSeq(1L);
+        boardVO.setBoardUserId("testid");
         boardVO.setBoardCreateAt(dateTime);
         boardVO.setBoardUpdateAt(dateTime);
 //        덜씀

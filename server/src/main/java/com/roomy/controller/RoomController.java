@@ -20,7 +20,7 @@ public class RoomController {
     }
 
     @GetMapping( "/{userId}")
-    public RoomVO room(@PathVariable Long userId){
+    public RoomVO room(@PathVariable String userId){
         log.debug("room 컨트롤러 실행 {}", userId);
 
 

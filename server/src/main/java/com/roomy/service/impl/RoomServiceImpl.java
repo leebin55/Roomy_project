@@ -25,7 +25,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomVO findById(Long userSeq) {
+    public RoomVO findById(String userSeq) {
         return roomRepository.findById(userSeq).get();
     }
 
@@ -42,7 +42,7 @@ public class RoomServiceImpl implements RoomService {
 
     // 회원 탈퇴하면 같이 삭제
     @Override
-    public void delete(Long aLong) {
+    public void delete(String aLong) {
 
     }
 }
