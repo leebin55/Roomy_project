@@ -7,7 +7,7 @@ import '../../../css/gallery/GalleryDetail.css';
 function GalleryDetail() {
   const navigate = useNavigate();
   //http://localhost:3000/room/gallery/2 에 board_seq 값 가져오기
-  const { board_seq } = useParams();
+  const { userId, board_seq } = useParams();
   const [galleryInfo, setGalleryInfo] = useState({
     boardCode: '',
     boardContent: '',
@@ -28,7 +28,9 @@ function GalleryDetail() {
     try {
       // userParam
       await axios
-        .get(`http://localhost:8080/room/gallery/detail?board_seq=${board_seq}`)
+        .get(
+          `http://localhost:8080/room/${userId}/gallery/detail?board_seq=${board_seq}`
+        )
         .then((res) => {
           if (res.status === 200) {
             //console.log(res.data);
@@ -42,7 +44,9 @@ function GalleryDetail() {
   };
 
   const updateClick = () => {
-    navigate(`/room/gallery?board_state=update&board_seq=${board_seq}`);
+    navigate(
+      `/room/${userId}/gallery?board_state=update&board_seq=${board_seq}`
+    );
     // try {
     //   axios
     //     .get(
@@ -61,7 +65,7 @@ function GalleryDetail() {
       try {
         axios
           .get(
-            `http://localhost:8080/room/gallery/delete/${galleryInfo.boardSeq}`
+            `http://localhost:8080/room/${userId}/gallery/delete/${galleryInfo.boardSeq}`
           )
           .then((res) => {
             if (res.status === 200) {
