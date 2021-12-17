@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import MainModal from './ProfileForm/MainModal';
 import { useLoginContext } from '../context/LoginContextProvider';
 import '../css/userForm/Logout.css';
-import ProfileUpdateModal from './Profile/ProfileUpdateModal';
+import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
 
 function ProfileBox() {
   const [set, setSet] = useState();
