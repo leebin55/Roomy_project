@@ -2,7 +2,7 @@ package com.roomy.service;
 
 import com.roomy.model.RoomVO;
 
-public interface RoomService {
+public interface RoomService{
 
     RoomVO findById(String userId);
 }

@@ -77,14 +77,14 @@ public class UserController {
         return ResponseEntity.status(200).body("logout");
     }
 
-    @PostMapping("/findByUsername")
-    public String findByUsername(@PathVariable("seq") Long id,
-                                 @RequestBody String username){
-
-        userRepository.findById(id);
-
-        return "";
-    }
+//    @PostMapping("/findByUsername")
+//    public String findByUsername(@PathVariable("seq") Long id,
+//                                 @RequestBody String username){
+//
+//        userRepository.findById(id);
+//
+//        return "";
+//    }
 
     @GetMapping("/mypage/{id}")
     public String update(@PathVariable("id") Long id){

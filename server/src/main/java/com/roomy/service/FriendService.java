@@ -11,9 +11,9 @@ public interface FriendService {
     void followFriend(FriendVO friendVO);
     
     // 친구 삭제
-    void unFollowFriend(Long friend_seq);
+    void unFollowFriend(String friend_id);
     
     // 친구 조회 (친구 번호 리턴)
-    List<Long> friendList(Long user_seq);
+    List<Long> friendList(String user_id);
     
 }
