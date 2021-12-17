@@ -28,7 +28,7 @@ public class BoardController {
     @GetMapping("/{userId}/board")
     public List<BoardVO> list() {
         log.debug("board list 컨트롤러 실행");
-        List<BoardVO> boardList = boardService.selectAll();
+        List<BoardVO> boardList = boardService.readBoardList(2, "testid");
         return boardList;
     }
 

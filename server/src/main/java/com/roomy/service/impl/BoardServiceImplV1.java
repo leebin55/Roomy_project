@@ -22,12 +22,6 @@ public class BoardServiceImplV1 implements BoardService {
         this.boardRepository = boardRepository;
     }
 
-    @Override
-    public List<BoardVO> selectAll() {
-        List<BoardVO> list = boardRepository.findAllByBoardCodeOrderByBoardSeqDesc(2);
-        return list;
-    }
-
 //    @Override
 //    public Page<BoardVO> selectAll(Pageable pageable) {
 //        // 페이지네이션 진행중
@@ -35,6 +29,17 @@ public class BoardServiceImplV1 implements BoardService {
 //        log.debug("페이지네이션 서비스 실행");
 //        return boardRepository.findAllByBoardCodeOrderByBoardSeqDesc(2, pageable);
 //    }
+
+    @Override
+    public List<BoardVO> readBoardList(int boardCode, String userId) {
+        List<BoardVO> list = boardRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(boardCode, userId);
+        return list;
+    }
+
+    @Override
+    public List<BoardVO> selectAll() {
+        return null;
+    }
 
     @Override
     public BoardVO findById(Long board_seq) {

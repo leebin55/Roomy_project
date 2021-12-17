@@ -24,16 +24,16 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public void unFollowFriend(Long friend_seq) {
+    public void unFollowFriend(String friend_id) {
 
-        friendRepository.deleteById(friend_seq);
+        friendRepository.deleteById(friend_id);
     }
 
     // 회원 번호를 받아 친구회원 번호만 출력
     @Override
-    public List<Long> friendList(Long user_seq) {
+    public List<Long> friendList(String user_id) {
 
-        List<Long> friendsList = friendRepository.findFriendList(user_seq);
+        List<Long> friendsList = friendRepository.findFriendList(user_id);
 
         return friendsList;
     }
