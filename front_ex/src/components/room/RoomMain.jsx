@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function RoomMain() {
   const [content, setContent] = useState(""); // 입력한 방명록 작성 내용
   const [pp, setPp] = useState(false); // 입력한 방명록 공개여부
   const [guest_list, setGuest_list] = useState([]);
+  const { userId } = useParams();
 
+  // 미니홈피 메인화면에서 방명록을 보여주기 위함
   const fetchGuest = async () => {
-    const res = await fetch("http://localhost:8080/room/guest?limit=4");
+    const res = await fetch(
+      `http://localhost:8080/room/${userId}/guest?limit=4`
+    );
     const data = await res.json();
     setGuest_list(data);
   };
@@ -24,7 +29,7 @@ function RoomMain() {
       alert("방명록을 입력하세요");
       return;
     }
-    await fetch("http://localhost:8080/room/guest", {
+    await fetch(`http://localhost:8080/room/${userId}/guest`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -44,16 +44,17 @@ public class UserController {
     // 뷰에서 정보넣고 회원가입하면 기능됨
     @PostMapping("/join")
     public String join(@RequestBody User user){
+        
+        // 회원 추가
         user.setUser_rank(1);
         userRepository.save(user);
 
         // 회원가입하면 미니홈피도 생성되게
-        RoomVO roomVO = RoomVO.builder().userId(user.getUserId()).roomName(user.getUsername() + "님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
+        RoomVO roomVO = RoomVO.builder().userId(user.getUserId()).roomName(user.getUsername() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
         roomRepository.save(roomVO);
 
-        log.debug("roomVO는 이렇게 생겼다 {}", roomVO.toString());
+        log.debug("roomVO {}", roomVO.toString());
 
-//        roomRepository.save();
         return user.getUserId();
     }
 

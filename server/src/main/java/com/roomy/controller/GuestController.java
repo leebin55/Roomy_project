@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/room/guest")
+@RequestMapping("/room")
 public class GuestController {
 
     private final GuestService guestService;
@@ -20,7 +20,7 @@ public class GuestController {
         this.guestService = guestService;
     }
 
-    @GetMapping(value = {"/", ""})
+    @GetMapping("/{userId}/guest")
     public List<GuestVO> list(@RequestParam(name = "limit",required = false,defaultValue = "0") Long limit) {
         // 미니홈피 main 화면에서 방명록 최근 4개 보여주기 위해 이렇게 설정
         log.debug("guest list 컨트롤러 실행");
@@ -33,14 +33,14 @@ public class GuestController {
         return guestList;
     }
 
-    @PostMapping(value = {"/", ""})
+    @PostMapping("/{userId}/guest")
     public void insert(@RequestBody GuestVO guestVO) {
         log.debug("insert 컨트롤러 실행");
         log.debug(guestVO.toString());
         guestService.insert(guestVO);
     }
 
-    @PutMapping(value="/{guestSeq}")
+    @PutMapping("/{userId}/guest/{guestSeq}")
     public void update(@PathVariable Long guestSeq, @RequestBody GuestVO vo) {
         log.debug("update 컨트롤러 실행");
         GuestVO guestVO = guestService.findById(guestSeq);
@@ -52,7 +52,7 @@ public class GuestController {
         guestService.update(guestVO);
     }
 
-    @DeleteMapping(value = "/{guestSeq}")
+    @DeleteMapping("/{userId}/guest/{guestSeq}")
     public void delete(@PathVariable Long guestSeq) {
         log.debug("delete 컨트롤러 실행", guestSeq);
         guestService.delete(guestSeq);

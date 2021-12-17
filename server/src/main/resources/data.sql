@@ -34,4 +34,7 @@ VALUES( 2,'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c');
 --     );
 
 INSERT INTO tbl_user(user_id, user_password, user_email, user_gender, user_birth, user_name, user_rank)
-VALUES('test','1234','test@gmail.com',2,'2021-12-16', '테스트',0);
+VALUES('testid','1234','test@gmail.com',2,'2021-12-16', '김이름',0);
+
+INSERT INTO tbl_room(user_id, room_name, room_total, room_introduce)
+VALUES('testid','김이름 님의 미니홈피에 오신 걸 환영합니다',0,"소개글이 없습니다");
