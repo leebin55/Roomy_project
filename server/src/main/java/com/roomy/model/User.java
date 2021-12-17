@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Data
 public class User implements UserDetails {
 
+//    pk를 user_seq 에서 userId로 변경해 필요없어짐
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "user_seq")
 //    //회원번호

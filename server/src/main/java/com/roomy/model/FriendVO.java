@@ -10,8 +10,10 @@ public class FriendVO {
 
     @Id
     private Long friendSeq;
+
     // 회원번호
-    private Long userSeq;
+    private String userId;
+
     // 친구맺은 회원 번호
-    private Long friendUserSeq;
+    private String friendUserId;
 }

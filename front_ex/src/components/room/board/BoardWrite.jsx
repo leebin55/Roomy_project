@@ -38,7 +38,7 @@ function BoardWrite({ upData }) {
         },
         body: JSON.stringify({
           boardSeq: upData.boardSeq,
-          boardUserSeq: upData.boardUserSeq,
+          boardUserId: upData.boardUserId,
           boardTitle: title,
           boardContent: content,
           boardCreateAt: upData.boardCreateAt,

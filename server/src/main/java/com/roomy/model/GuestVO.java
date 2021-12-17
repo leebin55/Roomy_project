@@ -37,10 +37,10 @@ public class GuestVO {
     private String guestContent;
 
     @Column(columnDefinition = "BIGINT", nullable = false)
-    private Long userSeq2;
+    private String userId;
 
     @Column(columnDefinition = "BIGINT", nullable = false)
-    private Long guestWriterSeq;
+    private String guestWriterId;
 
 
 }

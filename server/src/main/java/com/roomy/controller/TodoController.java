@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/room/todo")
+@RequestMapping(value="/room")
 public class TodoController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
-    @PostMapping(value="/insert")
+    @PostMapping(value="/{userId}/todo/insert")
     public String insertTodo(@RequestBody String app){
         Todo todo = new Todo();
         todo.setContent(app);
@@ -34,12 +34,12 @@ public class TodoController {
         return "success";
     }
 
-    @GetMapping(value="/list")
+    @GetMapping(value="/{userId}/todo/list")
     public List<Todo> getTodoList(){
         return todoService.getTodoList();
     }
 
-    @PutMapping(value="/success/{id}")
+    @PutMapping(value="/{userId}/todo/success/{id}")
     public void todoSuccess(@PathVariable("id") Long id) throws Exception {
         Optional<Todo> updated = todoRepository.findById(id);
         if(updated.isPresent()){
@@ -50,7 +50,7 @@ public class TodoController {
             throw new Exception();
         }
     }
-    @PutMapping(value="/cancel/{id}")
+    @PutMapping(value="/{userId}/todo/cancel/{id}")
     public void successCancel(@PathVariable("id") Long id) throws Exception {
         Optional<Todo> cancel = todoRepository.findById(id);
         if(cancel.isPresent()){
@@ -61,7 +61,7 @@ public class TodoController {
             throw new Exception();
         }
     }
-    @PutMapping(value="/important/{id}")
+    @PutMapping(value="/{userId}/todo/important/{id}")
     public void importantUpdate(@PathVariable("id") Long id) throws Exception{
         Optional<Todo> updatedImport = todoRepository.findById(id);
         if(updatedImport.isPresent()) {
@@ -72,7 +72,7 @@ public class TodoController {
             throw new Exception();
         }
     }
-    @PutMapping(value = "/normal/{id}")
+    @PutMapping(value = "/{userId}/todo/normal/{id}")
     public void normalUpdate(@PathVariable("id") Long id) throws Exception{
         Optional<Todo> normal = todoRepository.findById(id);
         if(normal.isPresent()){
@@ -83,7 +83,7 @@ public class TodoController {
             throw new Exception();
         }
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{userId}/todo/delete/{id}")
     public void deleteTodo(@PathVariable("id") Long id){
         todoRepository.deleteById(id);
     }
