@@ -1,16 +1,18 @@
 import { React, useState, useEffect } from "react";
 import "../../../css/Guest.css";
 import GuestItem from "./GuestItem";
+import { useParams } from "react-router-dom";
 
 function GuestMain() {
   const [guest_list, setGuest_list] = useState([]);
+  const { userId } = useParams();
 
   useEffect(() => {
     fetchList();
   }, []);
 
   const fetchList = async () => {
-    const response = await fetch("http://localhost:8080/room/guest");
+    const response = await fetch(`http://localhost:8080/room/${userId}/guest`);
     const data = await response.json();
     setGuest_list(data.reverse());
   };

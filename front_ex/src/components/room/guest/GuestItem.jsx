@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 function GuestItem({ data, fetchList }) {
   const [updating, setUpdating] = useState(false);
   const [update_content, setUpdate_content] = useState();
+  const { userId } = useParams();
 
   const onChange = (e) => {
     setUpdate_content(e.target.value);
@@ -10,9 +12,12 @@ function GuestItem({ data, fetchList }) {
 
   const guestDelete = async () => {
     if (window.confirm("방명록을 삭제하시겠습니까?")) {
-      await fetch(`http://localhost:8080/room/guest/${data.guestSeq}`, {
-        method: "DELETE",
-      }).then((res) => {
+      await fetch(
+        `http://localhost:8080/room/${userId}/guest/${data.guestSeq}`,
+        {
+          method: "DELETE",
+        }
+      ).then((res) => {
         if (res?.ok) {
           alert("삭제되었습니다");
           fetchList();
@@ -38,7 +43,7 @@ function GuestItem({ data, fetchList }) {
   };
 
   const guestUpdate = async () => {
-    await fetch(`http://localhost:8080/room/guest/${data.guestSeq}`, {
+    await fetch(`http://localhost:8080/room/${userId}/guest/${data.guestSeq}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

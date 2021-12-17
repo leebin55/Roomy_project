@@ -36,7 +36,7 @@ function BoardList() {
       return;
     }
     const res = await fetch(
-      `http://localhost:8080/room/board/search?query=${search}&select=${select}`
+      `http://localhost:8080/room/${userId}/board/search?query=${search}&select=${select}`
     );
     const result = await res.json();
     setBoard_list(result);
@@ -55,7 +55,7 @@ function BoardList() {
         <td>{item.boardSeq}</td>
         <td
           className="board-list-title"
-          onClick={() => navigate(`/room/board/${item.boardSeq}`)}
+          onClick={() => navigate(`/room/${userId}/board/${item.boardSeq}`)}
         >
           {item.boardTitle}
         </td>
@@ -87,7 +87,9 @@ function BoardList() {
         </tbody>
       </table>
       <div className="btn-write-box">
-        <button onClick={() => navigate("/room/board/write")}>글쓰기</button>
+        <button onClick={() => navigate(`/room/${userId}/board/write`)}>
+          글쓰기
+        </button>
       </div>
       {/* <div className="board-page-box">
         <div>1</div>

@@ -1,7 +1,27 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function Setting() {
+  const [room_name, setRoom_name] = useState("");
+  const { userId } = useParams();
+
+  const onChangeRoomName = (e) => {
+    setRoom_name(e.target.value);
+  };
+
+  const onChangeRoomIntroduce = (e) => {
+    setRoom_name(e.target.value);
+  };
+
+  const fetchSetting = async () => {
+    await fetch(`http://localhost8080:/room/${userId}/setting`);
+  };
+
+  useEffect(() => {
+    fetchSetting();
+  }, []);
+
   return (
     <div>
       <h1>설정</h1>
@@ -9,23 +29,10 @@ function Setting() {
         <div>
           <p>사진</p>
         </div>
-        <TextField
-          id="room-name"
-          defaultValue="Room의 이름"
-          helperText="Room의 이름"
-          margin="normal"
-        />
+        <textfield onChange={(e) => onChangeRoomName()}></textfield>
       </div>
       <div>
-        <TextField
-          id="outlined-multiline-static"
-          multiline
-          rows={10}
-          defaultValue="Room 소개글"
-          helperText="Room 소개글"
-          margin="normal"
-          fullWidth="true"
-        />
+        <textfield onChange={(e) => onChangeRoomIntroduce()}></textfield>
       </div>
       <button>수정</button>
     </div>

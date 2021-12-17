@@ -8,6 +8,7 @@ import "../../../css/Board.css";
 function BoardDetail() {
   const navigate = useNavigate();
   const { board_seq } = useParams();
+  const { userId } = useParams();
 
   const [detail, setDetail] = useState([]);
   const [isDetail, setIsDetail] = useState(true);
@@ -16,7 +17,9 @@ function BoardDetail() {
   const [heart_num, setHeart_num] = useState(""); // 이 글의 하트수
 
   const fetchDetail = async () => {
-    const res = await fetch(`http://localhost:8080/room/board/${board_seq}`);
+    const res = await fetch(
+      `http://localhost:8080/room/${userId}/board/${board_seq}`
+    );
     const data = await res.json();
     // console.log(data);
     setDetail(data);
@@ -33,12 +36,12 @@ function BoardDetail() {
 
   const fetchDelete = async () => {
     if (window.confirm("글을 삭제하시겠습니까?")) {
-      await fetch(`http://localhost:8080/room/board/${board_seq}`, {
+      await fetch(`http://localhost:8080/room/${userId}/board/${board_seq}`, {
         method: "DELETE",
       }).then((res) => {
         if (res?.ok) {
           alert("삭제되었습니다");
-          navigate("/room/board");
+          navigate(`/room/${userId}/board`);
         }
       });
     }
@@ -50,7 +53,7 @@ function BoardDetail() {
   };
 
   const fetchHeart = async () => {
-    const res = await fetch("http://localhost:8080/room/board/like", {
+    const res = await fetch(`http://localhost:8080/room/${userId}/board/like`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ boardSeq: detail.boardSeq }),

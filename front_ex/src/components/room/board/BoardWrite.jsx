@@ -1,7 +1,7 @@
 import { React, useState, useRef, useEffect } from "react";
 import QuillEditor from "./QuillEditor";
 import QuillToolbar from "./QuillToolbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../../css/Board.css";
 
 function BoardWrite({ upData }) {
@@ -10,6 +10,7 @@ function BoardWrite({ upData }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const boardTitle = useRef();
+  const { userId } = useParams();
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -30,7 +31,7 @@ function BoardWrite({ upData }) {
     }
 
     if (upData != null) {
-      await fetch("http://localhost:8080/room/board", {
+      await fetch(`http://localhost:8080/room/${userId}/board`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -48,11 +49,11 @@ function BoardWrite({ upData }) {
         }),
       }).then((res) => {
         if (res?.ok) {
-          navigate("/room/board");
+          navigate(`/room/${userId}/board`);
         }
       });
     } else {
-      await fetch("http://localhost:8080/room/board", {
+      await fetch(`http://localhost:8080/room/${userId}/board`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -63,7 +64,7 @@ function BoardWrite({ upData }) {
         }),
       }).then((res) => {
         if (res?.ok) {
-          navigate("/room/board");
+          navigate(`/room/${userId}/board`);
         }
       });
     }
