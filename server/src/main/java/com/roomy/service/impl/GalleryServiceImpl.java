@@ -21,13 +21,20 @@ public class GalleryServiceImpl implements BoardService {
         this.galleryRepository = galleryRepository;
         this.fileRepository = fileRepository;
     }
-
+    // 피드에서 조회(10개만 부르기)
     @Override
     public List<BoardVO> selectAll() {
-        List<BoardVO> boardList=galleryRepository.findAllByBoardCodeOrderByBoardSeqDesc(1);
-        log.debug("selectAll(): {}",boardList.toString());
-        return boardList;
+        List<BoardVO> list = galleryRepository.findTop10ByBoardCodeOrderByBoardSeqDesc(2);
+        return list;
     }
+    // userid 와 boardCode 를 받아서 게시글 조회
+    @Override
+    public List<BoardVO> readBoardList(int boardCode, String userId) {
+
+        List<BoardVO> list = galleryRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(2,userId);
+        return list;
+    }
+
 
     @Override
     public BoardVO findById(Long board_seq) {

@@ -23,8 +23,8 @@ public class BoardVO {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long boardSeq;
 
-    // 작성한 회원 번호 FK
-    private Long boardUserSeq;
+    // 작성한 회원 아이디 FK
+    private String boardUserId;
 
     // 게시물 제목
     private String boardTitle;
