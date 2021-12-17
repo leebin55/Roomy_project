@@ -4,11 +4,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useNavigate } from 'react-router-dom';
-// import { useGalleryContext } from '../../../../context/GalleryContextProvider';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function GallerySingle({ gallery, index }) {
   const navigate = useNavigate();
+  // url  에서  userId 가져오기
+  const { userId } = useParams();
 
   const [isLike, setIsLike] = useState(false);
   // 좋아요 수 ( 하트를 클릭 하면 바로 좋아요수도 바뀌기 때문에 따로 변수 만듬)
@@ -52,7 +54,7 @@ function GallerySingle({ gallery, index }) {
   const likeEvent = async () => {
     try {
       axios
-        .post('http://localhost:8080/room/gallery/like', {
+        .post(`http://localhost:8080/room/${userId}/gallery/like`, {
           userSeq: gallery.boardUserSeq,
           boardSeq: gallery.boardSeq,
         })

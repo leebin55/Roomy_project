@@ -1,6 +1,5 @@
 package com.roomy.service.impl;
 
-
 import com.roomy.model.RoomVO;
 import com.roomy.repository.RoomRepository;
 import com.roomy.service.RoomService;
@@ -19,13 +18,9 @@ public class RoomServiceImpl implements RoomService {
         this.roomRepository = roomRepository;
     }
 
-    @Override
-    public List<RoomVO> selectAll() {
-        return roomRepository.findAll();
-    }
 
     @Override
-    public RoomVO findById(String userSeq) {
+    public RoomVO findById(String userId) {
         return roomRepository.findById(userSeq).get();
     }
 
@@ -43,6 +38,5 @@ public class RoomServiceImpl implements RoomService {
     // 회원 탈퇴하면 같이 삭제
     @Override
     public void delete(String aLong) {
-
     }
 }

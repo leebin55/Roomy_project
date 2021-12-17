@@ -75,10 +75,7 @@ function ProfileUpdateModal({ openUpdate, setOpenUpdate }) {
     setOpenUpdate(true);
   };
 
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
+  // localStorage 에서 userId 를 가져와 회원정보 가져옴
   const getUserInfo = async () => {
     const localUser = window.localStorage.getItem('user');
     setUserId(JSON.parse(localUser).userId);
@@ -92,6 +89,11 @@ function ProfileUpdateModal({ openUpdate, setOpenUpdate }) {
       }
     });
   };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
     <div>
       <Modal

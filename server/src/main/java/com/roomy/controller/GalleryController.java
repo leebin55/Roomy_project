@@ -10,17 +10,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Slf4j
-@RequestMapping("/room/gallery")
+@RequestMapping("/room")
 @RestController
 public class GalleryController {
 
     private final FileService fileService;
+
     @Qualifier("galleryService") // Gallery 와 일반 게시판은 같은 galleryService interface  를 사용하기 때문에
     private final BoardService galleryService ;
     private final LikeService likeService;
@@ -32,8 +32,8 @@ public class GalleryController {
     }
 
     // 갤러리 맨 처음 보여주는 리스트 return
-    @GetMapping({"/",""})
-    public List<BoardVO> list(){
+    @GetMapping("/{userId}/gallery")
+    public List<BoardVO> list(@PathVariable("userId") String userId){
         List<BoardVO> boardList = galleryService.selectAll();
         List<BoardVO> boardImgList= fileService.selectAllWithImage(boardList);
         log.debug("select all : {}",boardList.toString());
