@@ -36,10 +36,10 @@ public class GuestVO {
     @Column(columnDefinition = "VARCHAR(4000)", nullable = false)
     private String guestContent;
 
-    @Column(columnDefinition = "BIGINT", nullable = false)
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String userId;
 
-    @Column(columnDefinition = "BIGINT", nullable = false)
+    @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String guestWriterId;
 
 

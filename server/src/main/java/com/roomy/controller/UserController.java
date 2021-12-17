@@ -50,7 +50,7 @@ public class UserController {
         userRepository.save(user);
 
         // 회원가입하면 미니홈피도 생성되게
-        RoomVO roomVO = RoomVO.builder().userId(user.getUserId()).roomName(user.getUsername() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
+        RoomVO roomVO = RoomVO.builder().userId(user.getUserId()).roomName(user.getUserName() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
         roomRepository.save(roomVO);
 
         log.debug("roomVO {}", roomVO.toString());
@@ -62,7 +62,7 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Map<String, String> user, HttpSession session){
         User member = userRepository.findByUserId(user.get("userId"))
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 userId"));
-        if(!bCryptPasswordEncoder.matches(user.get("password"), member.getPassword())){
+        if(!bCryptPasswordEncoder.matches(user.get("password"), member.getUserPassword())){
             throw new IllegalArgumentException("비번 틀림");
         }
         session.setAttribute("user", user);
