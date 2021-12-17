@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 function Setting() {
   const [room_name, setRoom_name] = useState("");
+  const [room_introduce, setRoom_introduce] = useState("");
   const { userId } = useParams();
 
   const onChangeRoomName = (e) => {
@@ -15,7 +16,10 @@ function Setting() {
   };
 
   const fetchSetting = async () => {
-    await fetch(`http://localhost8080:/room/${userId}/setting`);
+    const res = await fetch(`http://localhost:8080/room/${userId}/setting`);
+    const data = await res.json();
+    setRoom_name(data.roomName);
+    setRoom_introduce(data.room_introduce);
   };
 
   useEffect(() => {
