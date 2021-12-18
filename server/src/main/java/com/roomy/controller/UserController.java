@@ -22,7 +22,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/room")
+@RequestMapping(value="/user")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -62,15 +62,17 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user, HttpSession session){
+        // RequestBody로 받아온 아이디를 검사
         User member = userRepository.findByUserId(user.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 userId"));
         // matches(입력된 비번, db에 저장되있는 비번) 비교해서 비번 맞추는거임
-        if(!bCryptPasswordEncoder.matches(user.getUserPassword(), member.getUserPassword())){
+        if(!bCryptPasswordEncoder.matches(user.getUserPassword(), member.getUserPassword())) {
             throw new IllegalArgumentException("비번 틀림");
         }
+        // 통과하면 세션으로 requestbody로 온 정보를 담고
         session.setAttribute("user", user);
-
-        return ResponseEntity.status(200).body(session);
+        // 200이면 member에 그 정보를 보내줌
+        return ResponseEntity.status(200).body(member);
     }
 
 
