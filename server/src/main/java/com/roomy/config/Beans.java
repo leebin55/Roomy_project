@@ -12,20 +12,36 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class Beans {
 
-    @Bean
-    public CorsFilter corsFilter(){
-        UrlBasedCorsConfigurationSource source =
-                new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*");
-        config.addAllowedMethod("*");
-        config.addAllowedHeader("*");
+//    @Bean
+//    public CorsFilter corsFilter(){
+//        UrlBasedCorsConfigurationSource source =
+//                new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//
+//        config.setAllowCredentials(true);
+//        config.addAllowedOriginPattern("*");
+//        config.addAllowedMethod("*");
+//        config.addAllowedHeader("*");
+//
+//        source.registerCorsConfiguration("/room/**", config);
+//        return new CorsFilter(source);
+//    }
 
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+//     @Bean
+//     public CorsFilter corsFilter(){
+//         UrlBasedCorsConfigurationSource source =
+//                 new UrlBasedCorsConfigurationSource();
+//         CorsConfiguration config = new CorsConfiguration();
+
+//         config.setAllowCredentials(true);
+//         config.addAllowedOriginPattern("*");
+//         config.addAllowedMethod("*");
+//         config.addAllowedHeader("*");
+
+//         source.registerCorsConfiguration("/**", config);
+//         return new CorsFilter(source);
+//     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){

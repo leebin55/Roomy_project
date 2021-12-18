@@ -42,7 +42,7 @@ function JoinModal() {
     } else if (join.userGender === 0) {
       alert("성별을 체크해주세요.");
     } else if (window.confirm("입력하신 정보로 정말 가입하시겠습니까?")) {
-      await fetch("http://localhost:8080/room/join", {
+      await fetch("http://localhost:8080/user/join", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

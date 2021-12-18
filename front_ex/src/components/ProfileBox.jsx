@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
-import '../css/userForm/ProfileBox.css';
-import { useNavigate } from 'react-router-dom';
-import MainModal from './ProfileForm/MainModal';
-import { useLoginContext } from '../context/LoginContextProvider';
-import '../css/userForm/Logout.css';
-import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
+import { useState, useEffect } from "react";
+import "../css/userForm/ProfileBox.css";
+import { useNavigate } from "react-router-dom";
+import MainModal from "./ProfileForm/MainModal";
+import { useLoginContext } from "../context/LoginContextProvider";
+import "../css/userForm/Logout.css";
+import ProfileUpdateModal from "./ProfileForm/ProfileUpdateModal";
+import { Cookies } from "react-cookie";
 
 function ProfileBox() {
   const [set, setSet] = useState();
@@ -20,16 +21,18 @@ function ProfileBox() {
     setUser,
     setTemp,
     temp,
+    removeCookie,
+    cookie,
   } = useLoginContext();
 
   const logout = () => {
-    if (window.confirm('로그아웃 하시겠습니까?')) {
-      fetch('http://localhost:8080/room/logout').then((response) => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      fetch("http://localhost:8080/user/logout").then((response) => {
         console.log(response);
         if (response.status === 200) {
           setTemp(false);
 
-          window.localStorage.removeItem('user');
+          removeCookie("user", { path: "/" });
         }
       });
     }
@@ -37,43 +40,16 @@ function ProfileBox() {
 
   const navigate = useNavigate();
 
-  let localUser = window.localStorage.getItem('user');
-
   const goMini = () => {
-    if (localUser) {
-      const userId = JSON.parse(localUser).userId;
-      navigate(`/room/${userId}`);
-    }
+    const id = cookie.user.userId;
+    navigate(`/room/${id}`);
   };
 
   useEffect(() => {
-    if (localUser) {
-      console.log('localUser', localUser);
-      const obj = JSON.parse(localUser);
-      console.log('id:', obj.userId);
-      console.log('pw:', obj.password);
-      // console.log("id:", JSON.parse(localUser.userId));
-
-      fetch('http://localhost:8080/room/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: obj.userId,
-          password: obj.password,
-        }),
-      }).then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          setTemp(true);
-          setUser({
-            userId: obj.userId,
-          });
-        } else {
-          setTemp(false);
-        }
-      });
+    if (cookie.user) {
+      setTemp(true);
+    } else {
+      setTemp(false);
     }
   }, []);
 
@@ -87,7 +63,7 @@ function ProfileBox() {
         <div className="afterContainer">
           <div className="logoutHeader">
             <img className="logo" src="img/logo.svg" alt="profile_img" />
-            <p>{user.userId}님</p>
+            {cookie.user && <p>{cookie.user.userName}님</p>}
           </div>
           <div className="logoutBody">
             <div>쪽지함 </div>
