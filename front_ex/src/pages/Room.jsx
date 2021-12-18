@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { LeftSide } from "../components/room/RoomComps";
 import RoomNav from "../components/room/RoomNav";
@@ -8,14 +8,18 @@ import SettingContextProvider from "../context/SettingContextProvider";
 function Room() {
   // 현재 접속해있는 미니홈피 주인회원id URL에서 잘라오기
   const { userId } = useParams();
+  const [room_data, setRoom_data] = useState([]);
 
   // 미니홈피 정보들 불러오기 (미완)
   const fetchRoom = async () => {
     const res = await fetch(`http://localhost:8080/room/${userId}`);
+    const data = await res.json();
+    setRoom_data(data);
+    console.log("데이터", data);
   };
 
-  useEffect(() => {
-    fetchRoom();
+  useEffect(async () => {
+    await fetchRoom();
   }, []);
 
   return (
@@ -34,7 +38,7 @@ function Room() {
           </div>
         </div>
         <div className="room-right-1">
-          <p className="room-name">우당탕 님의 미니홈피 입니다.</p>
+          <p className="room-name">{room_data.roomName}</p>
           <div className="room-right-2">
             <section className="room-right-side">
               <Outlet />

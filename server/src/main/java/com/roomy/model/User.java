@@ -45,13 +45,13 @@ public class User {
 
     // 프로필 사진
     @Column(nullable = true)
-    private String userprofile;
+    private String userProfile;
 
     // 회원 이름
     private String userName;
 
     // 회원 등급 ( 0 관리자 / 1 일반회원 )
-    private int user_rank;
+    private int userRank;
 
 //    @ElementCollection(fetch = FetchType.EAGER)
 //    @Builder.Default

@@ -47,7 +47,8 @@ public class UserController {
 
         User member = new User();
         // 회원 추가
-        member.setUser_rank(1);
+
+        member.setUserRank(1);
         member.setUserId(user.getUserId());
         // bCryptPAsswordEncoder가 비번암호화 하는 거임
         member.setUserPassword(bCryptPasswordEncoder.encode(user.getUserPassword()));

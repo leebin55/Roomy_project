@@ -21,7 +21,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomVO findById(String userId) {
-        return roomRepository.findById(userId).get();
+        return roomRepository.findById(userId).orElse(null);
     }
 
 }

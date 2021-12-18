@@ -25,19 +25,20 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    // /room/userId 로 해당 미니홈피 들어가서  room 에 대한 정보 불러오기 (소개글 등등등)
+    // /room/{userId} 로 해당 미니홈피 들어가면 room 에 대한 정보 불러오기 (소개글 등등)
     @GetMapping( "/{userId}")
     public RoomVO room(@PathVariable String userId){
         log.debug("room 컨트롤러 실행 {}", userId);
 
-        RoomVO roomVO = roomRepository.findById(userId).get();
+        RoomVO roomVO = roomService.findById(userId);
+        log.debug("roomVO {}", roomVO.toString());
         return roomVO;
     }
 
 
     // setting 게시판
     @GetMapping("/{userId}/setting")
-    public RoomVO main(@PathVariable String userId) {
+    public RoomVO setting(@PathVariable String userId) {
         log.debug("setting 컨트롤러 실행");
         RoomVO roomVO = roomService.findById(userId);
         return roomVO;
