@@ -8,6 +8,7 @@ function LoginContextProvider({ children }) {
   const [login, setLogin] = useState(false);
   const [join, setJoin] = useState(false);
   const [find, setFind] = useState(false);
+  // useState와 거의 비슷함 사용용도는 user라는 이름으로 사용
   const [cookie, setCookie, removeCookie] = useCookies(["user"]);
 
   const loginClick = () => {
