@@ -112,6 +112,11 @@ public class FileServiceImpl implements FileService {
     public Resource loadFileAsResource(String fileName) {
         return null;
     }
+
+    @Override
+    public void insert(BoardImageVO imageVO) {
+        fileRepository.save(imageVO);
+    }
 }
 
 

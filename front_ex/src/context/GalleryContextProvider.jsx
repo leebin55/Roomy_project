@@ -12,6 +12,8 @@ const GalleryContextProvider = ({ children }) => {
   const [title, setTitle] = useState('');
   const [galleryImg, setGalleryImg] = useState('');
 
+  const [userId, setUserId] = useState('');
+
   const [isUpdate, setIsUpdate] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
   const [galleryImgList, setGalleryImgList] = useState([]);

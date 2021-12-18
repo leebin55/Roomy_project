@@ -7,14 +7,19 @@ import com.roomy.model.RoomVO;
 import com.roomy.model.User;
 import com.roomy.repository.RoomRepository;
 import com.roomy.repository.UserRepository;
+import com.roomy.service.FileService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.Cookie;
@@ -29,11 +34,12 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/room")
+@RequestMapping(value="/user")
 public class UserController {
 
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
+    private final FileService fileService;// 프로필 사진 등록을 위해
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 //    private final JwtTokenProvider jwtTokenProvider;
@@ -91,15 +97,25 @@ public class UserController {
         return "";
     }
 
+@PutMapping("/profile")
+public String profileUpdate(@RequestParam("profile") MultipartFile profile){
+        log.debug("profile : {}",profile.getOriginalFilename());
+        String newProfileName = fileService.uploadFile(profile);
+        return  newProfileName;
+}
     // 회원정보 수정
     @PutMapping("/update")
     public Long update(@RequestBody User user){
         log.debug("userupdate info : {}",user.toString());
 
+
         return null;
     }
 
-    @GetMapping("/user/{userId}")
+
+
+    // 회원 아이디로 회원 정보 가져오기
+    @GetMapping("/{userId}")
     public User getUserInfo(@PathVariable("userId") String userId){
         User user = userRepository.findByUserId(userId).get();
         log.debug("user 조회 : {}", user.toString());

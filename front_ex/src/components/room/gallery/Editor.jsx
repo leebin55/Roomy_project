@@ -38,7 +38,7 @@ const formats = [
 
 /////////////////////////////////////////////////////////////////////////
 
-function Editor(props) {
+function Editor({ toolbarId, userId }) {
   const { content, setContent, setGalleryImgList } = useGalleryContext();
   /**
  *    이미지를 잘못 불러서 지울 때 이미지가 그대로 서버에 같이 리스트로 보내진다
@@ -78,9 +78,10 @@ function Editor(props) {
       const formData = new FormData();
       // FormData 는  key - value구조로 되어있음
       formData.append('img', file);
+      console.log('form data : ', formData);
       try {
         await axios
-          .put('http://localhost:8080/room/gallery/img', formData)
+          .put(`http://localhost:8080/room/${userId}/gallery/img`, formData)
           .then((result) => {
             // server에서 이미지 url 받아오기 (또는 여기서 url로 바꿔서 server 에 넘겨준다)
             console.log(result.data);
@@ -107,7 +108,7 @@ function Editor(props) {
       // props > toolbarId 를 가져옴
       toolbar: {
         // toolbar: container 내가 에디터에서 사용할 툴바 목록을 설정toolbarId 로
-        container: '#' + props.toolbarId,
+        container: '#' + toolbarId,
         //toolbar: handlers
         // editor에게 처리를 맞기지 않고 직접 핸들러 함수를 만들어 처리
         // handlers를 사용하면 기존 해당 핸들러를 사용할 수 없다.
