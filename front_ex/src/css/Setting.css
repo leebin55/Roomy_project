@@ -1,0 +1,48 @@
+.setting-container {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow: auto;
+}
+
+.setting-container h1 {
+  font-weight: lighter;
+  margin-bottom: 30px;
+}
+
+.setting-input-box {
+  width: 100%;
+  height: 70%;
+  margin: auto;
+  margin-bottom: 50px;
+  text-align: center;
+  border: 1px solid pink;
+}
+
+.setting-input,
+.setting-textfield {
+  width: 70%;
+  margin: 30px auto;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.setting-input {
+  height: 30px;
+}
+
+.setting-textfield {
+  height: 100px;
+}
+
+.setting-btn-box {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.setting-btn-box button {
+  width: 70px;
+  height: 50px;
+  margin: auto;
+}

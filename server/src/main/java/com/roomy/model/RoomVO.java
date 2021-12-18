@@ -3,6 +3,7 @@ package com.roomy.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name="tbl_room", schema="roomyDB")
 public class RoomVO {
 

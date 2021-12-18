@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "../../css/Setting.css";
 
 function Setting() {
   const [room_name, setRoom_name] = useState("");
@@ -27,18 +28,23 @@ function Setting() {
   }, []);
 
   return (
-    <div>
-      <h1>설정</h1>
-      <div>
-        <div>
-          <p>사진</p>
+    <div className="setting-container">
+      <h1>미니홈피 설정</h1>
+      <div className="setting-input-box">
+        <input
+          className="setting-input"
+          placeholder="미니홈피명"
+          onChange={(e) => onChangeRoomName()}
+        ></input>
+        <textarea
+          className="setting-textfield"
+          placeholder="소개글"
+          onChange={(e) => onChangeRoomIntroduce()}
+        ></textarea>
+        <div className="setting-btn-box">
+          <button>수정</button>
         </div>
-        <textfield onChange={(e) => onChangeRoomName()}></textfield>
       </div>
-      <div>
-        <textfield onChange={(e) => onChangeRoomIntroduce()}></textfield>
-      </div>
-      <button>수정</button>
     </div>
   );
 }

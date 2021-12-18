@@ -46,7 +46,7 @@ public class UserController {
     public String join(@RequestBody User user){
         
         // 회원 추가
-        user.setUser_rank(1);
+        user.setUserRank(1);
         userRepository.save(user);
 
         // 회원가입하면 미니홈피도 생성되게
