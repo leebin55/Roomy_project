@@ -13,7 +13,7 @@ function JoinModal() {
     username: "",
     email: "",
     birth: "",
-    gender: "",
+    userGender: "",
   });
 
   // 성별 고르기
@@ -27,19 +27,19 @@ function JoinModal() {
   };
 
   const joinSubmit = async () => {
-    if (join.username === "") {
+    if (join.userName === "") {
       alert("이름을 입력해주세요.");
-    } else if (join.birth === "") {
+    } else if (join.userBirth === "") {
       alert("생년월일을 입력해주세요.");
     } else if (join.userId === "") {
       alert("아이디를 입력해주세요.");
-    } else if (join.email === "") {
+    } else if (join.userEmail === "") {
       alert("이메일을 입력해주세요.");
     } else if (join.password === "") {
       alert("비밀번호를 입력해주세요.");
     } else if (join.re_password === "") {
       alert("확인 비밀번호를 입력해주세요.");
-    } else if (join.gender === 0) {
+    } else if (join.userGender === 0) {
       alert("성별을 체크해주세요.");
     } else if (window.confirm("입력하신 정보로 정말 가입하시겠습니까?")) {
       await fetch("http://localhost:8080/room/join", {
@@ -59,6 +59,7 @@ function JoinModal() {
         if (res?.ok) {
           alert("가입완료! 로그인을 진행해주세요.");
           loginClick();
+          console.log("로그인 성공", res);
         }
       });
     }
