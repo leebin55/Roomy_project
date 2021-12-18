@@ -42,7 +42,7 @@ function Gallery() {
       <h1>갤러리</h1>
       <div className="gallery-btns">
         {isUpdate ? (
-          <GalleryUpdate boardSeq={board_seq} />
+          <GalleryUpdate boardSeq={board_seq} userId={userId} />
         ) : (
           <>
             {' '}
@@ -57,10 +57,14 @@ function Gallery() {
                   <CreateIcon />
                   글쓰기
                 </button>
-                <GalleryList />
+                <GalleryList userId={userId} />
               </div>
             ) : (
-              <GalleryWrite isWrite={isWrite} setIsWrite={setIsWrite} />
+              <GalleryWrite
+                isWrite={isWrite}
+                setIsWrite={setIsWrite}
+                userId={userId}
+              />
             )}
           </>
         )}

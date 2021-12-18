@@ -1,5 +1,9 @@
 package com.roomy.service;
 
-public interface UserService {
+
+import com.roomy.model.User;
+
+public interface UserService extends GenericService<User, String>{
+
 
 }

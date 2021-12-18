@@ -23,7 +23,7 @@ public class Beans {
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
 
-        source.registerCorsConfiguration("/room/**", config);
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 

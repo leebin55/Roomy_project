@@ -13,7 +13,7 @@ public interface BoardService extends GenericService<BoardVO, Long> {
     
     public List<BoardVO> search(String select, String query);
 
-    public List<BoardVO> readBoardList (int boardCode, String userId);
+    public List<BoardVO> readBoardList (String userId);
 
 
 }
