@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import GallerySingle from './GallerySingle';
 import ImageList from '@mui/material/ImageList';
-import { useParams } from 'react-router-dom';
-
-function GalleryList() {
+function GalleryList({ userId }) {
   const [galleryList, setGalleryList] = useState([]);
-  const { userId } = useParams();
 
   // 화면띄워질때 한번만 실행
   useEffect(() => {

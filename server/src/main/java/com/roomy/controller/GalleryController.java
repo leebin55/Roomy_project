@@ -31,10 +31,20 @@ public class GalleryController {
         this.likeService = likeService;
     }
 
-    // 갤러리 맨 처음 보여주는 리스트 return
+    // 메인페이지 피드에서 최근 10개 게시물 불러오기
+    @GetMapping("/gallery")
+    public List<BoardVO> feeds(){
+
+        List<BoardVO> boardList = galleryService.selectAll();
+
+        log.debug("feed all : {}",boardList.toString());
+        return boardList;
+    }
+
+    // room 에서 갤러리 목록에 들어가면 갤러리 맨 처음 보여주는 리스트 return
     @GetMapping("/{userId}/gallery")
     public List<BoardVO> list(@PathVariable("userId") String userId){
-        List<BoardVO> boardList = galleryService.selectAll();
+        List<BoardVO> boardList = galleryService.readBoardList(userId);
         List<BoardVO> boardImgList= fileService.selectAllWithImage(boardList);
         log.debug("select all : {}",boardList.toString());
         return boardImgList;
@@ -101,9 +111,7 @@ public class GalleryController {
 
     }
 
-
     //댓글
-
 
 }
 

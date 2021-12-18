@@ -7,7 +7,7 @@ import { useGalleryContext } from '../../../context/GalleryContextProvider';
 import QuillToolbar from './QuillToolbar';
 
 // 갤러리 글 등록하는 부분
-function GalleryWrite({ isWrite, setIsWrite }) {
+function GalleryWrite({ isWrite, setIsWrite, userId }) {
   const {
     title,
     setTitle,
@@ -31,7 +31,7 @@ function GalleryWrite({ isWrite, setIsWrite }) {
     if (title.trim() !== '' && content.trim() !== '' && saveURL.length > 0) {
       try {
         await axios
-          .post('http://localhost:8080/room/gallery/write', {
+          .post(`http://localhost:8080/room/${userId}/gallery/write`, {
             boardUserSeq: 1,
             boardTitle: title,
             boardContent: content,
@@ -71,7 +71,7 @@ function GalleryWrite({ isWrite, setIsWrite }) {
           <input name="board_title" value={title} onChange={titleChange} />
         </div>
         <QuillToolbar toolbarId={'tg'} />
-        <Editor toolbarId={'tg'} />
+        <Editor toolbarId={'tg'} userId={userId} />
         <button type="button" onClick={writeSubmit}>
           등록
         </button>

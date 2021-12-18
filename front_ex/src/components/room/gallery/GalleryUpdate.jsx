@@ -8,7 +8,7 @@ import { useGalleryContext } from '../../../context/GalleryContextProvider';
 import axios from 'axios';
 import moment from 'moment';
 
-function GalleryUpdate({ boardSeq }) {
+function GalleryUpdate({ boardSeq, userId }) {
   const navigate = useNavigate();
   const {
     galleryInfo,
@@ -24,7 +24,9 @@ function GalleryUpdate({ boardSeq }) {
   const viewGalleryInfo = async () => {
     try {
       await axios
-        .get(`http://localhost:8080/room/gallery/detail?board_seq=${boardSeq}`)
+        .get(
+          `http://localhost:8080/room/${userId}/gallery/detail?board_seq=${boardSeq}`
+        )
         .then(async (res) => {
           if (res.status === 200) {
             //res.data 에서 안빼오고

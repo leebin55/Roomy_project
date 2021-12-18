@@ -5,6 +5,7 @@ import com.roomy.model.BoardVO;
 import com.roomy.repository.BoardRepository;
 import com.roomy.repository.FileRepository;
 import com.roomy.service.BoardService;
+import com.roomy.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,23 +16,30 @@ import java.util.List;
 public class GalleryServiceImpl implements BoardService {
 
     private final BoardRepository galleryRepository;
-    private final FileRepository fileRepository;
 
-    public GalleryServiceImpl(BoardRepository galleryRepository, FileRepository fileRepository) {
+    private final FileService fileService;
+
+    public GalleryServiceImpl(BoardRepository galleryRepository, FileRepository fileRepository, FileService fileService) {
         this.galleryRepository = galleryRepository;
-        this.fileRepository = fileRepository;
+
+        this.fileService = fileService;
     }
     // 피드에서 조회(10개만 부르기)
     @Override
     public List<BoardVO> selectAll() {
-        List<BoardVO> list = galleryRepository.findTop10ByBoardCodeOrderByBoardSeqDesc(2);
-        return list;
+        // boardVO 에서  imgURL 은 테이블에 저장되지 않음 > 그래서 따로 불러줌
+        List<BoardVO> list = galleryRepository.findTop10ByBoardCodeOrderByBoardSeqDesc(1); // 아직 이미지는 list 에 담기지않음
+        // 이미지가 담기지 않은 리스트를 보내서 루프를 돌면서 해당 board 에 이미지 리스트를 추가하여 리턴
+        List<BoardVO> boardImgList=fileService.selectAllWithImage(list);
+        log.debug("feed service : {}",list.toString());
+        return boardImgList;
     }
     // userid 와 boardCode 를 받아서 게시글 조회
     @Override
-    public List<BoardVO> readBoardList(int boardCode, String userId) {
+    public List<BoardVO> readBoardList(String userId) {
 
         List<BoardVO> list = galleryRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(2,userId);
+        
         return list;
     }
 
@@ -61,7 +69,7 @@ public class GalleryServiceImpl implements BoardService {
                 imageVO.setImgUrl(image);
                 imageVO.setImgBoardSeq(board_seq);
                 // insert
-                fileRepository.save(imageVO);
+                fileService.insert(imageVO);
             }
         }
     }

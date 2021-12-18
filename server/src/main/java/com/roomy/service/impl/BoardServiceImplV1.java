@@ -31,8 +31,8 @@ public class BoardServiceImplV1 implements BoardService {
 //    }
 
     @Override
-    public List<BoardVO> readBoardList(int boardCode, String userId) {
-        List<BoardVO> list = boardRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(boardCode, userId);
+    public List<BoardVO> readBoardList(String userId) {
+        List<BoardVO> list = boardRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(2, userId);
         return list;
     }
 
