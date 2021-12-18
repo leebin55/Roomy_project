@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
+import { useCookies } from "react-cookie";
 
 const AppContext = createContext();
 export const useLoginContext = () => useContext(AppContext);
@@ -7,6 +8,7 @@ function LoginContextProvider({ children }) {
   const [login, setLogin] = useState(false);
   const [join, setJoin] = useState(false);
   const [find, setFind] = useState(false);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
 
   const loginClick = () => {
     if (join === true) {
@@ -39,8 +41,8 @@ function LoginContextProvider({ children }) {
   };
   const [temp, setTemp] = useState(false);
   const [user, setUser] = useState({
-    userId: '',
-    password: '',
+    userId: "",
+    userPassword: "",
   });
   const data = {
     login,
@@ -57,6 +59,9 @@ function LoginContextProvider({ children }) {
     setFind,
     findClick,
     deleteClick,
+    cookie,
+    setCookie,
+    removeCookie,
   };
 
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;

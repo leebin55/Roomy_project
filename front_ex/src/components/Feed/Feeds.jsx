@@ -19,7 +19,7 @@ function Feeds() {
   const viewGalleryList = async () => {
     try {
       await axios.get(`http://localhost:8080/room/gallery`).then((res) => {
-        console.log(res.data);
+        console.log(' gallery  list 에서 받은 데이터 : ', res.data);
         setGalleryList(res.data);
       }); //end then
     } catch (error) {

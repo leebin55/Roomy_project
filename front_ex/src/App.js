@@ -1,7 +1,7 @@
 // import { useEffect, useState } from 'react'
 // import axios from 'axios'
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
 import News from "./pages/News";
 import Game from "./pages/Game";
@@ -54,7 +54,8 @@ function App() {
   // if (loading) {
 
   return (
-    <div className="App">
+	  <div className="App">
+  <BrowserRouter>  
       <Routes>
         <Route path="/" element={<Main />}>
           <Route index element={<Feeds />} />
@@ -70,7 +71,8 @@ function App() {
           <Route path="guest" element={<GuestMain />} />
           <Route path="setting" element={<Setting />} />
         </Route>
-      </Routes>
+		</Routes>
+	</BrowserRouter>
     </div>
   );
   // } else {

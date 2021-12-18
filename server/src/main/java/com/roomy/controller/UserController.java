@@ -1,39 +1,39 @@
 package com.roomy.controller;
 
 
-import com.roomy.config.jwt.JwtProps;
-import com.roomy.config.jwt.JwtTokenProvider;
+
 import com.roomy.model.RoomVO;
 import com.roomy.model.User;
 import com.roomy.repository.RoomRepository;
 import com.roomy.repository.UserRepository;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
+
+import com.roomy.service.FileService;
+
+
+
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.DatatypeConverter;
-import java.util.Collections;
-import java.util.List;
+
 import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/room")
+@RequestMapping(value="/user")
 public class UserController {
 
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
+    private final FileService fileService;// 프로필 사진 등록을 위해
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 //    private final JwtTokenProvider jwtTokenProvider;
@@ -44,10 +44,20 @@ public class UserController {
     // 뷰에서 정보넣고 회원가입하면 기능됨
     @PostMapping("/join")
     public String join(@RequestBody User user){
-        
+
+        User member = new User();
         // 회원 추가
-        user.setUserRank(1);
-        userRepository.save(user);
+
+        member.setUserRank(1);
+        member.setUserId(user.getUserId());
+        // bCryptPAsswordEncoder가 비번암호화 하는 거임
+        member.setUserPassword(bCryptPasswordEncoder.encode(user.getUserPassword()));
+        member.setUserBirth(user.getUserBirth());
+        member.setUserEmail(user.getUserEmail());
+        member.setUserName(user.getUserName());
+        member.setUserGender(user.getUserGender());
+
+        userRepository.save(member);
 
         // 회원가입하면 미니홈피도 생성되게
         RoomVO roomVO = RoomVO.builder().userId(user.getUserId()).roomName(user.getUserName() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
@@ -59,15 +69,18 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> user, HttpSession session){
-        User member = userRepository.findByUserId(user.get("userId"))
+    public ResponseEntity<?> login(@RequestBody User user, HttpSession session){
+        // RequestBody로 받아온 아이디를 검사
+        User member = userRepository.findByUserId(user.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 userId"));
-        if(!bCryptPasswordEncoder.matches(user.get("password"), member.getUserPassword())){
+        // matches(입력된 비번, db에 저장되있는 비번) 비교해서 비번 맞추는거임
+        if(!bCryptPasswordEncoder.matches(user.getUserPassword(), member.getUserPassword())) {
             throw new IllegalArgumentException("비번 틀림");
         }
+        // 통과하면 세션으로 requestbody로 온 정보를 담고
         session.setAttribute("user", user);
-
-        return ResponseEntity.status(200).body(user);
+        // 200이면 member에 그 정보를 보내줌
+        return ResponseEntity.status(200).body(member);
     }
 
 
@@ -91,15 +104,25 @@ public class UserController {
         return "";
     }
 
+@PutMapping("/profile")
+public String profileUpdate(@RequestParam("profile") MultipartFile profile){
+        log.debug("profile : {}",profile.getOriginalFilename());
+        String newProfileName = fileService.uploadFile(profile);
+        return  newProfileName;
+}
     // 회원정보 수정
     @PutMapping("/update")
     public Long update(@RequestBody User user){
         log.debug("userupdate info : {}",user.toString());
 
+
         return null;
     }
 
-    @GetMapping("/user/{userId}")
+
+
+    // 회원 아이디로 회원 정보 가져오기
+    @GetMapping("/{userId}")
     public User getUserInfo(@PathVariable("userId") String userId){
         User user = userRepository.findByUserId(userId).get();
         log.debug("user 조회 : {}", user.toString());
