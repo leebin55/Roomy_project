@@ -12,14 +12,14 @@ import { useLoginContext } from '../../context/LoginContextProvider';
 // 메인화면에서 프로필부분에 수정하기 버튼을 클릭하면 나타나는 모달창
 function ProfileUpdateModal({ openUpdate, setOpenUpdate, loggedUser }) {
   //   const {
-  //     userName,
-  //     userEmail,
-  //     userPassword,
   //     userProfile,
-  //     setUserEmail,
-  //     setUserName,
-  //     setUserPassword,
   //     setUserProfile,
+  //     //     userName,
+  //     //     userEmail,
+  //     //     userPassword,
+  //     //     setUserEmail,
+  //     //     setUserName,
+  //     //     setUserPassword,
   //   } = useLoginContext();
   const [userName, setUserName] = useState('');
   const [userProfile, setUserProfile] = useState('');

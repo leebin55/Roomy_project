@@ -14,6 +14,7 @@ function LoginModal() {
     temp,
     setTemp,
     setCookie,
+    setUserProfile,
   } = useLoginContext();
 
   const userChange = (e) => {
@@ -34,7 +35,7 @@ function LoginModal() {
         setJoin(false);
         setFind(false);
         // "user" 라고 만들어진 쿠키에 res.data를 담는다. / 경로로 오는거
-
+        setUserProfile(res.data.userProfile);
         setCookie('user', res.data, { path: '/' });
       }
     });

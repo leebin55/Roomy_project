@@ -88,9 +88,8 @@ public class UserController {
         User setMember = new User();
         setMember.setUserId(member.getUserId());
         setMember.setUserName(member.getUserName());
-        setMember.setUser_rank(member.getUser_rank());
-        setMember.setUserprofile(member.getUserprofile());
-
+        setMember.setUserRank(member.getUserRank());
+        setMember.setUserProfile(member.getUserProfile());
         return ResponseEntity.status(200).body(setMember);
     }
 
