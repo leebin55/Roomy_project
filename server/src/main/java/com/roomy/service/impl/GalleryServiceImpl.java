@@ -39,7 +39,7 @@ public class GalleryServiceImpl implements BoardService {
     public List<BoardVO> readBoardList(String userId) {
 
         List<BoardVO> list = galleryRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(2,userId);
-        
+        log.debug("boardList :{} ", list.toString());
         return list;
     }
 

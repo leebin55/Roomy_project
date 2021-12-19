@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
-import { useCookies } from "react-cookie";
+import React, { createContext, useContext, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 const AppContext = createContext();
 export const useLoginContext = () => useContext(AppContext);
@@ -9,7 +9,8 @@ function LoginContextProvider({ children }) {
   const [join, setJoin] = useState(false);
   const [find, setFind] = useState(false);
   // useState와 거의 비슷함 사용용도는 user라는 이름으로 사용
-  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+
+  const [cookie, setCookie, removeCookie] = useCookies(['user']);
 
   const loginClick = () => {
     if (join === true) {
@@ -42,8 +43,8 @@ function LoginContextProvider({ children }) {
   };
   const [temp, setTemp] = useState(false);
   const [user, setUser] = useState({
-    userId: "",
-    userPassword: "",
+    userId: '',
+    userPassword: '',
   });
   const data = {
     login,

@@ -73,7 +73,7 @@ public class FileServiceImpl implements FileService {
             return "store_fail";
             //e.printStackTrace();
         }
-        return newFileName;
+        return "http://localhost:8080/uploads/"+newFileName;
     }
 
     @Override

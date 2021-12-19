@@ -76,8 +76,8 @@ public class GalleryController {
     public String img(@PathVariable("userId") String userId,@RequestParam("img") MultipartFile img){
       log.debug("받아온 파일 이름 {}",img.getOriginalFilename());
       String newFileName = fileService.uploadFile(img);
-      log.debug("보낼 url {}:","http://localhost:8080/uploads/"+ newFileName);
-        return "http://localhost:8080/uploads/"+ newFileName;
+      log.debug("보낼 url {}:", newFileName);
+        return  newFileName;
     }
 
     // 갤러리 게시글 수정

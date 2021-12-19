@@ -18,7 +18,7 @@ public interface BoardRepository extends JpaRepository<BoardVO,Long> {
     List<BoardVO> findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(int boardCode, String userId);
     //findTop4ByOrderByGuestSeqDesc();
     // 피드에서 최신순으로 조회
-    List<BoardVO> findTop10ByBoardCodeOrderByBoardSeqDesc(int boardcode);
+    List<BoardVO> findTop10ByBoardCodeOrderByBoardSeqDesc(int boardCode);
 
     // 제목만 검색
     @Query("SELECT b FROM BoardVO b WHERE b.boardTitle LIKE %:query% AND b.boardCode = 2 ORDER BY b.boardSeq DESC")

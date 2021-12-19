@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import "../css/userForm/ProfileBox.css";
-import { useNavigate } from "react-router-dom";
-import MainModal from "./ProfileForm/MainModal";
-import { useLoginContext } from "../context/LoginContextProvider";
-import "../css/userForm/Logout.css";
-import ProfileUpdateModal from "./ProfileForm/ProfileUpdateModal";
-import { Cookies } from "react-cookie";
+import { useState, useEffect } from 'react';
+import '../css/userForm/ProfileBox.css';
+import { useNavigate } from 'react-router-dom';
+import MainModal from './ProfileForm/MainModal';
+import { useLoginContext } from '../context/LoginContextProvider';
+import '../css/userForm/Logout.css';
+import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
+import { Cookies } from 'react-cookie';
 
 function ProfileBox() {
   const [set, setSet] = useState();
@@ -26,13 +26,14 @@ function ProfileBox() {
   } = useLoginContext();
 
   const logout = () => {
-    if (window.confirm("로그아웃 하시겠습니까?")) {
-      fetch("http://localhost:8080/user/logout").then((response) => {
+    if (window.confirm('로그아웃 하시겠습니까?')) {
+      fetch('http://localhost:8080/user/logout').then((response) => {
         console.log(response);
         if (response.status === 200) {
           setTemp(false);
           // 애플리케이션 안에 쿠키 안에 user를 삭제해라 path는 그냥 전송범위임 루트로 해놨음
-          removeCookie("user", { path: "/" });
+
+          removeCookie('user', { path: '/' });
         }
       });
     }

@@ -123,12 +123,22 @@ public String profileUpdate(@RequestParam("profile") MultipartFile profile){
         return  newProfileName;
 }
     // 회원정보 수정
-    @PutMapping("/update")
-    public Long update(@RequestBody User user){
+    @PutMapping("/update/{userId}")
+    public void update(@PathVariable("userId") String userId, @RequestBody User user){
+        // 받아온 user를 그대로 사용하면
+        // Duplicate entry '' for key 'tbl_user.PRIMARY' 오류가 난다
+        // 그래서 user를 받아오고 userId 를 조회한 findUser에 받아온 값을 집어넣고
+        // 다시 save
+        // 아마도 jpa 의 영속성 컨텍스트때문인것 같음
         log.debug("userupdate info : {}",user.toString());
+        User finduser =userRepository.findByUserId(userId).get();
+        finduser.setUserName(user.getUserName());
+        finduser.setUserEmail(user.getUserEmail());
+        if(user.getUserProfile() != null && user.getUserProfile() != finduser.getUserProfile()){
+            finduser.setUserProfile(user.getUserProfile());
+        }
 
-
-        return null;
+        userRepository.save(finduser);
     }
 
 
