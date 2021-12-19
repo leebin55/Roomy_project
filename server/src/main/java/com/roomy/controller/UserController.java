@@ -10,9 +10,8 @@ import com.roomy.repository.UserRepository;
 import com.roomy.service.FileService;
 
 
-
+import com.roomy.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,8 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -34,6 +36,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final RoomRepository roomRepository;
     private final FileService fileService;// 프로필 사진 등록을 위해
+    private final UserService userService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 //    private final JwtTokenProvider jwtTokenProvider;
@@ -80,7 +83,15 @@ public class UserController {
         // 통과하면 세션으로 requestbody로 온 정보를 담고
         session.setAttribute("user", user);
         // 200이면 member에 그 정보를 보내줌
-        return ResponseEntity.status(200).body(member);
+
+        // 홈페이지에서 사용할 예정인 것 들만 담아 놓음
+        User setMember = new User();
+        setMember.setUserId(member.getUserId());
+        setMember.setUserName(member.getUserName());
+        setMember.setUser_rank(member.getUser_rank());
+        setMember.setUserprofile(member.getUserprofile());
+
+        return ResponseEntity.status(200).body(setMember);
     }
 
 
@@ -90,14 +101,15 @@ public class UserController {
         return ResponseEntity.status(200).body("logout");
     }
 
-//    @PostMapping("/findByUsername")
-//    public String findByUsername(@PathVariable("seq") Long id,
-//                                 @RequestBody String username){
-//
-//        userRepository.findById(id);
-//
-//        return "";
-//    }
+    @GetMapping("/username/{userName}/birth/{userBirth}")
+    public ResponseEntity<?> findByUsername(@PathVariable("userName") String userName,
+                                            @PathVariable("userBirth") String userBirth){
+        log.debug(userName);
+        log.debug(userBirth);
+
+         Optional<User> member = userService.findByUserName(userName, userBirth);
+         return ResponseEntity.status(200).body(member);
+    }
 
     @GetMapping("/mypage/{id}")
     public String update(@PathVariable("id") Long id){
