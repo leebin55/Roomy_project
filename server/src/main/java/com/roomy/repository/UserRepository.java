@@ -2,13 +2,17 @@ package com.roomy.repository;
 
 import com.roomy.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    // userId 가 pk로 변경
     Optional<User> findByUserId(String userId);
+    // 아이디찾기에 쓸거임
+    // List<User> findByUserNameAndUserBirth(String userName, String userBirth);
+    Optional<User> findByUserNameAndUserBirth(String userName, String userBirth);
 
 }

@@ -5,7 +5,7 @@ import MainModal from './ProfileForm/MainModal';
 import { useLoginContext } from '../context/LoginContextProvider';
 import '../css/userForm/Logout.css';
 import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
-import axios from 'axios';
+import { Cookies } from 'react-cookie';
 
 function ProfileBox() {
   const [set, setSet] = useState();
@@ -23,8 +23,6 @@ function ProfileBox() {
     temp,
     removeCookie,
     cookie,
-    userProfile,
-    setUserProfile,
   } = useLoginContext();
 
   const logout = () => {
@@ -33,7 +31,7 @@ function ProfileBox() {
         console.log(response);
         if (response.status === 200) {
           setTemp(false);
-          setUserProfile('');
+          // 애플리케이션 안에 쿠키 안에 user를 삭제해라 path는 그냥 전송범위임 루트로 해놨음
           removeCookie('user', { path: '/' });
         }
       });
@@ -48,9 +46,12 @@ function ProfileBox() {
   };
 
   useEffect(() => {
+    // user라고 만들어진 쿠키가 있으면
     if (cookie.user) {
+      // temp는 view 용도로 만들어진거임
       setTemp(true);
     } else {
+      //user라고 만들어진 쿠키에 값이 없으면 temp false
       setTemp(false);
     }
   }, []);
@@ -61,21 +62,12 @@ function ProfileBox() {
   };
   return (
     <div>
+      {/* temp가 트루면 즉 user라는 쿠키가 있으면  */}
       {temp === true ? (
         <div className="afterContainer">
           <div className="logoutHeader">
-            {!userProfile ? (
-              <>
-                {' '}
-                <img className="logo" src="img/logo.svg" alt="profile_img" />
-              </>
-            ) : (
-              <>
-                {' '}
-                <img className="logo" src={userProfile} alt="profile_img" />
-              </>
-            )}
-
+            <img className="logo" src="img/logo.svg" alt="profile_img" />
+            {/* cookie.user가 있으면 user라는 이름의 쿠키에 userName을 출력해라 */}
             {cookie.user && <p>{cookie.user.userName}님</p>}
           </div>
           <div className="logoutBody">
@@ -112,7 +104,6 @@ function ProfileBox() {
           <ProfileUpdateModal
             openUpdate={openUpdate}
             setOpenUpdate={setOpenUpdate}
-            loggedUser={cookie.user.userId}
           />
         </>
       )}

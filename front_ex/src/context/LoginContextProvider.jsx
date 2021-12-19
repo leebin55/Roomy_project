@@ -8,12 +8,8 @@ function LoginContextProvider({ children }) {
   const [login, setLogin] = useState(false);
   const [join, setJoin] = useState(false);
   const [find, setFind] = useState(false);
+  // useState와 거의 비슷함 사용용도는 user라는 이름으로 사용
   const [cookie, setCookie, removeCookie] = useCookies(['user']);
-  const [userName, setUserName] = useState('');
-  const [userProfile, setUserProfile] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userId, setUserId] = useState('');
 
   const loginClick = () => {
     if (join === true) {
@@ -67,17 +63,6 @@ function LoginContextProvider({ children }) {
     cookie,
     setCookie,
     removeCookie,
-    userId,
-    setUserId,
-    // 회원 정보 조회 : 메인화면에서 조회하고 해당 회원 정보보여줌 > 수정할때도 사용
-    userName,
-    setUserName,
-    userProfile,
-    setUserProfile,
-    userPassword,
-    setUserPassword,
-    userEmail,
-    setUserEmail,
   };
 
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;

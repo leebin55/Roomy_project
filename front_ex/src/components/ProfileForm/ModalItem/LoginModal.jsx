@@ -14,12 +14,11 @@ function LoginModal() {
     temp,
     setTemp,
     setCookie,
-    setUserProfile,
   } = useLoginContext();
 
   const userChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    // console.log(user);
+    console.log(user);
   };
 
   const onLoginSubmit = async () => {
@@ -34,7 +33,7 @@ function LoginModal() {
         setLogin(false);
         setJoin(false);
         setFind(false);
-        setUserProfile(res.data.userProfile);
+        // "user" 라고 만들어진 쿠키에 res.data를 담는다. / 경로로 오는거
         setCookie('user', res.data, { path: '/' });
       }
     });
