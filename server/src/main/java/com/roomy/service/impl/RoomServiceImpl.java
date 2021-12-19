@@ -24,5 +24,11 @@ public class RoomServiceImpl implements RoomService {
         return roomRepository.findById(userId).orElse(null);
     }
 
+    @Override
+    public void update(RoomVO roomVO) {
+        roomRepository.save(roomVO);
+        return;
+    }
+
 }
 

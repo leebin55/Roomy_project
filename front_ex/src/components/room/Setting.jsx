@@ -13,14 +13,28 @@ function Setting() {
   };
 
   const onChangeRoomIntroduce = (e) => {
-    setRoom_name(e.target.value);
+    setRoom_introduce(e.target.value);
   };
 
+  // (미완) 값 안넘어옴
   const fetchSetting = async () => {
-    const res = await fetch(`http://localhost:8080/room/${userId}/setting`);
+    const res = await fetch(`http://localhost:8080/room/${userId}`);
     const data = await res.json();
     setRoom_name(data.roomName);
     setRoom_introduce(data.room_introduce);
+  };
+
+  // (미완) null 값으로 넘어감
+  const settingUpdate = async () => {
+    await fetch(`http://localhost:8080/room/${userId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: userId,
+        roomName: room_name,
+        roomIntroduce: room_introduce,
+      }),
+    });
   };
 
   useEffect(() => {
@@ -33,16 +47,18 @@ function Setting() {
       <div className="setting-input-box">
         <input
           className="setting-input"
-          placeholder="미니홈피명"
-          onChange={(e) => onChangeRoomName()}
+          defaultValue={room_name}
+          value={room_name}
+          onChange={(e) => onChangeRoomName(e)}
         ></input>
         <textarea
           className="setting-textfield"
-          placeholder="소개글"
-          onChange={(e) => onChangeRoomIntroduce()}
+          defaultValue={room_introduce}
+          value={room_introduce}
+          onChange={(e) => onChangeRoomIntroduce(e)}
         ></textarea>
         <div className="setting-btn-box">
-          <button>수정</button>
+          <button onClick={() => settingUpdate()}>수정</button>
         </div>
       </div>
     </div>

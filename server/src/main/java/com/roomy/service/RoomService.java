@@ -5,4 +5,5 @@ import com.roomy.model.RoomVO;
 public interface RoomService{
 
     RoomVO findById(String userId);
+    void update(RoomVO roomVO);
 }
