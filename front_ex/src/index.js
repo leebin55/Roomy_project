@@ -5,11 +5,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-
+// CookiesProvider로 감쌋음 cookie를 전체에 쓰려고 
 render(
 	<CookiesProvider>
 		<App />
-		</CookiesProvider>
+	</CookiesProvider>
 ,
   document.getElementById('root')
 );

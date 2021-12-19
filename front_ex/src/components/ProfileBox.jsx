@@ -32,6 +32,7 @@ function ProfileBox() {
         if (response.status === 200) {
           setTemp(false);
           // 애플리케이션 안에 쿠키 안에 user를 삭제해라 path는 그냥 전송범위임 루트로 해놨음
+
           removeCookie('user', { path: '/' });
         }
       });
