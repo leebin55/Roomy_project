@@ -5,10 +5,9 @@ import MainModal from './ProfileForm/MainModal';
 import { useLoginContext } from '../context/LoginContextProvider';
 import '../css/userForm/Logout.css';
 import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
-import { Cookies } from 'react-cookie';
 
 function ProfileBox() {
-  const [set, setSet] = useState();
+  //const [set, setSet] = useState();
   const [openUpdate, setOpenUpdate] = useState(false); // 수정할때 관련 모달창
   const {
     loginClick,
@@ -23,6 +22,8 @@ function ProfileBox() {
     temp,
     removeCookie,
     cookie,
+    userProfile,
+    setUserProfile,
   } = useLoginContext();
 
   const logout = () => {
@@ -32,7 +33,7 @@ function ProfileBox() {
         if (response.status === 200) {
           setTemp(false);
           // 애플리케이션 안에 쿠키 안에 user를 삭제해라 path는 그냥 전송범위임 루트로 해놨음
-
+          setUserProfile('');
           removeCookie('user', { path: '/' });
         }
       });
@@ -67,7 +68,17 @@ function ProfileBox() {
       {temp === true ? (
         <div className="afterContainer">
           <div className="logoutHeader">
-            <img className="logo" src="img/logo.svg" alt="profile_img" />
+            {!userProfile ? (
+              <>
+                {' '}
+                <img className="logo" src="img/logo.svg" alt="profile_img" />
+              </>
+            ) : (
+              <>
+                {' '}
+                <img className="logo" src={userProfile} alt="profile_img" />
+              </>
+            )}
             {/* cookie.user가 있으면 user라는 이름의 쿠키에 userName을 출력해라 */}
             {cookie.user && <p>{cookie.user.userName}님</p>}
           </div>
@@ -105,6 +116,7 @@ function ProfileBox() {
           <ProfileUpdateModal
             openUpdate={openUpdate}
             setOpenUpdate={setOpenUpdate}
+            loggedUser={cookie.user.userId}
           />
         </>
       )}

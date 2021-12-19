@@ -8,6 +8,8 @@ function LoginContextProvider({ children }) {
   const [login, setLogin] = useState(false);
   const [join, setJoin] = useState(false);
   const [find, setFind] = useState(false);
+  const [userProfile, setUserProfile] = useState('');
+  const [userId, setUserId] = useState('');
   // useState와 거의 비슷함 사용용도는 user라는 이름으로 사용
 
   const [cookie, setCookie, removeCookie] = useCookies(['user']);
@@ -64,6 +66,11 @@ function LoginContextProvider({ children }) {
     cookie,
     setCookie,
     removeCookie,
+    userId,
+    setUserId,
+    // 회원 정보 조회(로그인할때) : 메인화면에서 프로필 보여줄때 사용
+    userProfile,
+    setUserProfile,
   };
 
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
