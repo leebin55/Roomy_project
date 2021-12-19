@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import "../css/userForm/ProfileBox.css";
-import { useNavigate } from "react-router-dom";
-import MainModal from "./ProfileForm/MainModal";
-import { useLoginContext } from "../context/LoginContextProvider";
-import "../css/userForm/Logout.css";
-import ProfileUpdateModal from "./ProfileForm/ProfileUpdateModal";
-import { Cookies } from "react-cookie";
+import { useState, useEffect } from 'react';
+import '../css/userForm/ProfileBox.css';
+import { useNavigate } from 'react-router-dom';
+import MainModal from './ProfileForm/MainModal';
+import { useLoginContext } from '../context/LoginContextProvider';
+import '../css/userForm/Logout.css';
+import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
+import axios from 'axios';
 
 function ProfileBox() {
   const [set, setSet] = useState();
@@ -23,16 +23,18 @@ function ProfileBox() {
     temp,
     removeCookie,
     cookie,
+    userProfile,
+    setUserProfile,
   } = useLoginContext();
 
   const logout = () => {
-    if (window.confirm("로그아웃 하시겠습니까?")) {
-      fetch("http://localhost:8080/user/logout").then((response) => {
+    if (window.confirm('로그아웃 하시겠습니까?')) {
+      fetch('http://localhost:8080/user/logout').then((response) => {
         console.log(response);
         if (response.status === 200) {
           setTemp(false);
-
-          removeCookie("user", { path: "/" });
+          setUserProfile('');
+          removeCookie('user', { path: '/' });
         }
       });
     }
@@ -62,7 +64,18 @@ function ProfileBox() {
       {temp === true ? (
         <div className="afterContainer">
           <div className="logoutHeader">
-            <img className="logo" src="img/logo.svg" alt="profile_img" />
+            {!userProfile ? (
+              <>
+                {' '}
+                <img className="logo" src="img/logo.svg" alt="profile_img" />
+              </>
+            ) : (
+              <>
+                {' '}
+                <img className="logo" src={userProfile} alt="profile_img" />
+              </>
+            )}
+
             {cookie.user && <p>{cookie.user.userName}님</p>}
           </div>
           <div className="logoutBody">
@@ -99,6 +112,7 @@ function ProfileBox() {
           <ProfileUpdateModal
             openUpdate={openUpdate}
             setOpenUpdate={setOpenUpdate}
+            loggedUser={cookie.user.userId}
           />
         </>
       )}

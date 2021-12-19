@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import "../../../css/userForm/LoginModal.css";
-import Axios from "axios";
-import { useLoginContext } from "../../../context/LoginContextProvider";
-import { useCookies } from "react-cookie";
+import React, { useState } from 'react';
+import '../../../css/userForm/LoginModal.css';
+import Axios from 'axios';
+import { useLoginContext } from '../../../context/LoginContextProvider';
+import { useCookies } from 'react-cookie';
 
 function LoginModal() {
   const {
@@ -14,27 +14,28 @@ function LoginModal() {
     temp,
     setTemp,
     setCookie,
+    setUserProfile,
   } = useLoginContext();
 
   const userChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
+    // console.log(user);
   };
 
   const onLoginSubmit = async () => {
-    await Axios.post("http://localhost:8080/user/login", {
+    await Axios.post('http://localhost:8080/user/login', {
       userId: user.userId,
       userPassword: user.userPassword,
     }).then((res) => {
-      console.log("res", res);
-      console.log("res.data:", res.data);
+      console.log('res', res);
+      console.log('res.data:', res.data);
       if (res.status === 200) {
         setTemp(true);
         setLogin(false);
         setJoin(false);
         setFind(false);
-
-        setCookie("user", res.data, { path: "/" });
+        setUserProfile(res.data.userProfile);
+        setCookie('user', res.data, { path: '/' });
       }
     });
   };

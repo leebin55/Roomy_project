@@ -5,18 +5,28 @@ import TextField from '@mui/material/TextField';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import '../../css/userForm/ProfileUpdateModal.css';
 import axios from 'axios';
-import { IronTwoTone } from '@mui/icons-material';
+import { useLoginContext } from '../../context/LoginContextProvider';
+
 // 우선 로그인부분 안되있어서 userId를 직접 testid 로 설정 > 나중에 수정
 
 // 메인화면에서 프로필부분에 수정하기 버튼을 클릭하면 나타나는 모달창
-function ProfileUpdateModal({ openUpdate, setOpenUpdate }) {
+function ProfileUpdateModal({ openUpdate, setOpenUpdate, loggedUser }) {
+  //   const {
+  //     userName,
+  //     userEmail,
+  //     userPassword,
+  //     userProfile,
+  //     setUserEmail,
+  //     setUserName,
+  //     setUserPassword,
+  //     setUserProfile,
+  //   } = useLoginContext();
   const [userName, setUserName] = useState('');
   const [userProfile, setUserProfile] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   // 프로필 사진을 고르면 미리보기 위한 변수
   const [preview, setPreview] = useState();
-  const [userId, setUserId] = useState('');
   const [tempFile, setTempFile] = useState({}); // 프로필 파일 변경될때 임시로 담음
 
   const handleClose = () => {
@@ -55,31 +65,38 @@ function ProfileUpdateModal({ openUpdate, setOpenUpdate }) {
             .then((res) => {
               if (res.status === 200) {
                 // 받아온 파일 이름을 받아서 UserProfile에 담음
-                setUserProfile(res.data);
+                //setUserProfile(res.data); 순서대로 안되서 userProfile 값이 들어가지 않음
+                updateUserInfo(res.data);
+                return;
               }
             });
-        }
+        } //preview !== userProfile 끝
         // 우선 이름과 이메일 프로필만 항목만 넘김 > 나중에 비밀번호 할 예정
-        await axios
-          .put('http://localhost:8080/user/update', {
-            userId,
-            userName,
-            userEmail,
-            userprofile: userProfile,
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              console.log('완료');
-              alert('회원정보 수정');
-              handleClose();
-            }
-          });
+        updateUserInfo(userProfile);
       } catch (error) {
         return error;
       }
     }
   };
-
+  // FormData를 vo에 넣어서 보내질 못해서 우선 프로필 사진을 먼저 서버에 저장하고
+  // 서버에 저장된 이름을 받아옴
+  // updateUserInfo는 저장된 이름과 변경된 정보 모두 다 같이 보냄
+  // 우선 서버에서 프로필 사진 이름을 받아오고 난뒤에 밑의 메서드가 실행되야 함
+  const updateUserInfo = async (profile) => {
+    await axios
+      .put(`http://localhost:8080/user/update/${loggedUser}`, {
+        userName,
+        userEmail,
+        userProfile: profile,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('완료 ', userProfile);
+          alert('회원정보 수정');
+          handleClose();
+        }
+      });
+  };
   const style = {
     position: 'absolute',
     top: '50%',
@@ -103,23 +120,23 @@ function ProfileUpdateModal({ openUpdate, setOpenUpdate }) {
   };
 
   // localStorage 에서 userId 를 가져와 회원정보 가져옴
-  const getUserInfo = async (userId) => {
-    await axios.get(`http://localhost:8080/user/${userId}`).then((res) => {
+  const getUserInfo = async () => {
+    await axios.get(`http://localhost:8080/user/${loggedUser}`).then((res) => {
       if (res.status === 200) {
-        console.log('>> : ', userId);
+        console.log('>> : ', loggedUser);
         console.log('유저 가져오기', res);
         setUserEmail(res.data.userEmail);
         setUserName(res.data.userName);
-        setUserProfile(res.data.userprofile);
-        setPreview(res.data.userprofile);
+        setUserProfile(res.data.userProfile);
+        setPreview(res.data.userProfile);
       }
     });
   };
 
   useEffect(() => {
-    const localUser = window.localStorage.getItem('user');
-    const userId = 'testid';
-    getUserInfo(userId);
+    // 해당 회원 정보 불러오기
+    getUserInfo();
+    // console.log('loggedUser', loggedUser);
   }, []);
 
   return (
