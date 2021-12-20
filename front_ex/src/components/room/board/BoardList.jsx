@@ -16,6 +16,7 @@ function BoardList() {
     const res = await fetch(`http://localhost:8080/room/${userId}/board`);
     const result = await res.json();
     // if (result?.content?.length > 0) setBoard_list(result?.content);
+    console.log(result);
     setBoard_list(result);
   };
 

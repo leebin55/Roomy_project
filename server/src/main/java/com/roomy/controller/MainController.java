@@ -1,6 +1,7 @@
 package com.roomy.controller;
 
 import com.roomy.model.BoardImageVO;
+import com.roomy.model.RoomVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,9 @@ public class MainController {
 
         return null;
     }
+
+//    @GetMapping("/search")
+//    public List<RoomVO> search(@)
 
 
 }

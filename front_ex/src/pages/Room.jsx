@@ -10,7 +10,7 @@ function Room() {
   const { userId } = useParams();
   const [room_data, setRoom_data] = useState([]);
 
-  // 미니홈피 정보들 불러오기 (미완)
+  // 미니홈피 정보들 불러오기
   const fetchRoom = async () => {
     const res = await fetch(`http://localhost:8080/room/${userId}`);
     const data = await res.json();
@@ -27,7 +27,7 @@ function Room() {
       <div className="room-main-container">
         <div className="room-left-1">
           <p className="room-visit">
-            today<span>0</span>total<span>0</span>
+            today<span>0</span>total<span>{room_data.roomTotal}</span>
           </p>
           <div className="room-left-2">
             <section className="room-left-side">

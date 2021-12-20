@@ -2,12 +2,14 @@ package com.roomy.controller;
 
 import com.roomy.model.BoardVO;
 import com.roomy.model.LikeVO;
+import com.roomy.model.User;
 import com.roomy.service.BoardService;
 import com.roomy.service.LikeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -26,9 +28,10 @@ public class BoardController {
     }
 
     @GetMapping("/{userId}/board")
-    public List<BoardVO> list(@PathVariable("userId") String userId) {
-        log.debug("board list 컨트롤러 실행");
+    public List<BoardVO> list(@PathVariable String userId) {
+        log.debug("board list 컨트롤러 실행 {}", userId);
         List<BoardVO> boardList = boardService.readBoardList(userId);
+        log.debug(boardList.toString());
         return boardList;
     }
 
@@ -43,9 +46,15 @@ public class BoardController {
 //    }
 
     @PostMapping("/{userId}/board")
-    public void insert(@RequestBody BoardVO boardVO) {
+    public void insert(@RequestBody BoardVO boardVO, HttpSession session) {
         log.debug("write 컨트롤러 실행");
         log.debug(boardVO.toString());
+
+        log.debug("세션 user {}", session.getAttribute("user"));
+
+        User user = (User) session.getAttribute("user");
+
+        boardVO.setBoardUserId(user.getUserId());
         boardService.insert(boardVO);
     }
 
@@ -53,8 +62,6 @@ public class BoardController {
     public BoardVO detail(@PathVariable Long board_seq) {
         log.debug("board detail 컨트롤러 실행 {}",board_seq);
         BoardVO boardVO = boardService.findById(board_seq);
-
-        //
 
         // 좋아요 눌렀는지 여부 확인 위해 likeVO 생성하고 게시물번호, 유저번호 넣어줌
         LikeVO likeVO = new LikeVO();

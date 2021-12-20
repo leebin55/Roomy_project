@@ -33,6 +33,7 @@ public class BoardServiceImplV1 implements BoardService {
     @Override
     public List<BoardVO> readBoardList(String userId) {
         List<BoardVO> list = boardRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(2, userId);
+        log.debug("보드리스트 {}", list);
         return list;
     }
 
@@ -53,7 +54,6 @@ public class BoardServiceImplV1 implements BoardService {
         LocalDateTime localDateTime = LocalDateTime.now();
         String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        boardVO.setBoardUserId("testid");
         boardVO.setBoardCreateAt(dateTime);
         boardVO.setBoardUpdateAt(dateTime);
 //        덜씀

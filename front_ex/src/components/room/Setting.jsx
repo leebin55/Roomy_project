@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../css/Setting.css";
 
 function Setting() {
+  const navigate = useNavigate();
   const [room_name, setRoom_name] = useState("");
   const [room_introduce, setRoom_introduce] = useState("");
   const { userId } = useParams();
@@ -16,15 +17,15 @@ function Setting() {
     setRoom_introduce(e.target.value);
   };
 
-  // (미완) 값 안넘어옴
+  // 미니홈피 정보들(미니홈피명, 소개글) 불러오기
   const fetchSetting = async () => {
     const res = await fetch(`http://localhost:8080/room/${userId}`);
     const data = await res.json();
     setRoom_name(data.roomName);
-    setRoom_introduce(data.room_introduce);
+    setRoom_introduce(data.roomIntroduce);
   };
 
-  // (미완) null 값으로 넘어감
+  // 미니홈피 정보 수정
   const settingUpdate = async () => {
     await fetch(`http://localhost:8080/room/${userId}`, {
       method: "PUT",
@@ -34,6 +35,11 @@ function Setting() {
         roomName: room_name,
         roomIntroduce: room_introduce,
       }),
+    }).then((res) => {
+      if (res?.ok) {
+        navigate(`/room/${userId}/setting`);
+        alert("수정되었습니다");
+      }
     });
   };
 

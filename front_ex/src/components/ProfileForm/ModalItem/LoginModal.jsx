@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
-import '../../../css/userForm/LoginModal.css';
-import Axios from 'axios';
-import { useLoginContext } from '../../../context/LoginContextProvider';
-import { useCookies } from 'react-cookie';
+import React, { useState } from "react";
+import "../../../css/userForm/LoginModal.css";
+import Axios from "axios";
+import { useLoginContext } from "../../../context/LoginContextProvider";
+import { useCookies } from "react-cookie";
 
 function LoginModal() {
-  const {
-    setLogin,
-    setJoin,
-    setFind,
-    user,
-    setUser,
-    temp,
-    setTemp,
-    setCookie,
-    setUserProfile,
-  } = useLoginContext();
+  const { setModal, user, setUser, temp, setTemp, setCookie, setUserProfile } =
+    useLoginContext();
 
   const userChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -23,20 +14,18 @@ function LoginModal() {
   };
 
   const onLoginSubmit = async () => {
-    await Axios.post('http://localhost:8080/user/login', {
+    await Axios.post("http://localhost:8080/user/login", {
       userId: user.userId,
       userPassword: user.userPassword,
     }).then((res) => {
-      console.log('res', res);
-      console.log('res.data:', res.data);
+      console.log("res", res);
+      console.log("res.data:", res.data);
       if (res.status === 200) {
         setTemp(true);
-        setLogin(false);
-        setJoin(false);
-        setFind(false);
+        setModal({ login: false, join: false, find: false });
         // "user" 라고 만들어진 쿠키에 res.data를 담는다. / 경로로 오는거
         setUserProfile(res.data.userProfile);
-        setCookie('user', res.data, { path: '/' });
+        setCookie("user", res.data, { path: "/" });
       }
     });
   };

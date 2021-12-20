@@ -1,66 +1,52 @@
-import React, { createContext, useContext, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import React, { createContext, useContext, useState } from "react";
+import { useCookies } from "react-cookie";
 
 const AppContext = createContext();
 export const useLoginContext = () => useContext(AppContext);
 
 function LoginContextProvider({ children }) {
-  const [login, setLogin] = useState(false);
-  const [join, setJoin] = useState(false);
-  const [find, setFind] = useState(false);
-  const [userProfile, setUserProfile] = useState('');
-  const [userId, setUserId] = useState('');
+  // const [login, setLogin] = useState(false);
+  // const [join, setJoin] = useState(false);
+  // const [find, setFind] = useState(false);
+
+  const [userProfile, setUserProfile] = useState("");
+  const [userId, setUserId] = useState("");
   // useState와 거의 비슷함 사용용도는 user라는 이름으로 사용
 
-  const [cookie, setCookie, removeCookie] = useCookies(['user']);
+  const [cookie, setCookie, removeCookie] = useCookies(["user"]);
+
+  const [modal, setModal] = useState({
+    login: false,
+    join: false,
+    find: false,
+  });
 
   const loginClick = () => {
-    if (join === true) {
-      setJoin(false);
-    } else if (find === true) {
-      setFind(false);
-    }
-    setLogin(true);
+    setModal({ login: true, join: false, find: false });
   };
   const joinClick = () => {
-    if (login === true) {
-      setLogin(false);
-    } else if (find === true) {
-      setFind(false);
-    }
-    setJoin(true);
+    setModal({ login: false, join: true, find: false });
   };
   const findClick = () => {
-    if (login === true) {
-      setLogin(false);
-    } else if (join === true) {
-      setJoin(false);
-    }
-    setFind(true);
+    setModal({ login: false, join: false, find: true });
   };
   const deleteClick = () => {
-    setLogin(false);
-    setJoin(false);
-    setFind(false);
+    setModal({ login: false, join: false, find: false });
   };
   const [temp, setTemp] = useState(false);
   const [user, setUser] = useState({
-    userId: '',
-    userPassword: '',
+    userId: "",
+    userPassword: "",
   });
   const data = {
-    login,
+    modal,
+    setModal,
     temp,
     user,
     setUser,
     setTemp,
-    setLogin,
     loginClick,
-    join,
-    setJoin,
     joinClick,
-    find,
-    setFind,
     findClick,
     deleteClick,
     cookie,
