@@ -33,6 +33,7 @@ function Gallery() {
   useEffect(() => {
     // board_state와  board_seq 가 존재하면
     //isUpdate는  true
+    console.log('userId : ', userId);
     if (board_state && board_seq) {
       setIsUpdate(true);
     }

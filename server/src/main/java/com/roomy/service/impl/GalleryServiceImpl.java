@@ -38,7 +38,7 @@ public class GalleryServiceImpl implements BoardService {
     @Override
     public List<BoardVO> readBoardList(String userId) {
 
-        List<BoardVO> list = galleryRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(2,userId);
+        List<BoardVO> list = galleryRepository.findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(1,userId);
         log.debug("boardList :{} ", list.toString());
         return list;
     }

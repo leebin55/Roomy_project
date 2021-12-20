@@ -24,7 +24,7 @@ export default function Feed({ gallery, index }) {
     try {
       axios
         .post('http://localhost:8080/room/gallery/like', {
-          userSeq: gallery.boardUserSeq,
+          userId: gallery.boardUserId,
           boardSeq: gallery.boardSeq,
         })
         .then((res) => {

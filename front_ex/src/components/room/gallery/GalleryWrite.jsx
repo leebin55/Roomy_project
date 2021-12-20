@@ -1,7 +1,6 @@
 import React from 'react';
 import moment from 'moment';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import Editor from './Editor';
 import { useGalleryContext } from '../../../context/GalleryContextProvider';
 import QuillToolbar from './QuillToolbar';
@@ -38,6 +37,8 @@ function GalleryWrite({ isWrite, setIsWrite, userId }) {
             boardCreateAt: moment().format('YYYY-MM-DD HH:mm'),
             boardCode: 1,
             imgURL: saveURL, // content에 포함된 url 만 보내줌
+            // 임시로 USERID 값 넣어서 보여주기
+            boardUserId: userId,
           })
           .then((res) => {
             if (res.data === 'ok') {

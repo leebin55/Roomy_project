@@ -21,6 +21,7 @@ function LoginContextProvider({ children }) {
     find: false,
   });
 
+
   const loginClick = () => {
     setModal({ login: true, join: false, find: false });
   };

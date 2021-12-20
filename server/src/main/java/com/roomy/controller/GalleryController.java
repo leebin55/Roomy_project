@@ -44,6 +44,7 @@ public class GalleryController {
     // room 에서 갤러리 목록에 들어가면 갤러리 맨 처음 보여주는 리스트 return
     @GetMapping("/{userId}/gallery")
     public List<BoardVO> list(@PathVariable("userId") String userId){
+        log.debug("userId : {}", userId);
         List<BoardVO> boardList = galleryService.readBoardList(userId);
         List<BoardVO> boardImgList= fileService.selectAllWithImage(boardList);
         log.debug("select all : {}",boardList.toString());

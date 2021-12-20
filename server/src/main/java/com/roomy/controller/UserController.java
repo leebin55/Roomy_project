@@ -11,6 +11,7 @@ import com.roomy.service.FileService;
 
 
 import com.roomy.service.UserService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.Option;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -74,7 +72,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user, HttpSession session){
         // RequestBody로 받아온 아이디를 검사
-        User member = userRepository.findByUserId(user.getUserId())
+        User member = userRepository.findById(user.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 userId"));
         // matches(입력된 비번, db에 저장되있는 비번) 비교해서 비번 맞추는거임
         if(!bCryptPasswordEncoder.matches(user.getUserPassword(), member.getUserPassword())) {
@@ -110,10 +108,7 @@ public class UserController {
          return ResponseEntity.status(200).body(member);
     }
 
-    @GetMapping("/mypage/{id}")
-    public String update(@PathVariable("id") Long id){
-        return "";
-    }
+
 
 @PutMapping("/profile")
 public String profileUpdate(@RequestParam("profile") MultipartFile profile){
@@ -122,30 +117,19 @@ public String profileUpdate(@RequestParam("profile") MultipartFile profile){
         return  newProfileName;
 }
     // 회원정보 수정
-    @PutMapping("/update/{userId}")
-    public void update(@PathVariable("userId") String userId, @RequestBody User user){
-        // 받아온 user를 그대로 사용하면
-        // Duplicate entry '' for key 'tbl_user.PRIMARY' 오류가 난다
-        // 그래서 user를 받아오고 userId 를 조회한 findUser에 받아온 값을 집어넣고
-        // 다시 save
-        // 아마도 jpa 의 영속성 컨텍스트때문인것 같음
-        log.debug("userupdate info : {}",user.toString());
-        User finduser =userRepository.findByUserId(userId).get();
-        finduser.setUserName(user.getUserName());
-        finduser.setUserEmail(user.getUserEmail());
-        if(user.getUserProfile() != null && user.getUserProfile() != finduser.getUserProfile()){
-            finduser.setUserProfile(user.getUserProfile());
-        }
+    @PutMapping("/update")
+    public void update(@RequestBody User user){
 
-        userRepository.save(finduser);
+        log.debug("User{}", user.toString());
+
+        userService.update(user);
     }
-
 
 
     // 회원 아이디로 회원 정보 가져오기
     @GetMapping("/{userId}")
     public User getUserInfo(@PathVariable("userId") String userId){
-        User user = userRepository.findByUserId(userId).get();
+        User user = userRepository.findById(userId).get();
         log.debug("user 조회 : {}", user.toString());
         return user;
     }
