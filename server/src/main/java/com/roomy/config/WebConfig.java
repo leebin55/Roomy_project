@@ -27,7 +27,8 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000")
-                .allowedMethods("*");
+                .allowedMethods("*")
+                .allowCredentials(true); // request 가 credentials: "include" 일 때 이게 true 로 설정돼있어야 함 (+ origin 에 *를 사용할 수 없고, 명시적인 URL 이어야 함)
     }
 
 
