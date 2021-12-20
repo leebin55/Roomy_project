@@ -40,4 +40,14 @@ public class UserServiceImplV1 implements UserService {
     public Optional<User> findByUserName(String userName, String userBirth) {
         return Optional.empty();
     }
+
+    @Override
+    public Optional<User> findByUserPw(String userName, String userId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> updatePassword(String userId, String password) {
+        return null;
+    }
 }

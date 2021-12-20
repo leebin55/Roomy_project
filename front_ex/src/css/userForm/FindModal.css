@@ -75,5 +75,10 @@
 	font-size:32px;
 }
 
-
-
+.successPw input{
+	height:3vh;
+}
+.successPw button {
+	font-size:24px;
+	height:3vh;
+}

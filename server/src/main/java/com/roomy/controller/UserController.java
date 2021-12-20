@@ -14,6 +14,7 @@ import com.roomy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -99,7 +100,7 @@ public class UserController {
         session.removeAttribute("user");
         return ResponseEntity.status(200).body("logout");
     }
-
+    // 아이디찾기
     @GetMapping("/username/{userName}/birth/{userBirth}")
     public ResponseEntity<?> findByUsername(@PathVariable("userName") String userName,
                                             @PathVariable("userBirth") String userBirth){
@@ -108,6 +109,20 @@ public class UserController {
 
          Optional<User> member = userService.findByUserName(userName, userBirth);
          return ResponseEntity.status(200).body(member);
+    }
+    // 비번찾기인데 다른 사이트들 보니깐 비번은 찾는게 아니라 바꾸는거길래 그렇게 만듬
+    @GetMapping("/username/{userName}/userid/{userId}")
+    public Optional<User> findByPw(@PathVariable("userName") String userName,
+                                      @PathVariable("userId") String userId){
+        Optional<User> member = userService.findByUserPw(userName, userId);
+        return member;
+    }
+    // findByPw가 통과하면 사용가능한 메서드
+    @PutMapping("/userpassword")
+    public ResponseEntity<?> updatePassword(@RequestBody String userId,
+                               @RequestBody String password) {
+        Optional<User> member = userService.updatePassword(userId, password);
+        return ResponseEntity.status(200).body(member);
     }
 
     @GetMapping("/mypage/{id}")

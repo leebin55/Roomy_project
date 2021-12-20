@@ -2,12 +2,12 @@ package com.roomy.service.impl;
 
 import com.roomy.model.User;
 import com.roomy.repository.UserRepository;
-import com.roomy.service.FileService;
 import com.roomy.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +16,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl( UserRepository userRepository) {
-
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -58,5 +59,26 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("정보 없음")));
 
         return member;
+    }
+
+    // 비번찾기위한거
+    @Override
+    public Optional<User> findByUserPw(String userName, String userId) {
+        Optional<User> member = Optional.ofNullable(userRepository.findByUserNameAndUserId(userName, userId)
+                .orElseThrow(() -> new IllegalArgumentException("정보 없음")));
+
+        return member;
+    }
+
+    @Override
+    public Optional<User> updatePassword(String userId, String password) {
+        Optional<User> _member = userRepository.findById(userId);
+        if(!bCryptPasswordEncoder.matches(password, ))
+        if(_member.isPresent()){
+            User member = _member.get();
+            member.setUserPassword(password);
+            userRepository.save(member);
+        }
+        return _member;
     }
 }
