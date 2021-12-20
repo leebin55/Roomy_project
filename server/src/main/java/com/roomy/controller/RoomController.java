@@ -32,6 +32,7 @@ public class RoomController {
         return roomVO;
     }
 
+    // 미니홈피 setting 게시판에서 수정버튼 클릭하면 실행
     @PutMapping("/{userId}")
     public RoomVO update(@RequestBody RoomVO roomVO) {
         log.debug("room update 컨트롤러 실행 {}", roomVO);

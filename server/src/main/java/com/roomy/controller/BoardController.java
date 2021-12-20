@@ -28,7 +28,7 @@ public class BoardController {
     @GetMapping("/{userId}/board")
     public List<BoardVO> list(@PathVariable("userId") String userId) {
         log.debug("board list 컨트롤러 실행");
-        List<BoardVO> boardList = boardService.readBoardList( userId);
+        List<BoardVO> boardList = boardService.readBoardList(userId);
         return boardList;
     }
 
