@@ -39,7 +39,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
-
+        // 받아온 user를 그대로 사용하면
+        // Duplicate entry '' for key 'tbl_user.PRIMARY' 오류가 난다 > 다시 안남...
+        // 그래서 user를 받아오고 userId 를 조회한 findUser에 받아온 값을 집어넣고
+        // 다시 save
+        //user에서 받아온 값을 save하면 다른 성별, 패스워드 등이 null으로 담김 아니면 front에서 다 세팅해서
+        // 넘겨줘야 함
+        User findUser =userRepository.findById(user.getUserId()).get();
+        findUser.setUserName(user.getUserName());
+        findUser.setUserEmail(user.getUserEmail());
+        if(user.getUserProfile() != null && user.getUserProfile() != findUser.getUserProfile()){
+            findUser.setUserProfile(user.getUserProfile());
+        }
+        if(user.getUserPassword()!= null){
+            findUser.setUserPassword(user.getUserPassword());
+        }
+        userRepository.save(findUser);
     }
 
     @Override
