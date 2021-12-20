@@ -11,7 +11,6 @@ function LoginContextProvider({ children }) {
   const [userProfile, setUserProfile] = useState('');
   const [userId, setUserId] = useState('');
   // useState와 거의 비슷함 사용용도는 user라는 이름으로 사용
-
   const [cookie, setCookie, removeCookie] = useCookies(['user']);
 
   const loginClick = () => {

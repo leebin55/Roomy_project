@@ -84,10 +84,11 @@ function ProfileUpdateModal({ openUpdate, setOpenUpdate, loggedUser }) {
   // 우선 서버에서 프로필 사진 이름을 받아오고 난뒤에 밑의 메서드가 실행되야 함
   const updateUserInfo = async (profile) => {
     await axios
-      .put(`http://localhost:8080/user/update/${loggedUser}`, {
+      .put(`http://localhost:8080/user/update`, {
         userName,
         userEmail,
         userProfile: profile,
+        userId: loggedUser,
       })
       .then((res) => {
         if (res.status === 200) {
