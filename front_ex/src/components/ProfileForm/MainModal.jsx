@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import "../../css/userForm/MainModal.css";
-import LoginModal from "./ModalItem/LoginModal";
-import JoinModal from "./ModalItem/JoinModal";
-import FindModal from "./ModalItem/FindModal";
+import React, { useState } from 'react';
+import '../../css/userForm/MainModal.css';
+import LoginModal from './ModalItem/LoginModal';
+import JoinModal from './ModalItem/JoinModal';
+import FindModal from './ModalItem/FindModal';
 
-import { useLoginContext } from "../../context/LoginContextProvider";
+import { useLoginContext } from '../../context/LoginContextProvider';
 
 function MainModal() {
   const { login, join, find, loginClick, joinClick, findClick, deleteClick } =
