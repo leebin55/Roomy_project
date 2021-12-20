@@ -16,7 +16,9 @@ public interface BoardRepository extends JpaRepository<BoardVO,Long> {
 
     // 보드 코드와 유저 아이디를 받아 해당 유저의 미니홈피에서 게시글 조회
     List<BoardVO> findAllByBoardCodeAndBoardUserIdOrderByBoardSeqDesc(int boardCode, String userId);
+
     //findTop4ByOrderByGuestSeqDesc();
+
     // 피드에서 최신순으로 조회
     List<BoardVO> findTop10ByBoardCodeOrderByBoardSeqDesc(int boardCode);
 

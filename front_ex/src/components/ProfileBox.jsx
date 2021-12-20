@@ -1,21 +1,19 @@
-import { useState, useEffect } from 'react';
-import '../css/userForm/ProfileBox.css';
-import { useNavigate } from 'react-router-dom';
-import MainModal from './ProfileForm/MainModal';
-import { useLoginContext } from '../context/LoginContextProvider';
-import '../css/userForm/Logout.css';
-import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
+import { useState, useEffect } from "react";
+import "../css/userForm/ProfileBox.css";
+import { useNavigate } from "react-router-dom";
+import MainModal from "./ProfileForm/MainModal";
+import { useLoginContext } from "../context/LoginContextProvider";
+import "../css/userForm/Logout.css";
+import ProfileUpdateModal from "./ProfileForm/ProfileUpdateModal";
 
 function ProfileBox() {
   //const [set, setSet] = useState();
   const [openUpdate, setOpenUpdate] = useState(false); // 수정할때 관련 모달창
   const {
+    modal,
     loginClick,
     findClick,
     joinClick,
-    login,
-    join,
-    find,
     user,
     setUser,
     setTemp,
@@ -27,14 +25,14 @@ function ProfileBox() {
   } = useLoginContext();
 
   const logout = () => {
-    if (window.confirm('로그아웃 하시겠습니까?')) {
-      fetch('http://localhost:8080/user/logout').then((response) => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      fetch("http://localhost:8080/user/logout").then((response) => {
         console.log(response);
         if (response.status === 200) {
           setTemp(false);
           // 애플리케이션 안에 쿠키 안에 user를 삭제해라 path는 그냥 전송범위임 루트로 해놨음
-          setUserProfile('');
-          removeCookie('user', { path: '/' });
+          setUserProfile("");
+          removeCookie("user", { path: "/" });
         }
       });
     }
@@ -70,12 +68,12 @@ function ProfileBox() {
           <div className="logoutHeader">
             {!userProfile ? (
               <>
-                {' '}
+                {" "}
                 <img className="logo" src="img/logo.svg" alt="profile_img" />
               </>
             ) : (
               <>
-                {' '}
+                {" "}
                 <img className="logo" src={userProfile} alt="profile_img" />
               </>
             )}
@@ -120,17 +118,17 @@ function ProfileBox() {
           />
         </>
       )}
-      {login && (
+      {modal.login && (
         <div>
           <MainModal />
         </div>
       )}
-      {join && (
+      {modal.join && (
         <>
           <MainModal />
         </>
       )}
-      {find && (
+      {modal.find && (
         <>
           <MainModal />
         </>
