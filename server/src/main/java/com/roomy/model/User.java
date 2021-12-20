@@ -19,7 +19,10 @@ import java.util.stream.Collectors;
 @Getter
 @Table(name ="tbl_user" , schema = "roomyDB")
 @Data
-public class User {
+
+public class User  {
+
+
 
 //    pk를 user_seq 에서 userId로 변경해 필요없어짐
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +55,8 @@ public class User {
 
     // 회원 등급 ( 0 관리자 / 1 일반회원 )
     private int userRank;
+
+
 
 //    @ElementCollection(fetch = FetchType.EAGER)
 //    @Builder.Default
