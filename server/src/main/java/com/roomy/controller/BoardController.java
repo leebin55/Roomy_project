@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -46,16 +48,20 @@ public class BoardController {
 //    }
 
     @PostMapping("/{userId}/board")
-    public void insert(@RequestBody BoardVO boardVO, HttpSession session) {
-        log.debug("write 컨트롤러 실행");
+    public void insert(HttpSession session, @RequestBody BoardVO boardVO) {
+        log.debug("board write 컨트롤러 실행");
         log.debug(boardVO.toString());
-
-        log.debug("세션 user {}", session.getAttribute("user"));
-
         User user = (User) session.getAttribute("user");
+        log.debug(user.toString());
+//        log.debug("유저{} ", user);
 
-        boardVO.setBoardUserId(user.getUserId());
-        boardService.insert(boardVO);
+//        log.debug("세션 user {}", session.getAttribute("user"));
+//        User user = (User) session.getAttribute("user");
+//        boardVO.setBoardUserId(user.getUserId());
+
+        // 일단 임의로 id 넣어둠
+//        boardVO.setBoardUserId("idid");
+//        boardService.insert(boardVO);
     }
 
     @GetMapping("/{userId}/board/{board_seq}")
@@ -101,7 +107,7 @@ public class BoardController {
     public int like(@RequestBody LikeVO likeVO) {
         log.debug("board like 컨트롤러 실행");
         // user 생성되면 session 에서 userSeq 뽑아올 것
-        likeVO.setUserSeq(1L);
+//        likeVO.setUserSeq();
         log.debug(likeVO.toString());
         int likeNum = likeService.insertOrDelete(likeVO);
         log.debug("하짜증나 {}", String.valueOf(likeNum));

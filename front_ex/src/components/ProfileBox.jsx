@@ -9,30 +9,37 @@ import ProfileUpdateModal from "./ProfileForm/ProfileUpdateModal";
 function ProfileBox() {
   //const [set, setSet] = useState();
   const [openUpdate, setOpenUpdate] = useState(false); // 수정할때 관련 모달창
+  const [user, setUser] = useState({ userId: null, userName: null });
   const {
     modal,
     loginClick,
     findClick,
     joinClick,
-    user,
-    setUser,
+    // user,
+    // setUser,
     setTemp,
     temp,
-    removeCookie,
-    cookie,
+    // removeCookie,
+    // cookie,
     userProfile,
     setUserProfile,
   } = useLoginContext();
 
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      fetch("http://localhost:8080/user/logout").then((response) => {
+      fetch("http://localhost:8080/user/logout", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "include",
+      }).then((response) => {
         console.log(response);
         if (response.status === 200) {
           setTemp(false);
           // 애플리케이션 안에 쿠키 안에 user를 삭제해라 path는 그냥 전송범위임 루트로 해놨음
           setUserProfile("");
-          removeCookie("user", { path: "/" });
+          // removeCookie("user", { path: "/" });
+          setUser({ userId: "", userName: "" });
         }
       });
     }
@@ -41,19 +48,50 @@ function ProfileBox() {
   const navigate = useNavigate();
 
   const goMini = () => {
-    const id = cookie.user.userId;
+    // const id = cookie.user.userId;
+    // navigate(`/room/${id}`);
+    const id = user.userId;
     navigate(`/room/${id}`);
   };
 
-  useEffect(() => {
-    // user라고 만들어진 쿠키가 있으면
-    if (cookie.user) {
-      // temp는 view 용도로 만들어진거임
+  // 현재 로그인된 user 정보 가져오기 (이름, 미니홈피가기 url 등)
+  const fetchProfile = async () => {
+    const res = await fetch(`http://localhost:8080/user/loginOK`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "include",
+    });
+    const data = await res.json();
+    console.log("data", data);
+    if (data) {
       setTemp(true);
-    } else {
-      //user라고 만들어진 쿠키에 값이 없으면 temp false
-      setTemp(false);
+      setUser({ userId: data.userId, userName: data.userName });
     }
+
+    // });
+
+    // if (data) {
+    //   // console.log("있다", data.userId);
+    //   setTemp(true);
+    //   setUser({ ...user, userId: data.userId, userName: data.userName });
+    // }
+  };
+
+  useEffect(async () => {
+    // // user라고 만들어진 쿠키가 있으면
+    // if (cookie.user) {
+    //   // temp는 view 용도로 만들어진거임
+    //   setTemp(true);
+    // } else {
+    //   //user라고 만들어진 쿠키에 값이 없으면 temp false
+    //   setTemp(false);
+    // }
+
+    await fetchProfile();
   }, []);
 
   // 회원정보 수정하기 버튼 클릭 이벤트
@@ -63,7 +101,7 @@ function ProfileBox() {
   return (
     <div>
       {/* temp가 트루면 즉 user라는 쿠키가 있으면  */}
-      {temp === true ? (
+      {temp ? (
         <div className="afterContainer">
           <div className="logoutHeader">
             {!userProfile ? (
@@ -78,7 +116,7 @@ function ProfileBox() {
               </>
             )}
             {/* cookie.user가 있으면 user라는 이름의 쿠키에 userName을 출력해라 */}
-            {cookie.user && <p>{cookie.user.userName}님</p>}
+            {user && <p>{user.userName}님</p>}
           </div>
           <div className="logoutBody">
             <div>쪽지함 </div>
@@ -114,7 +152,7 @@ function ProfileBox() {
           <ProfileUpdateModal
             openUpdate={openUpdate}
             setOpenUpdate={setOpenUpdate}
-            loggedUser={cookie.user.userId}
+            loggedUser={user.userId}
           />
         </>
       )}

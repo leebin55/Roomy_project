@@ -15,7 +15,7 @@ spring:
   ########  JPA Setting
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       jdbc:
         batch_size: 100
       order_insert: true

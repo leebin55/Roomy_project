@@ -70,33 +70,53 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user, HttpSession session){
+    public ResponseEntity<?> login(HttpSession session, @RequestBody User user){
         // RequestBody로 받아온 아이디를 검사
         User member = userRepository.findById(user.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 userId"));
+
+
         // matches(입력된 비번, db에 저장되있는 비번) 비교해서 비번 맞추는거임
         if(!bCryptPasswordEncoder.matches(user.getUserPassword(), member.getUserPassword())) {
             throw new IllegalArgumentException("비번 틀림");
         }
-        // 통과하면 세션으로 requestbody로 온 정보를 담고
-        session.setAttribute("user", user);
+        log.debug("로그인 컨트롤러 {}",user.toString());
+
+        session.setAttribute("USER", member);
+
+//        log.debug(session.getAttribute("USER").toString());
+
+        
         // 200이면 member에 그 정보를 보내줌
 
         // 홈페이지에서 사용할 예정인 것 들만 담아 놓음
-        User setMember = new User();
-        setMember.setUserId(member.getUserId());
-        setMember.setUserName(member.getUserName());
-        setMember.setUserRank(member.getUserRank());
-        setMember.setUserProfile(member.getUserProfile());
-        return ResponseEntity.status(200).body(setMember);
+//        User setMember = new User();
+//        setMember.setUserId(member.getUserId());
+//        setMember.setUserName(member.getUserName());
+//        setMember.setUserRank(member.getUserRank());
+//        setMember.setUserProfile(member.getUserProfile());
+        return ResponseEntity.status(200).body("하");
+    }
+
+    // 정상적인 사용자인지 확인 / 현재 로그인 중인 회원 정보 가져오기
+    @PostMapping("/loginOK")
+    public User login_ok(HttpSession session) {
+        log.debug("loginOK 컨트롤러 실행 {}", session.getAttribute("USER"));
+        User user = (User) session.getAttribute("USER");
+        if(user != null) {
+            log.debug("세션 유저 {}",user.toString());
+        }
+        return user;
     }
 
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
-        session.removeAttribute("user");
+        log.debug("로그아웃 메서드 실행");
+        session.removeAttribute("USER");
         return ResponseEntity.status(200).body("logout");
     }
+
 
     @GetMapping("/username/{userName}/birth/{userBirth}")
     public ResponseEntity<?> findByUsername(@PathVariable("userName") String userName,
@@ -108,14 +128,12 @@ public class UserController {
          return ResponseEntity.status(200).body(member);
     }
 
-
-
-@PutMapping("/profile")
-public String profileUpdate(@RequestParam("profile") MultipartFile profile){
-        log.debug("profile : {}",profile.getOriginalFilename());
-        String newProfileName = fileService.uploadFile(profile);
-        return  newProfileName;
-}
+    @PutMapping("/profile")
+    public String profileUpdate(@RequestParam("profile") MultipartFile profile){
+            log.debug("profile : {}",profile.getOriginalFilename());
+            String newProfileName = fileService.uploadFile(profile);
+            return  newProfileName;
+    }
     // 회원정보 수정
     @PutMapping("/update")
     public void update(@RequestBody User user){
@@ -126,13 +144,13 @@ public String profileUpdate(@RequestParam("profile") MultipartFile profile){
     }
 
 
-    // 회원 아이디로 회원 정보 가져오기
-    @GetMapping("/{userId}")
-    public User getUserInfo(@PathVariable("userId") String userId){
-        User user = userRepository.findById(userId).get();
-        log.debug("user 조회 : {}", user.toString());
-        return user;
-    }
+//    // 회원 아이디로 회원 정보 가져오기
+//    @GetMapping("/{userId}")
+//    public User getUserInfo(@PathVariable("userId") String userId){
+//        User user = userRepository.findById(userId).get();
+//        log.debug("user 조회 : {}", user.toString());
+//        return user;
+//    }
 
     // 로그인
     // postman으로 하면 토큰생성된거 보이는데 좀더 공부해야함
