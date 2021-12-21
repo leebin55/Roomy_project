@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -46,15 +48,14 @@ public class BoardController {
 //    }
 
     @PostMapping("/{userId}/board")
-    public void insert(@RequestBody BoardVO boardVO, HttpSession session) {
-        log.debug("write 컨트롤러 실행");
+    public void insert(@RequestBody BoardVO boardVO, HttpServletRequest request, @CookieValue(value="user") String user) {
+        log.debug("board write 컨트롤러 실행");
         log.debug(boardVO.toString());
+//        log.debug(user);
 
-        log.debug("세션 user {}", session.getAttribute("user"));
-
-        User user = (User) session.getAttribute("user");
-
-        boardVO.setBoardUserId(user.getUserId());
+//        log.debug("세션 user {}", session.getAttribute("user"));
+//        User user = (User) session.getAttribute("user");
+//        boardVO.setBoardUserId(user.getUserId());
         boardService.insert(boardVO);
     }
 
