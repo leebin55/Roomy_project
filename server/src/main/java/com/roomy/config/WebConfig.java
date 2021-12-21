@@ -1,6 +1,5 @@
 package com.roomy.config;
 
-import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -12,8 +11,6 @@ import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-
-
 
     //실제 외부에서 접근할때 사용할 path (file:///c:/bizwork/uploads/)
     @Value("${real-path}")

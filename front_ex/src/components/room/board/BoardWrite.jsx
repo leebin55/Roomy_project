@@ -56,14 +56,19 @@ function BoardWrite({ upData }) {
       console.log();
       await fetch(`http://localhost:8080/room/${userId}/board`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "include", // cross-origin 호출이라도 언제나 user credentials (쿠키 등) 을 전송함
+
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           boardTitle: title,
           boardContent: content,
           boardPrivate: select,
           boardCode: 2,
         }),
-        credentials: "include", // cross-origin 호출이라도 언제나 user credentials (쿠키 등) 을 전송함
       }).then((res) => {
         if (res?.ok) {
           navigate(`/room/${userId}/board`);

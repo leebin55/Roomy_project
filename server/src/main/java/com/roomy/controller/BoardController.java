@@ -48,15 +48,20 @@ public class BoardController {
 //    }
 
     @PostMapping("/{userId}/board")
-    public void insert(@RequestBody BoardVO boardVO, HttpServletRequest request, @CookieValue(value="user") String user) {
+    public void insert(HttpSession session, @RequestBody BoardVO boardVO) {
         log.debug("board write 컨트롤러 실행");
         log.debug(boardVO.toString());
-//        log.debug(user);
+        User user = (User) session.getAttribute("user");
+        log.debug(user.toString());
+//        log.debug("유저{} ", user);
 
 //        log.debug("세션 user {}", session.getAttribute("user"));
 //        User user = (User) session.getAttribute("user");
 //        boardVO.setBoardUserId(user.getUserId());
-        boardService.insert(boardVO);
+
+        // 일단 임의로 id 넣어둠
+//        boardVO.setBoardUserId("idid");
+//        boardService.insert(boardVO);
     }
 
     @GetMapping("/{userId}/board/{board_seq}")
@@ -102,7 +107,7 @@ public class BoardController {
     public int like(@RequestBody LikeVO likeVO) {
         log.debug("board like 컨트롤러 실행");
         // user 생성되면 session 에서 userSeq 뽑아올 것
-        likeVO.setUserSeq(1L);
+//        likeVO.setUserSeq();
         log.debug(likeVO.toString());
         int likeNum = likeService.insertOrDelete(likeVO);
         log.debug("하짜증나 {}", String.valueOf(likeNum));
