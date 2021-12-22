@@ -110,6 +110,8 @@ public class UserController {
     }
 
 
+    @GetMapping("/")
+
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
         log.debug("로그아웃 메서드 실행");
@@ -128,6 +130,7 @@ public class UserController {
          return ResponseEntity.status(200).body(member);
     }
 
+    // 프로필 사진 서버에 저장
     @PutMapping("/profile")
     public String profileUpdate(@RequestParam("profile") MultipartFile profile){
             log.debug("profile : {}",profile.getOriginalFilename());
@@ -144,13 +147,14 @@ public class UserController {
     }
 
 
-//    // 회원 아이디로 회원 정보 가져오기
-//    @GetMapping("/{userId}")
-//    public User getUserInfo(@PathVariable("userId") String userId){
-//        User user = userRepository.findById(userId).get();
-//        log.debug("user 조회 : {}", user.toString());
-//        return user;
-//    }
+    // 회원 아이디로 회원 정보 가져오기
+    @GetMapping("/{userId}")
+    public User getUserInfo(@PathVariable("userId") String userId){
+        User user = userRepository.findById(userId).get();
+        log.debug("user 조회 : {}", user.toString());
+        return user;
+    }
+
 
     // 로그인
     // postman으로 하면 토큰생성된거 보이는데 좀더 공부해야함

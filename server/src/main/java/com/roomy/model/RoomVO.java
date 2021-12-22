@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Getter
 @Setter
@@ -32,6 +33,5 @@ public class RoomVO {
     // room 소개글
     private String roomIntroduce;
 
-    // room 좋아요 수
-    // private int roomLike;
+
 }

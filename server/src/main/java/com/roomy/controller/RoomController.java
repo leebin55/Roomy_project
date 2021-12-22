@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/room")
 public class RoomController {
 
-    // room 관련 별다른 서비스 로직이 없어서  repository 바로사용
-    private final RoomRepository roomRepository;
 
     private final RoomService roomService;
 
-    public RoomController(RoomRepository roomRepository, RoomService roomService) {
+    public RoomController( RoomService roomService) {
 
-        this.roomRepository = roomRepository;
+
         this.roomService = roomService;
     }
 

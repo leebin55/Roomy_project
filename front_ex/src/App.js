@@ -1,11 +1,11 @@
 // import { useEffect, useState } from 'react'
 // import axios from 'axios'
-import "./App.css";
-import {BrowserRouter, Routes, Route } from "react-router-dom";
-import Main from "./pages/Main";
-import News from "./pages/News";
-import Game from "./pages/Game";
-import Feeds from "./components/Feed/Feeds";
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Main from './pages/Main';
+import News from './pages/News';
+import Game from './pages/Game';
+import Feeds from './components/Feed/Feeds';
 import {
   RoomMain,
   Board,
@@ -13,10 +13,10 @@ import {
   GuestMain,
   Todo,
   Setting,
-} from "./components/room/RoomComps";
-import Room from "./pages/Room";
+} from './components/room/RoomComps';
+import Room from './pages/Room';
 
-import GalleryDetail from "./components/room/gallery/GalleryDetail";
+import GalleryDetail from './components/room/gallery/GalleryDetail';
 
 function App() {
   // const [isLogin, setIsLogin] = useState(false);
@@ -54,8 +54,7 @@ function App() {
   // if (loading) {
 
   return (
-	  <div className="App">
-  <BrowserRouter>  
+    <div className="App">
       <Routes>
         <Route path="/" element={<Main />}>
           <Route index element={<Feeds />} />
@@ -71,8 +70,7 @@ function App() {
           <Route path="guest" element={<GuestMain />} />
           <Route path="setting" element={<Setting />} />
         </Route>
-		</Routes>
-	</BrowserRouter>
+      </Routes>
     </div>
   );
   // } else {

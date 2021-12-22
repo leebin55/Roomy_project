@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
-import { LeftSide } from "../components/room/RoomComps";
-import RoomNav from "../components/room/RoomNav";
-import "../css/Room.css";
-import SettingContextProvider from "../context/SettingContextProvider";
+import React, { useEffect, useState } from 'react';
+import { Outlet, useParams } from 'react-router-dom';
+import { LeftSide } from '../components/room/RoomComps';
+import axiosInstance from '../utils/AxiosInstance';
+import RoomNav from '../components/room/RoomNav';
+import '../css/Room.css';
 
 function Room() {
   // 현재 접속해있는 미니홈피 주인회원id URL에서 잘라오기
   const { userId } = useParams();
-  const [room_data, setRoom_data] = useState([]);
+  const [roomData, setRoomData] = useState({});
 
   // 미니홈피 정보들 불러오기
-  const fetchRoom = async () => {
-    const res = await fetch(`http://localhost:8080/room/${userId}`);
-    const data = await res.json();
-    setRoom_data(data);
-    console.log("데이터", data);
+  const getUserProfile = () => axiosInstance.get(`/room/${userId}`);
+
+  const getRoomInfo = () => axiosInstance.get(`/room/${userId}`);
+
+  const getRoomInfoAndUserProfile = async () => {
+    axiosInstance.get().then((res) => {
+      console.log(res.data);
+      setRoomData(res.data);
+    });
   };
 
-  useEffect(async () => {
-    await fetchRoom();
+  useEffect(() => {
+    getRoomInfoAndUserProfile();
   }, []);
 
   return (
@@ -27,18 +31,16 @@ function Room() {
       <div className="room-main-container">
         <div className="room-left-1">
           <p className="room-visit">
-            today<span>0</span>total<span>{room_data.roomTotal}</span>
+            today<span>0</span>total<span>{roomData.roomTotal}</span>
           </p>
           <div className="room-left-2">
             <section className="room-left-side">
-              <SettingContextProvider>
-                <LeftSide />
-              </SettingContextProvider>
+              <LeftSide roomData={roomData} />
             </section>
           </div>
         </div>
         <div className="room-right-1">
-          <p className="room-name">{room_data.roomName}</p>
+          <p className="room-name">{roomData.roomName}</p>
           <div className="room-right-2">
             <section className="room-right-side">
               <Outlet />
