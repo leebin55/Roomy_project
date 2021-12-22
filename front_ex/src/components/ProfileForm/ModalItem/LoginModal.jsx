@@ -5,22 +5,25 @@ import { useLoginContext } from "../../../context/LoginContextProvider";
 
 
 function LoginModal() {
-  const { setModal, temp, setTemp, setCookie, setUserProfile } =
+  const { setModal, check_login, setCheck_login, setCookie, setUserProfile } =
     useLoginContext();
-
+  // 로그인폼에 입력한 id, 비밀번호
   const [user, setUser] = useState({ userId: "", userPassword: "" });
 
+  // 로그인폼 입력 onChange
   const userChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     console.log(user);
   };
 
+  // 로그인 버튼 onClick
   const onLoginSubmit = async () => {
     const res = await fetch("http://localhost:8080/user/login", {
       method: "POST",
+      // fetch <-> session 연동 위해 추가해야 할 3가지
       mode: "cors",
-      cache: "no-cache",
-      credentials: "include",
+      cache: "no-cache", // 필수 아닌듯
+      credentials: "include", // cross-origin 호출이라도 언제나 user credentials (쿠키 등) 을 전송함
       headers: {
         "Content-Type": "application/json",
       },
@@ -30,39 +33,11 @@ function LoginModal() {
       }),
     });
     if (res.status === 200) {
-      setTemp(true);
+      setCheck_login(true);
       setModal({ login: false, join: false, find: false });
     }
-
-    // .then((result) => {
-
-    // if (data) {
-    //   // setUserProfile(data.userProfile);
-    // }
-
-    // "user" 라고 만들어진 쿠키에 res.data를 담는다. / 경로로 오는거
-    // setCookie("user", data, { path: "/" });
-    // });
-
-    // await Axios.post(
-    //   "http://localhost:8080/user/login",
-    //   {
-    //     userId: user.userId,
-    //     userPassword: user.userPassword,
-    //   },
-    //   { withCredentials: true }
-    // ).then((res) => {
-    //   console.log("res", res);
-    //   console.log("res.data:", res.data);
-    //   if (res.status === 200) {
-    //     setTemp(true);
-    //     setModal({ login: false, join: false, find: false });
-    //     // "user" 라고 만들어진 쿠키에 res.data를 담는다. / 경로로 오는거
-    //     setUserProfile(res.data.userProfile);
-    //     setCookie("user", res.data, { path: "/" });
-    //   }
-    // });
   };
+
   return (
     <div className="loginItem">
       <div className="loginErr">
