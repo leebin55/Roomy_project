@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "../../../css/userForm/LoginModal.css";
-import Axios from "axios";
 import { useLoginContext } from "../../../context/LoginContextProvider";
-import { useCookies } from "react-cookie";
 
-Axios.defaults.withCredentials = true;
+
 
 function LoginModal() {
   const { setModal, temp, setTemp, setCookie, setUserProfile } =

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import GalleryList from './gallery/galleryList/GalleryList';
+import CreateIcon from '@mui/icons-material/Create';
+import GalleryContextProvider from '../../../context/GalleryContextProvider';
+import GalleryWrite from './GalleryWrite';
+import GalleryList from './galleryList/GalleryList';
+import GalleryUpdate from './GalleryUpdate';
+import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-
-import CreateIcon from '@mui/icons-material/Create';
-import '../../css/Gallery.css';
-import GalleryWrite from './gallery/GalleryWrite';
-import GalleryContextProvider from '../../context/GalleryContextProvider';
-import GalleryUpdate from './gallery/GalleryUpdate';
-import { useParams } from 'react-router-dom';
+import '../../../css/gallery/Gallery.css';
 
 function Gallery() {
   // url 에서 boardState= 을 뽑아오기 위해서(GalleryContextProvider 이용하기 위해)

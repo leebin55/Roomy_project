@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../../utils/AxiosInstance';
 import GallerySingle from './GallerySingle';
 import ImageList from '@mui/material/ImageList';
 function GalleryList({ userId }) {
@@ -13,12 +13,10 @@ function GalleryList({ userId }) {
   // server 에서 gallery 리스트를 가져옴
   const viewGalleryList = async () => {
     try {
-      await axios
-        .get(`http://localhost:8080/room/${userId}/gallery`)
-        .then((res) => {
-          //console.log(res.data);
-          setGalleryList(res.data);
-        }); //end then
+      await axiosInstance.get(`/room/${userId}/gallery`).then((res) => {
+        //console.log(res.data);
+        setGalleryList(res.data);
+      }); //end then
     } catch (error) {
       // end try
       throw error;
