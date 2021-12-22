@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
-import axios from 'axios';
+import axiosInstance from '../../../utils/AxiosInstance';
 import 'react-quill/dist/quill.snow.css';
 import { useGalleryContext } from '../../../context/GalleryContextProvider';
 
@@ -80,8 +80,8 @@ function Editor({ toolbarId, userId }) {
       formData.append('img', file);
       console.log('form data : ', formData);
       try {
-        await axios
-          .put(`http://localhost:8080/room/${userId}/gallery/img`, formData)
+        await axiosInstance
+          .put(`/room/${userId}/gallery/img`, formData)
           .then((result) => {
             // server에서 이미지 url 받아오기 (또는 여기서 url로 바꿔서 server 에 넘겨준다)
             console.log(result.data);

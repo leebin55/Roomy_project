@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../../../utils/AxiosInstance';
 import '../../../css/gallery/GalleryDetail.css';
 
 function GalleryDetail() {
@@ -27,10 +27,8 @@ function GalleryDetail() {
   const viewGalleryInfo = async () => {
     try {
       // userParam
-      await axios
-        .get(
-          `http://localhost:8080/room/${userId}/gallery/detail?board_seq=${board_seq}`
-        )
+      await axiosInstance
+        .get(`/room/${userId}/gallery/detail?board_seq=${board_seq}`)
         .then((res) => {
           if (res.status === 200) {
             //console.log(res.data);
@@ -63,10 +61,8 @@ function GalleryDetail() {
     const result = window.confirm('삭제하시겠습니까?');
     if (result) {
       try {
-        axios
-          .get(
-            `http://localhost:8080/room/${userId}/gallery/delete/${galleryInfo.boardSeq}`
-          )
+        axiosInstance
+          .get(`/room/${userId}/gallery/delete/${galleryInfo.boardSeq}`)
           .then((res) => {
             if (res.status === 200) {
               alert('삭제되었습니다.');

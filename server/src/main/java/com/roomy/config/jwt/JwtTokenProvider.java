@@ -18,9 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
+
     private final UserDetailsService userDetailsService;
 
-    // JWT 토큰 생성
+    // JWT 토큰 생성 > 한번 생성되면 만료시간 전까지 유효 , 변경 불가능
     public String createToken(String userPk, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
         claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
@@ -30,7 +31,7 @@ public class JwtTokenProvider {
                 .setIssuedAt(now) // 토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + JwtProps.EXPIRATION_TIME)) // set Expire Time
                 .signWith(SignatureAlgorithm.HS256, JwtProps.SECRET)  // 사용할 암호화 알고리즘과
-                // signature 에 들어갈 secret값 세팅
+                // signature 에 들어갈 secret 값 세팅
                 .compact();
     }
 

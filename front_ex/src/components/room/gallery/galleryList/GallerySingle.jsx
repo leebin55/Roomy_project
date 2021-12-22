@@ -4,7 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../../../../utils/AxiosInstance';
 import { useParams } from 'react-router-dom';
 
 function GallerySingle({ gallery, index }) {
@@ -21,30 +21,6 @@ function GallerySingle({ gallery, index }) {
     setLikeNum(gallery.boardLike);
   }, []);
 
-  /*
-  // 유저가 이전에 하트를 눌렀는지 확인하고 보여줌
-//   const beforeCheckHeart = async () => {
-//     await axios
-//       .put('http://localhost:8080/room/gallery/beforeCheck', {
-//         userSeq: gallery.boardUserSeq,
-//         boardSeq: gallery.boardSeq,
-//       })
-//       .then((res) => {
-//         console.log(res.data);
-//       });
-//   };
-*/
-  //   const countLike = async () => {
-  //     try {
-  //       axios.get(
-  //         `http:/localhost:8080/room/gallery/countLike/${gallery.boardSeq}`
-  //       ).then((res)=>{
-  // 		  if(res.status===200){
-
-  // 		  }
-  // 	  });
-  //     } catch (error) {}
-  //   };
   const likeClick = () => {
     setIsLike(!isLike);
     likeEvent();
@@ -53,8 +29,8 @@ function GallerySingle({ gallery, index }) {
   // 하트를 클릭하면 서버에 user와 board seq 를 넘겨준다
   const likeEvent = async () => {
     try {
-      axios
-        .post(`http://localhost:8080/room/${userId}/gallery/like`, {
+      axiosInstance
+        .post(`/room/${userId}/gallery/like`, {
           userSeq: gallery.boardUserSeq,
           boardSeq: gallery.boardSeq,
         })

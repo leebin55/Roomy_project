@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import axios from 'axios';
+import axiosInstance from '../../../utils/AxiosInstance';
 import Editor from './Editor';
 import { useGalleryContext } from '../../../context/GalleryContextProvider';
 import QuillToolbar from './QuillToolbar';
@@ -28,32 +28,28 @@ function GalleryWrite({ isWrite, setIsWrite, userId }) {
     // const saveImgList = galleryList.filter((img) => content.includes(img));
     // console.log(saveImgList);
     if (title.trim() !== '' && content.trim() !== '' && saveURL.length > 0) {
-      try {
-        await axios
-          .post(`http://localhost:8080/room/${userId}/gallery/write`, {
-            boardUserSeq: 1,
-            boardTitle: title,
-            boardContent: content,
-            boardCreateAt: moment().format('YYYY-MM-DD HH:mm'),
-            boardCode: 1,
-            imgURL: saveURL, // content에 포함된 url 만 보내줌
-            // 임시로 USERID 값 넣어서 보여주기
-            boardUserId: userId,
-          })
-          .then((res) => {
-            if (res.data === 'ok') {
-              console.log(galleryImgList);
-              console.log('save: ', saveURL);
-              alert('글 등록 완료');
-              setTitle('');
-              setContent('');
-              setGalleryImgList([]);
-              setIsWrite(!isWrite);
-            }
-          });
-      } catch (error) {
-        throw error;
-      } //catch end
+      await axiosInstance
+        .post(`/room/${userId}/gallery/write`, {
+          boardUserSeq: 1,
+          boardTitle: title,
+          boardContent: content,
+          boardCreateAt: moment().format('YYYY-MM-DD HH:mm'),
+          boardCode: 1,
+          imgURL: saveURL, // content에 포함된 url 만 보내줌
+          // 임시로 USERID 값 넣어서 보여주기
+          boardUserId: userId,
+        })
+        .then((res) => {
+          if (res.data === 'ok') {
+            // console.log(galleryImgList);
+            // console.log('save: ', saveURL);
+            alert('글 등록 완료');
+            setTitle('');
+            setContent('');
+            setGalleryImgList([]);
+            setIsWrite(!isWrite);
+          }
+        });
     } //if end
     else {
       if (saveURL.length < 1) {
