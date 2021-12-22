@@ -17,3 +17,21 @@
   height: 170px;
   border-bottom: 1px solid #ddd;
 }
+
+.leftside-room-friend-select {
+  width: 100%;
+}
+.leftside-room-friend-select-btns {
+  display: flex;
+  margin-left: 14px;
+}
+.leftside-room-friend-select-btns button {
+  border-radius: 5px 5px 0 0;
+  border: 1px solid black;
+  border-bottom: none;
+  padding: 5px;
+}
+
+#select-btn-active {
+  background-color: antiquewhite;
+}

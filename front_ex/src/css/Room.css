@@ -49,12 +49,22 @@ div.room-right-1 {
   width: 75%;
 }
 
-.room-right-1 .room-name {
+div.room-right-header {
+  display: flex;
   position: absolute;
   z-index: 1;
   top: 50px;
   left: 30px;
   font-size: 20px;
+  font-weight: bold;
+}
+div.room-right-header button {
+  margin-left: 200px;
+  border: 1px solid #ddd;
+  padding: 0 20px;
+  font-size: 18px;
+}
+div.room-right-header button:hover {
   font-weight: bold;
 }
 

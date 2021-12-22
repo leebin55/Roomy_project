@@ -14,4 +14,5 @@ public interface FollowerRepository extends JpaRepository<FollowerVO,String> {
     @Query(value = "select followerUserId from FollowerVO where userId=:userId ")
     List<String> findFollowerList(@Param(value="userId") String userId);
 
+    void deleteByFollowerUserIdAndUserId(String followerUserId, String userId);
 }
