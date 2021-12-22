@@ -1,59 +1,47 @@
 import React, { useState } from "react";
-import { useLoginContext } from "../../../context/LoginContextProvider";
 import "../../../css/userForm/FindModal.css";
 import IdCtrl from "./detail/IdCtrl";
 import PwCtrl from "./detail/PwCtrl";
 
 function FindModal() {
-  const { loginClick, joinClick, findClick } = useLoginContext();
-  const [idCtrl, setIdCtrl] = useState(false);
-  const [pwCtrl, setPwCtrl] = useState(false);
-  const [mainCtrl, setMainCtrl] = useState(true);
+  const [findCtrl, setFindCtrl] = useState({
+    idCtrl: false,
+    pwCtrl: false,
+    mainCtrl: true,
+  });
   const ctrlId = () => {
-    setIdCtrl(true);
-    setPwCtrl(false);
-    setMainCtrl(false);
+    setFindCtrl({ idCtrl: true, pwCtrl: false, mainCtrl: false });
   };
   const ctrlPw = () => {
-    setPwCtrl(true);
-    setIdCtrl(false);
-    setMainCtrl(false);
+    setFindCtrl({ idCtrl: false, pwCtrl: true, mainCtrl: false });
+  };
+  const find = () => {
+    return (
+      <>
+        <div className="findById">
+          {findCtrl.idCtrl === true ? (
+            <IdCtrl />
+          ) : (
+            <button onClick={ctrlId}>아이디 찾기</button>
+          )}
+        </div>
+        <div className="findByPw">
+          {findCtrl.pwCtrl === true ? (
+            <PwCtrl />
+          ) : (
+            <button onClick={ctrlPw}>비밀번호 찾기</button>
+          )}
+        </div>
+      </>
+    );
   };
 
   return (
     <>
       <div className="findContainer">
-        {mainCtrl && (
-          <>
-            <div className="findById">
-              <button onClick={ctrlId}>아이디 찾기</button>
-            </div>
-            <div className="findByPw">
-              <button onClick={ctrlPw}>비밀번호 찾기</button>
-            </div>
-          </>
-        )}
-        {idCtrl && (
-          <>
-            <div className="findById">
-              <IdCtrl />
-            </div>
-            <div className="findByPw">
-              <button onClick={ctrlPw}>비밀번호 찾기</button>
-            </div>
-          </>
-        )}
-
-        {pwCtrl && (
-          <>
-            <div className="findById">
-              <button onClick={ctrlId}>아이디 찾기</button>
-            </div>
-            <div className="findByPw">
-              <PwCtrl />
-            </div>
-          </>
-        )}
+        {findCtrl.mainCtrl && find()}
+        {findCtrl.idCtrl && find()}
+        {findCtrl.pwCtrl && find()}
       </div>
     </>
   );
