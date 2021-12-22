@@ -1,16 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
-import {CookiesProvider} from 'react-cookie'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
-// CookiesProvider로 감쌋음 cookie를 전체에 쓰려고 
+// CookiesProvider로 감쌋음 cookie를 전체에 쓰려고
 render(
-	<CookiesProvider>
-		<App />
-	</CookiesProvider>
-,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
