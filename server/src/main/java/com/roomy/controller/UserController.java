@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(HttpSession session, @RequestBody UserVO userVO){
+    public ResponseEntity<UserVO> login(HttpSession session, @RequestBody UserVO userVO){
 
         // RequestBody로 받아온 아이디를 검사
         UserVO member = userRepository.findById(userVO.getUserId())
@@ -91,7 +91,7 @@ public class UserController {
         // 유저이름 등도 프론트에서 필요하기 때문에 일단 전부 다 담아둠
         session.setAttribute("USER", sessionDTO);
 
-        return ResponseEntity.status(200).body("하");
+        return ResponseEntity.status(200).body(member);
     }
 
     // 정상적인 사용자인지 확인 / 현재 로그인 중인 회원 정보 가져오기
