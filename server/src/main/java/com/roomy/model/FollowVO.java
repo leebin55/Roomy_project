@@ -1,22 +1,21 @@
 package com.roomy.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Setter
 @Getter
 @ToString
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tbl_follow" ,schema="roomyDB")
 public class FollowVO {
 
     @Id
-    private Long friendSeq;
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private Long followSeq;
 
     // 회원 아이디
     private String userId;

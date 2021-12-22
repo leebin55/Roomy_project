@@ -13,5 +13,11 @@ public interface FollowRepository extends JpaRepository<FollowVO,String> {
     @Query (value = "select followUserId from FollowVO where userId=:userId ")
     List<String> findFollowList(@Param(value="userId") String userId);
 
+    void deleteByUserIdAndFollowUserId(String userId, String followUserId);
+
+    // 로그인한 유저(userId) 가 확인하고 싶은 유저(followUserId) 를 follow했는지 확인
+    // 데이터 없으면 follow 하지않은 상태
+    boolean existsByUserIdAndAndFollowUserId(String userId, String followUserId);
+    
 
 }

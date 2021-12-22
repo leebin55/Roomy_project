@@ -13,7 +13,7 @@ public interface FriendService {
     
     // 회원 ID 와 unfollow할 회원 ID로 지우기
     // 언팔로우 >> 언팔하면  tbl_follower와 tbl_follow에 같이 delete
-    void unFollowFriend(FollowVO followVO);
+    void unfollowFriend(FollowVO followVO);
     
     // 내가 팔로우한 친구 조회 (팔로우한 회원 아이디만 리턴) => tbl_follow 데이터 모두조회
     List<String> findAllFollow(String userId);
@@ -21,4 +21,7 @@ public interface FriendService {
     // 나를 팔로우한 친구 조회 (팔로워 회원 아이디 리턴)
     List<String> findAllFollower(String userId);
 
+    // userId(로그인한 유저)가 checkFollowUserId (확인하고싶은 유저) 데이터가 있는지 확인
+    // 있으면 follow상태 없으면 follow 안한 상태
+    Boolean checkFollow(String userId, String checkFollowUserId);
 }

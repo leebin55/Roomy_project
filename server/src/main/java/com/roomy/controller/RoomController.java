@@ -1,7 +1,8 @@
 package com.roomy.controller;
 
+import com.roomy.model.FollowVO;
 import com.roomy.model.RoomVO;
-import com.roomy.repository.RoomRepository;
+import com.roomy.service.FriendService;
 import com.roomy.service.RoomService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,12 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    public RoomController( RoomService roomService) {
+
+    public RoomController(RoomService roomService) {
 
 
         this.roomService = roomService;
+
     }
 
     // /room/{userId} 로 해당 미니홈피 들어가면 room 에 대한 정보 불러오기 (소개글 등등)
@@ -39,13 +42,8 @@ public class RoomController {
         return roomVO;
     }
 
-//    // setting 게시판
-//    room 메서드랑 같이 써도 될 듯
-//    @GetMapping("/{userId}/setting")
-//    public RoomVO setting(@PathVariable String userId) {
-//        log.debug("setting 컨트롤러 실행");
-//        RoomVO roomVO = roomService.findById(userId);
-//        log.debug("setting roomVO {}")
-//        return roomVO;
-//    }
+
+
+
+
 }

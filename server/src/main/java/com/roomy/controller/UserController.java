@@ -171,10 +171,6 @@ public class UserController {
         return userVO;
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e79e3aef0379ed3439dec22784faac1655283fc7
 
     // 로그인
     // postman으로 하면 토큰생성된거 보이는데 좀더 공부해야함
