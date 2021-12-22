@@ -12,6 +12,7 @@ import com.roomy.service.FileService;
 
 import com.roomy.service.UserService;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -71,44 +72,35 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(HttpSession session, @RequestBody User user){
+
         // RequestBody로 받아온 아이디를 검사
         User member = userRepository.findById(user.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 userId"));
-
-
         // matches(입력된 비번, db에 저장되있는 비번) 비교해서 비번 맞추는거임
         if(!bCryptPasswordEncoder.matches(user.getUserPassword(), member.getUserPassword())) {
             throw new IllegalArgumentException("비번 틀림");
         }
         log.debug("로그인 컨트롤러 {}",user.toString());
 
+
+        // <<수정필요>> session 에 뭐뭐 담을지
+        // 유저이름 등도 프론트에서 필요하기 때문에 일단 전부 다 담아둠
         session.setAttribute("USER", member);
 
-//        log.debug(session.getAttribute("USER").toString());
-
-        
-        // 200이면 member에 그 정보를 보내줌
-
-        // 홈페이지에서 사용할 예정인 것 들만 담아 놓음
-//        User setMember = new User();
-//        setMember.setUserId(member.getUserId());
-//        setMember.setUserName(member.getUserName());
-//        setMember.setUserRank(member.getUserRank());
-//        setMember.setUserProfile(member.getUserProfile());
         return ResponseEntity.status(200).body("하");
     }
 
     // 정상적인 사용자인지 확인 / 현재 로그인 중인 회원 정보 가져오기
-    @PostMapping("/loginOK")
+    @PostMapping("/login-ok")
     public User login_ok(HttpSession session) {
         log.debug("loginOK 컨트롤러 실행 {}", session.getAttribute("USER"));
+
         User user = (User) session.getAttribute("USER");
         if(user != null) {
             log.debug("세션 유저 {}",user.toString());
         }
         return user;
     }
-
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
@@ -117,22 +109,43 @@ public class UserController {
         return ResponseEntity.status(200).body("logout");
     }
 
-
     @GetMapping("/username/{userName}/birth/{userBirth}")
     public ResponseEntity<?> findByUsername(@PathVariable("userName") String userName,
                                             @PathVariable("userBirth") String userBirth){
         log.debug(userName);
         log.debug(userBirth);
 
-         Optional<User> member = userService.findByUserName(userName, userBirth);
-         return ResponseEntity.status(200).body(member);
+        Optional<User> member = userService.findByUserName(userName, userBirth);
+        return ResponseEntity.status(200).body(member);
+    }
+
+    // 비번찾기인데 다른 사이트들 보니깐 비번은 찾는게 아니라 바꾸는거길래 그렇게 만듬
+    @GetMapping("/username/{userName}/userid/{userId}")
+    public Optional<User> findByPw(@PathVariable("userName") String userName,
+                                   @PathVariable("userId") String userId){
+        Optional<User> member = userService.findByUserPw(userName, userId);
+        return member;
+    }
+
+    // findByPw가 통과하면 사용가능한 메서드
+    @PutMapping("/userId/{userId}/update/{userPassword}")
+    public ResponseEntity<?> updatePassword(@PathVariable("userId") String userId,
+                                            @PathVariable("userPassword") String userPassword) {
+        Optional<User> member = userService.updatePassword(userId, userPassword);
+        log.debug(member.toString());
+        return ResponseEntity.status(200).body(member);
+    }
+
+    @GetMapping("/mypage/{id}")
+    public String update(@PathVariable("id") Long id){
+        return "";
     }
 
     @PutMapping("/profile")
     public String profileUpdate(@RequestParam("profile") MultipartFile profile){
-            log.debug("profile : {}",profile.getOriginalFilename());
-            String newProfileName = fileService.uploadFile(profile);
-            return  newProfileName;
+        log.debug("profile : {}",profile.getOriginalFilename());
+        String newProfileName = fileService.uploadFile(profile);
+        return  newProfileName;
     }
     // 회원정보 수정
     @PutMapping("/update")
@@ -141,6 +154,15 @@ public class UserController {
         log.debug("User{}", user.toString());
 
         userService.update(user);
+    }
+
+
+    // 회원 아이디로 회원 정보 가져오기
+    @GetMapping("/{userId}")
+    public User getUserInfo(@PathVariable("userId") String userId){
+        User user = userRepository.findById(userId).get();
+        log.debug("user 조회 : {}", user.toString());
+        return user;
     }
 
 

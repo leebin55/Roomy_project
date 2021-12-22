@@ -48,20 +48,26 @@ public class BoardController {
 //    }
 
     @PostMapping("/{userId}/board")
-    public void insert(HttpSession session, @RequestBody BoardVO boardVO) {
-        log.debug("board write 컨트롤러 실행");
-        log.debug(boardVO.toString());
-        User user = (User) session.getAttribute("user");
-        log.debug(user.toString());
-//        log.debug("유저{} ", user);
+    public String insert(HttpSession session, @PathVariable String userId, @RequestBody BoardVO boardVO) {
+        log.debug("board write 컨트롤러 실행 {}", boardVO.toString());
 
-//        log.debug("세션 user {}", session.getAttribute("user"));
-//        User user = (User) session.getAttribute("user");
-//        boardVO.setBoardUserId(user.getUserId());
+        // 미니홈피 주인회원만 글을 쓸 수 있도록
+        // 현재 접속중인 회원과 미니홈피 주인회원이 일치하는지 확인
+        // <<수정필요>> 일치하지 않으면 어떻게 처리할 것인지
+        User user = (User) session.getAttribute("USER");
 
-        // 일단 임의로 id 넣어둠
-//        boardVO.setBoardUserId("idid");
-//        boardService.insert(boardVO);
+        // 세션에 user 가 없으면
+        if(user == null) {
+            log.debug("세션에 user 없음");
+            return "로그인이 필요합니다";
+        }
+        if(!(user.getUserId().equals(userId))) {
+            log.debug("회원불일치 세션은 {} url은 {}", user.getUserId(), userId);
+            return "미니홈피 주인만 글을 쓸 수 있습니다";
+        }
+        boardVO.setBoardUserId(user.getUserId());
+        boardService.insert(boardVO);
+        return "OK";
     }
 
     @GetMapping("/{userId}/board/{board_seq}")

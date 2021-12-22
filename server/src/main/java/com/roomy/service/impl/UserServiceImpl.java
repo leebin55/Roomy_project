@@ -5,6 +5,7 @@ import com.roomy.repository.UserRepository;
 import com.roomy.service.FileService;
 import com.roomy.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
@@ -16,10 +17,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl( UserRepository userRepository) {
-
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -45,13 +47,13 @@ public class UserServiceImpl implements UserService {
         // 다시 save
         //user에서 받아온 값을 save하면 다른 성별, 패스워드 등이 null으로 담김 아니면 front에서 다 세팅해서
         // 넘겨줘야 함
-        User findUser =userRepository.findById(user.getUserId()).get();
+        User findUser = userRepository.findById(user.getUserId()).get();
         findUser.setUserName(user.getUserName());
         findUser.setUserEmail(user.getUserEmail());
-        if(user.getUserProfile() != null && user.getUserProfile() != findUser.getUserProfile()){
+        if (user.getUserProfile() != null && user.getUserProfile() != findUser.getUserProfile()) {
             findUser.setUserProfile(user.getUserProfile());
         }
-        if(user.getUserPassword()!= null){
+        if (user.getUserPassword() != null) {
             findUser.setUserPassword(user.getUserPassword());
         }
         userRepository.save(findUser);
@@ -73,5 +75,28 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("정보 없음")));
 
         return member;
+    }
+
+    // 비번찾기위한거
+    @Override
+    public Optional<User> findByUserPw(String userName, String userId) {
+        Optional<User> member = Optional.ofNullable(userRepository.findByUserNameAndUserId(userName, userId)
+                .orElseThrow(() -> new IllegalArgumentException("정보 없음")));
+
+        return member;
+    }
+
+    @Override
+    public Optional<User> updatePassword(String userId, String userPassword) {
+        Optional<User> _member = userRepository.findById(userId);
+        _member.ifPresent(member->{
+            member.setUserPassword(bCryptPasswordEncoder.encode(userPassword));
+            userRepository.save(member);
+        });
+//        _member.ifPresent(member->{
+//            member.setUserPassword(bCryptPasswordEncoder.encode(userPassword));
+//            userRepository.save(member);
+//        });
+        return _member;
     }
 }
