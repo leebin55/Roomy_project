@@ -20,8 +20,8 @@ public class LikeServiceImpl implements LikeService {
     private final BoardRepository boardRepository;
 
     @Override
-    public List<LikeVO> findByUserSeq(Long user_seq) {
-        List<LikeVO> likeVO = likeRepository.findByUserSeq(user_seq);
+    public List<LikeVO> findByUserSeq(String user_id) {
+        List<LikeVO> likeVO = likeRepository.findByUserId(user_id);
         return likeVO;
 
     }
@@ -31,9 +31,9 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public Boolean likeCheck(LikeVO likeVO) {
         Long board_seq = likeVO.getBoardSeq();
-        Long user_seq = likeVO.getUserSeq();
+        String user_id = likeVO.getUserId();
         boolean checkExist = likeRepository
-                .existsByBoardSeqAndUserSeq(board_seq, user_seq);
+                .existsByBoardSeqAndUserId(board_seq, user_id);
         log.debug("exists: {}", checkExist);
 //        if (checkExist == false) {
 
@@ -73,7 +73,7 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public int delete(LikeVO likeVO){
         // user와 board seq 로 like seq 조회
-        long like_seq = findByUserSeqAndBoardSeq(likeVO.getUserSeq(), likeVO.getBoardSeq());
+        long like_seq = findByUserIdAndBoardSeq(likeVO.getUserId(), likeVO.getBoardSeq());
         // 좋아요 데이터 삭제
         likeRepository.deleteById(like_seq);
         // 게시물에서 board_seq 로 해당 게시물 찾기
@@ -92,8 +92,8 @@ public class LikeServiceImpl implements LikeService {
 
 
 
-    public Long findByUserSeqAndBoardSeq(Long user_seq, Long board_seq) {
-        return likeRepository.findByUserSeqAndBoardSeq(user_seq, board_seq);
+    public Long findByUserIdAndBoardSeq(String user_id, Long board_seq) {
+        return likeRepository.findByUserIdAndBoardSeq(user_id, board_seq);
     }
 }
 

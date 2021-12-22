@@ -1,15 +1,13 @@
 package com.roomy.controller;
 
-import com.roomy.model.Todo;
+import com.roomy.model.TodoVO;
 import com.roomy.repository.TodoRepository;
 import com.roomy.service.TodoService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,58 +23,58 @@ public class TodoController {
 
     @PostMapping(value="/{userId}/todo/insert")
     public String insertTodo(@RequestBody String app){
-        Todo todo = new Todo();
-        todo.setContent(app);
-        todo.setCreatedAt(LocalDateTime.now());
-        todo.setImportant(0);
-        todo.setOk(false);
-        todoRepository.save(todo);
+        TodoVO todoVO = new TodoVO();
+        todoVO.setContent(app);
+        todoVO.setCreatedAt(LocalDateTime.now());
+        todoVO.setImportant(0);
+        todoVO.setOk(false);
+        todoRepository.save(todoVO);
         return "success";
     }
 
     @GetMapping(value="/{userId}/todo/list")
-    public List<Todo> getTodoList(){
+    public List<TodoVO> getTodoList(){
         return todoService.getTodoList();
     }
 
     @PutMapping(value="/{userId}/todo/success/{id}")
     public void todoSuccess(@PathVariable("id") Long id) throws Exception {
-        Optional<Todo> updated = todoRepository.findById(id);
+        Optional<TodoVO> updated = todoRepository.findById(id);
         if(updated.isPresent()){
-            Todo updatedTodo = updated.get();
-            updatedTodo.setOk(true);
-            todoRepository.save(updatedTodo);
+            TodoVO updatedTodoVO = updated.get();
+            updatedTodoVO.setOk(true);
+            todoRepository.save(updatedTodoVO);
         } else {
             throw new Exception();
         }
     }
     @PutMapping(value="/{userId}/todo/cancel/{id}")
     public void successCancel(@PathVariable("id") Long id) throws Exception {
-        Optional<Todo> cancel = todoRepository.findById(id);
+        Optional<TodoVO> cancel = todoRepository.findById(id);
         if(cancel.isPresent()){
-            Todo cancelTodo = cancel.get();
-            cancelTodo.setOk(false);
-            todoRepository.save(cancelTodo);
+            TodoVO cancelTodoVO = cancel.get();
+            cancelTodoVO.setOk(false);
+            todoRepository.save(cancelTodoVO);
         }else {
             throw new Exception();
         }
     }
     @PutMapping(value="/{userId}/todo/important/{id}")
     public void importantUpdate(@PathVariable("id") Long id) throws Exception{
-        Optional<Todo> updatedImport = todoRepository.findById(id);
+        Optional<TodoVO> updatedImport = todoRepository.findById(id);
         if(updatedImport.isPresent()) {
-            Todo importTodo = updatedImport.get();
-            importTodo.setImportant(1);
-            todoRepository.save(importTodo);
+            TodoVO importTodoVO = updatedImport.get();
+            importTodoVO.setImportant(1);
+            todoRepository.save(importTodoVO);
         }else {
             throw new Exception();
         }
     }
     @PutMapping(value = "/{userId}/todo/normal/{id}")
     public void normalUpdate(@PathVariable("id") Long id) throws Exception{
-        Optional<Todo> normal = todoRepository.findById(id);
+        Optional<TodoVO> normal = todoRepository.findById(id);
         if(normal.isPresent()){
-            Todo normalUpdate = normal.get();
+            TodoVO normalUpdate = normal.get();
             normalUpdate.setImportant(0);
             todoRepository.save(normalUpdate);
         }else {

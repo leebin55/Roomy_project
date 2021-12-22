@@ -8,7 +8,7 @@ import java.util.List;
 public interface LikeService{
 
     // userSeq 로 조회> 자신이 좋아요한 게시물 볼수 있게
-    List<LikeVO> findByUserSeq(Long user_seq);
+    List<LikeVO> findByUserSeq(String user_id);
 
    //board 와 user seq 로 해당 데이터가 tbl_like에 있는지 확인
    Boolean likeCheck(LikeVO likeVO);

@@ -1,14 +1,13 @@
 package com.roomy.service;
 
 
-import com.roomy.model.User;
+import com.roomy.model.UserVO;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface UserService extends GenericService<User, String>{
+public interface UserService extends GenericService<UserVO, String>{
 
-    public Optional<User> findByUserName(String userName, String userBirth);
-    public Optional<User> findByUserPw(String userName, String userId);
-    public Optional<User> updatePassword(String userId, String userPassword);
+    public Optional<UserVO> findByUserName(String userName, String userBirth);
+    public Optional<UserVO> findByUserPw(String userName, String userId);
+    public Optional<UserVO> updatePassword(String userId, String userPassword);
 }

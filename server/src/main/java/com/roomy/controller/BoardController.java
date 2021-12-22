@@ -1,16 +1,15 @@
 package com.roomy.controller;
 
+import com.roomy.dto.SessionDTO;
 import com.roomy.model.BoardVO;
 import com.roomy.model.LikeVO;
-import com.roomy.model.User;
+import com.roomy.model.UserVO;
 import com.roomy.service.BoardService;
 import com.roomy.service.LikeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -54,31 +53,34 @@ public class BoardController {
         // 미니홈피 주인회원만 글을 쓸 수 있도록
         // 현재 접속중인 회원과 미니홈피 주인회원이 일치하는지 확인
         // <<수정필요>> 일치하지 않으면 어떻게 처리할 것인지
-        User user = (User) session.getAttribute("USER");
+        UserVO userVO = (UserVO) session.getAttribute("USER");
 
         // 세션에 user 가 없으면
-        if(user == null) {
+        if(userVO == null) {
             log.debug("세션에 user 없음");
             return "로그인이 필요합니다";
         }
-        if(!(user.getUserId().equals(userId))) {
-            log.debug("회원불일치 세션은 {} url은 {}", user.getUserId(), userId);
+        if(!(userVO.getUserId().equals(userId))) {
+            log.debug("회원불일치 세션은 {} url은 {}", userVO.getUserId(), userId);
             return "미니홈피 주인만 글을 쓸 수 있습니다";
         }
-        boardVO.setBoardUserId(user.getUserId());
+        boardVO.setBoardUserId(userVO.getUserId());
         boardService.insert(boardVO);
         return "OK";
     }
 
-    @GetMapping("/{userId}/board/{board_seq}")
-    public BoardVO detail(@PathVariable Long board_seq) {
+    // 글 상세보기라 GET 이지만 session 을 넘겨받아야 하기 때문에 Post
+    @PostMapping("/{userId}/board/{board_seq}")
+    public BoardVO detail(@PathVariable Long board_seq, HttpSession session) {
         log.debug("board detail 컨트롤러 실행 {}",board_seq);
         BoardVO boardVO = boardService.findById(board_seq);
+
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
 
         // 좋아요 눌렀는지 여부 확인 위해 likeVO 생성하고 게시물번호, 유저번호 넣어줌
         LikeVO likeVO = new LikeVO();
         likeVO.setBoardSeq(board_seq);
-        likeVO.setUserSeq(1L);
+        likeVO.setUserId(sessionDTO.getUserId());
 
         Boolean check = likeService.likeCheck(likeVO);
 
@@ -110,13 +112,13 @@ public class BoardController {
     }
 
     @PostMapping("/{userId}/board/{board_seq}/like")
-    public int like(@RequestBody LikeVO likeVO) {
-        log.debug("board like 컨트롤러 실행");
-        // user 생성되면 session 에서 userSeq 뽑아올 것
-//        likeVO.setUserSeq();
-        log.debug(likeVO.toString());
+    public int like(HttpSession session, @RequestBody LikeVO likeVO) {
+        log.debug("board like 컨트롤러 실행 {}", likeVO);
+
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+
+        likeVO.setUserId(sessionDTO.getUserId());
         int likeNum = likeService.insertOrDelete(likeVO);
-        log.debug("하짜증나 {}", String.valueOf(likeNum));
         return likeNum;
     }
 }

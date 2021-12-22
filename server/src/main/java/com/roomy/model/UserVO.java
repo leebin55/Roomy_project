@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Setter
 @ToString
 @Table(name ="tbl_user" , schema = "roomyDB")
-public class User  {
+public class UserVO {
 
 
 

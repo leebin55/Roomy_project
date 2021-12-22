@@ -2,8 +2,9 @@ package com.roomy.controller;
 
 
 
+import com.roomy.dto.SessionDTO;
 import com.roomy.model.RoomVO;
-import com.roomy.model.User;
+import com.roomy.model.UserVO;
 import com.roomy.repository.RoomRepository;
 import com.roomy.repository.UserRepository;
 
@@ -45,61 +46,64 @@ public class UserController {
     // 회원가입
     // 뷰에서 정보넣고 회원가입하면 기능됨
     @PostMapping("/join")
-    public String join(@RequestBody User user){
+    public String join(@RequestBody UserVO userVO){
 
-        User member = new User();
+        UserVO member = new UserVO();
         // 회원 추가
 
         member.setUserRank(1);
-        member.setUserId(user.getUserId());
+        member.setUserId(userVO.getUserId());
         // bCryptPAsswordEncoder가 비번암호화 하는 거임
-        member.setUserPassword(bCryptPasswordEncoder.encode(user.getUserPassword()));
-        member.setUserBirth(user.getUserBirth());
-        member.setUserEmail(user.getUserEmail());
-        member.setUserName(user.getUserName());
-        member.setUserGender(user.getUserGender());
+        member.setUserPassword(bCryptPasswordEncoder.encode(userVO.getUserPassword()));
+        member.setUserBirth(userVO.getUserBirth());
+        member.setUserEmail(userVO.getUserEmail());
+        member.setUserName(userVO.getUserName());
+        member.setUserGender(userVO.getUserGender());
 
         userRepository.save(member);
 
         // 회원가입하면 미니홈피도 생성되게
-        RoomVO roomVO = RoomVO.builder().userId(user.getUserId()).roomName(user.getUserName() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
+        RoomVO roomVO = RoomVO.builder().userId(userVO.getUserId()).roomName(userVO.getUserName() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
         roomRepository.save(roomVO);
 
         log.debug("roomVO {}", roomVO.toString());
 
-        return user.getUserId();
+        return userVO.getUserId();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(HttpSession session, @RequestBody User user){
+    public ResponseEntity<?> login(HttpSession session, @RequestBody UserVO userVO){
 
         // RequestBody로 받아온 아이디를 검사
-        User member = userRepository.findById(user.getUserId())
+        UserVO member = userRepository.findById(userVO.getUserId())
                 .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 userId"));
         // matches(입력된 비번, db에 저장되있는 비번) 비교해서 비번 맞추는거임
-        if(!bCryptPasswordEncoder.matches(user.getUserPassword(), member.getUserPassword())) {
+        if(!bCryptPasswordEncoder.matches(userVO.getUserPassword(), member.getUserPassword())) {
             throw new IllegalArgumentException("비번 틀림");
         }
-        log.debug("로그인 컨트롤러 {}",user.toString());
+        log.debug("로그인 컨트롤러 {}", userVO.toString());
 
+        SessionDTO sessionDTO = new SessionDTO();
+        sessionDTO.setUserId(member.getUserId());
+        sessionDTO.setUserName(member.getUserName());
 
         // <<수정필요>> session 에 뭐뭐 담을지
         // 유저이름 등도 프론트에서 필요하기 때문에 일단 전부 다 담아둠
-        session.setAttribute("USER", member);
+        session.setAttribute("USER", sessionDTO);
 
         return ResponseEntity.status(200).body("하");
     }
 
     // 정상적인 사용자인지 확인 / 현재 로그인 중인 회원 정보 가져오기
     @PostMapping("/login-ok")
-    public User login_ok(HttpSession session) {
+    public SessionDTO login_ok(HttpSession session) {
         log.debug("loginOK 컨트롤러 실행 {}", session.getAttribute("USER"));
 
-        User user = (User) session.getAttribute("USER");
-        if(user != null) {
-            log.debug("세션 유저 {}",user.toString());
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+        if(sessionDTO != null) {
+            log.debug("세션 유저 {}", sessionDTO.toString());
         }
-        return user;
+        return sessionDTO;
     }
 
     @PostMapping("/logout")
@@ -115,15 +119,15 @@ public class UserController {
         log.debug(userName);
         log.debug(userBirth);
 
-        Optional<User> member = userService.findByUserName(userName, userBirth);
+        Optional<UserVO> member = userService.findByUserName(userName, userBirth);
         return ResponseEntity.status(200).body(member);
     }
 
     // 비번찾기인데 다른 사이트들 보니깐 비번은 찾는게 아니라 바꾸는거길래 그렇게 만듬
     @GetMapping("/username/{userName}/userid/{userId}")
-    public Optional<User> findByPw(@PathVariable("userName") String userName,
-                                   @PathVariable("userId") String userId){
-        Optional<User> member = userService.findByUserPw(userName, userId);
+    public Optional<UserVO> findByPw(@PathVariable("userName") String userName,
+                                     @PathVariable("userId") String userId){
+        Optional<UserVO> member = userService.findByUserPw(userName, userId);
         return member;
     }
 
@@ -131,7 +135,7 @@ public class UserController {
     @PutMapping("/userId/{userId}/update/{userPassword}")
     public ResponseEntity<?> updatePassword(@PathVariable("userId") String userId,
                                             @PathVariable("userPassword") String userPassword) {
-        Optional<User> member = userService.updatePassword(userId, userPassword);
+        Optional<UserVO> member = userService.updatePassword(userId, userPassword);
         log.debug(member.toString());
         return ResponseEntity.status(200).body(member);
     }
@@ -149,20 +153,20 @@ public class UserController {
     }
     // 회원정보 수정
     @PutMapping("/update")
-    public void update(@RequestBody User user){
+    public void update(@RequestBody UserVO userVO){
 
-        log.debug("User{}", user.toString());
+        log.debug("User{}", userVO.toString());
 
-        userService.update(user);
+        userService.update(userVO);
     }
 
 
     // 회원 아이디로 회원 정보 가져오기
     @GetMapping("/{userId}")
-    public User getUserInfo(@PathVariable("userId") String userId){
-        User user = userRepository.findById(userId).get();
-        log.debug("user 조회 : {}", user.toString());
-        return user;
+    public UserVO getUserInfo(@PathVariable("userId") String userId){
+        UserVO userVO = userRepository.findById(userId).get();
+        log.debug("user 조회 : {}", userVO.toString());
+        return userVO;
     }
 
 
