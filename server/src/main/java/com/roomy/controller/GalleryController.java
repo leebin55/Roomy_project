@@ -37,7 +37,7 @@ public class GalleryController {
 
         List<BoardVO> boardList = galleryService.selectAll();
 
-        log.debug("feed all : {}",boardList.toString());
+      //  log.debug("feed all : {}",boardList.toString());
         return boardList;
     }
 
