@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "tbl_todo")
-public class Todo {
+public class TodoVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

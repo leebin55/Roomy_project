@@ -18,7 +18,14 @@ function BoardDetail() {
 
   const fetchDetail = async () => {
     const res = await fetch(
-      `http://localhost:8080/room/${userId}/board/${board_seq}`
+      `http://localhost:8080/room/${userId}/board/${board_seq}`,
+      {
+        // 글 상세보기라 GET 이지만 session 을 넘겨받아야 하기 때문에 POST
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "include",
+      }
     );
     const data = await res.json();
     // console.log(data);
@@ -53,11 +60,17 @@ function BoardDetail() {
   };
 
   const fetchHeart = async () => {
-    const res = await fetch(`http://localhost:8080/room/${userId}/board/like`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ boardSeq: detail.boardSeq }),
-    });
+    const res = await fetch(
+      `http://localhost:8080/room/${userId}/board/${board_seq}/like`,
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ boardSeq: detail.boardSeq }),
+      }
+    );
     const data = await res.json();
     setHeart_num(data);
   };
