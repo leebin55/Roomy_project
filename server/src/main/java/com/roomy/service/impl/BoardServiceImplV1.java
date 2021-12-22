@@ -51,6 +51,9 @@ public class BoardServiceImplV1 implements BoardService {
 
     @Override
     public void insert(BoardVO boardVO) {
+
+        log.debug("board insert 메서드 {}", boardVO.toString());
+
         LocalDateTime localDateTime = LocalDateTime.now();
         String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 

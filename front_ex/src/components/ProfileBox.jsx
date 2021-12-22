@@ -7,20 +7,17 @@ import "../css/userForm/Logout.css";
 import ProfileUpdateModal from "./ProfileForm/ProfileUpdateModal";
 
 function ProfileBox() {
-  //const [set, setSet] = useState();
+  const navigate = useNavigate();
   const [openUpdate, setOpenUpdate] = useState(false); // 수정할때 관련 모달창
+  // 서버에서 온 session 에 담긴 유저 정보들
   const [user, setUser] = useState({ userId: null, userName: null });
   const {
     modal,
     loginClick,
     findClick,
     joinClick,
-    // user,
-    // setUser,
-    setTemp,
-    temp,
-    // removeCookie,
-    // cookie,
+    setCheck_login,
+    check_login,
     userProfile,
     setUserProfile,
   } = useLoginContext();
@@ -32,31 +29,25 @@ function ProfileBox() {
         mode: "cors",
         cache: "no-cache",
         credentials: "include",
-      }).then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          setTemp(false);
-          // 애플리케이션 안에 쿠키 안에 user를 삭제해라 path는 그냥 전송범위임 루트로 해놨음
+      }).then((res) => {
+        if (res.status === 200) {
+          setCheck_login(false);
           setUserProfile("");
-          // removeCookie("user", { path: "/" });
-          setUser({ userId: "", userName: "" });
+          setUser({ userId: null, userName: null });
         }
       });
     }
   };
 
-  const navigate = useNavigate();
-
+  // 내 미니홈피 가기 버튼 클릭하면 실행
   const goMini = () => {
-    // const id = cookie.user.userId;
-    // navigate(`/room/${id}`);
     const id = user.userId;
     navigate(`/room/${id}`);
   };
 
   // 현재 로그인된 user 정보 가져오기 (이름, 미니홈피가기 url 등)
   const fetchProfile = async () => {
-    const res = await fetch(`http://localhost:8080/user/loginOK`, {
+    const res = await fetch(`http://localhost:8080/user/login-ok`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,42 +57,24 @@ function ProfileBox() {
       credentials: "include",
     });
     const data = await res.json();
-    console.log("data", data);
     if (data) {
-      setTemp(true);
+      setCheck_login(true);
       setUser({ userId: data.userId, userName: data.userName });
     }
-
-    // });
-
-    // if (data) {
-    //   // console.log("있다", data.userId);
-    //   setTemp(true);
-    //   setUser({ ...user, userId: data.userId, userName: data.userName });
-    // }
   };
 
-  useEffect(async () => {
-    // // user라고 만들어진 쿠키가 있으면
-    // if (cookie.user) {
-    //   // temp는 view 용도로 만들어진거임
-    //   setTemp(true);
-    // } else {
-    //   //user라고 만들어진 쿠키에 값이 없으면 temp false
-    //   setTemp(false);
-    // }
-
-    await fetchProfile();
-  }, []);
+  useEffect(() => {
+    fetchProfile();
+  }, [check_login]);
 
   // 회원정보 수정하기 버튼 클릭 이벤트
   const info_update = () => {
     setOpenUpdate(true);
   };
+
   return (
-    <div>
-      {/* temp가 트루면 즉 user라는 쿠키가 있으면  */}
-      {temp ? (
+    <>
+      {check_login ? (
         <div className="afterContainer">
           <div className="logoutHeader">
             {!userProfile ? (
@@ -115,7 +88,7 @@ function ProfileBox() {
                 <img className="logo" src={userProfile} alt="profile_img" />
               </>
             )}
-            {/* cookie.user가 있으면 user라는 이름의 쿠키에 userName을 출력해라 */}
+            {/* user가 있으면 userName을 출력 */}
             {user && <p>{user.userName}님</p>}
           </div>
           <div className="logoutBody">
@@ -124,10 +97,10 @@ function ProfileBox() {
           </div>
           <div className="logoutFooter">
             <div className="footerDetail">
-              <button onClick={info_update}>수정하기</button>
-              <button onClick={logout}> 로그아웃</button>
+              <button onClick={() => info_update()}>수정하기</button>
+              <button onClick={() => logout()}> 로그아웃</button>
             </div>
-            <button id="mini" onClick={goMini}>
+            <button id="mini" onClick={() => goMini()}>
               미니홈피가기
             </button>
           </div>
@@ -138,11 +111,11 @@ function ProfileBox() {
             <p>도움이 필요하세요?</p>
           </div>
           <div className="loginBody">
-            <button onClick={loginClick}>CYWORLD 로그인</button>
+            <button onClick={() => loginClick()}>CYWORLD 로그인</button>
           </div>
           <div className="loginFooter">
-            <button onClick={findClick}>아이디/비밀번호 찾기</button>
-            <button onClick={joinClick}>회원가입</button>
+            <button onClick={() => findClick()}>아이디/비밀번호 찾기</button>
+            <button onClick={() => joinClick()}>회원가입</button>
           </div>
         </div>
       )}
@@ -171,7 +144,7 @@ function ProfileBox() {
           <MainModal />
         </>
       )}
-    </div>
+    </>
   );
 }
 export default ProfileBox;

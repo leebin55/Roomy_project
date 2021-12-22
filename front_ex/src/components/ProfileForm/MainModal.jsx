@@ -10,62 +10,42 @@ function MainModal() {
   const { modal, loginClick, joinClick, findClick, deleteClick } =
     useLoginContext();
 
+  const onModal = () => {
+    return (
+      <div className="modalHeader">
+        <div className={`item ${modal.login && "loginTitle item"}`}>
+          <div onClick={loginClick}>로그인</div>
+        </div>
+        <div className={`item ${modal.join && "joinTitle item"}`}>
+          <div onClick={joinClick}>회원가입</div>
+        </div>
+        <div className={`item ${modal.find && "findTitle item"}`}>
+          <div onClick={findClick}>아이디/비밀번호찾기</div>
+        </div>
+        <div className="btnDelete">
+          <button onClick={deleteClick}>X</button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="modalContainer">
       {modal.login && (
         <>
-          <div className="modalHeader">
-            <div className="loginTitle item">
-              <div onClick={loginClick}>로그인</div>
-            </div>
-            <div className="item">
-              <div onClick={joinClick}>회원가입</div>
-            </div>
-            <div className="item">
-              <div onClick={findClick}>아이디/비밀번호찾기</div>
-            </div>
-            <div className="btnDelete">
-              <button onClick={deleteClick}>X</button>
-            </div>
-          </div>
+          {onModal()}
           <LoginModal />
         </>
       )}
       {modal.join && (
         <>
-          <div className="modalHeader">
-            <div className="item">
-              <div onClick={loginClick}>로그인</div>
-            </div>
-            <div className="joinTitle item">
-              <div onClick={joinClick}>회원가입</div>
-            </div>
-            <div className="item">
-              <div onClick={findClick}>아이디/비밀번호찾기</div>
-            </div>
-            <div className="btnDelete">
-              <button onClick={deleteClick}>X</button>
-            </div>
-          </div>
+          {onModal()}
           <JoinModal />
         </>
       )}
       {modal.find && (
         <>
-          <div className="modalHeader">
-            <div className="item">
-              <div onClick={loginClick}>로그인</div>
-            </div>
-            <div className="item">
-              <div onClick={joinClick}>회원가입</div>
-            </div>
-            <div className="findTitle item">
-              <div onClick={findClick}>아이디/비밀번호찾기</div>
-            </div>
-            <div className="btnDelete">
-              <button onClick={deleteClick}>X</button>
-            </div>
-          </div>
+          {onModal()}
           <FindModal />
         </>
       )}

@@ -9,22 +9,29 @@ function Room() {
   // 현재 접속해있는 미니홈피 주인회원id URL에서 잘라오기
   const { userId } = useParams();
   const [roomData, setRoomData] = useState({});
+  const [userInfo, setUserInfo] = useState('');
+
+  //////////////////////////////////////////////////////////////////////
+  // axios 여러개 한번에 받아오기
+  // 유저 프로필 불러오기
+  const getUserProfile = () => axiosInstance.get(`/user/${userId}`);
 
   // 미니홈피 정보들 불러오기
-  const getUserProfile = () => axiosInstance.get(`/room/${userId}`);
-
   const getRoomInfo = () => axiosInstance.get(`/room/${userId}`);
 
-  const getRoomInfoAndUserProfile = async () => {
-    axiosInstance.get().then((res) => {
-      console.log(res.data);
-      setRoomData(res.data);
-    });
-  };
-
   useEffect(() => {
-    getRoomInfoAndUserProfile();
+    // multiple concurrent requests
+    Promise.all([getUserProfile(), getRoomInfo()]).then((res) => {
+      // 변수에 넣으면 먼저 실행되는게 아니라서 setRoomData 에 값이 안들어감
+      //   const userInfo = res[0].data;
+      //   const roomInfo = res[1].data;
+      //console.log(userInfo, roomInfo);
+      setRoomData(res[1].data);
+      setUserInfo(res[0].data);
+      console.log(res[0].data.userProfile);
+    });
   }, []);
+  ////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="room-background">
@@ -35,7 +42,7 @@ function Room() {
           </p>
           <div className="room-left-2">
             <section className="room-left-side">
-              <LeftSide roomData={roomData} />
+              <LeftSide roomData={roomData} userInfo={userInfo} />
             </section>
           </div>
         </div>

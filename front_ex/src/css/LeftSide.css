@@ -1,0 +1,19 @@
+.leftside-profile-container {
+  margin: auto;
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+}
+.leftside-profile-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.leftside-room-intro {
+  padding: 10px;
+  margin: auto;
+  width: 85%;
+  height: 170px;
+  border-bottom: 1px solid #ddd;
+}
