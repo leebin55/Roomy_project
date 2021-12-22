@@ -1,16 +1,12 @@
 package com.roomy.service.impl;
 
-import com.roomy.model.Todo;
+import com.roomy.model.TodoVO;
 import com.roomy.repository.TodoRepository;
 import com.roomy.service.TodoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service("todoService")
@@ -29,9 +25,9 @@ public class TodoServiceImplV1 implements TodoService {
 //    }
 
     @Override
-    public List<Todo> getTodoList() {
-        List<Todo> getTodo = todoRepository.findAll();
-        return getTodo;
+    public List<TodoVO> getTodoList() {
+        List<TodoVO> getTodoVO = todoRepository.findAll();
+        return getTodoVO;
     }
 
 
