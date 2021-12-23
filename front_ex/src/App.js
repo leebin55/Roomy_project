@@ -1,11 +1,11 @@
 // import { useEffect, useState } from 'react'
 // import axios from 'axios'
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Main from "./pages/Main";
-import News from "./pages/News";
-import Game from "./pages/Game";
-import Feeds from "./components/Feed/Feeds";
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Main from './pages/Main';
+import News from './pages/News';
+import Game from './pages/Game';
+import Feeds from './components/Feed/Feeds';
 import {
   RoomMain,
   Board,
@@ -13,11 +13,12 @@ import {
   GuestMain,
   Todo,
   Setting,
-} from "./components/room/RoomComps";
-import Room from "./pages/Room";
+} from './components/room/RoomComps';
+import Room from './pages/Room';
 
-import GalleryDetail from "./components/room/gallery/GalleryDetail";
-import Search from "./components/Search/SearchMain";
+import GalleryDetail from './components/room/gallery/GalleryDetail';
+import Search from './components/Search/SearchMain';
+import FriendMain from './components/room/friend/FriendMain';
 
 function App() {
   // const [isLogin, setIsLogin] = useState(false);
@@ -70,6 +71,7 @@ function App() {
           <Route path="gallery" element={<Gallery />} />
           <Route path="gallery/:board_seq" element={<GalleryDetail />} />
           <Route path="guest" element={<GuestMain />} />
+          <Route path="friendlist" element={<FriendMain />} />
           <Route path="setting" element={<Setting />} />
         </Route>
       </Routes>

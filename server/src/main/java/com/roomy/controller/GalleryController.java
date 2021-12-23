@@ -112,6 +112,16 @@ public class GalleryController {
 
     }
 
+    @GetMapping("/{userId}/gallery/{board_seq}/search")
+    public List<BoardVO> search(@RequestParam String query, @RequestParam String select) {
+        // select : select box 에서 제목, 제목+내용, 내용 중 뭘 선택했는지
+        // query : 검색어
+        List<BoardVO> list = galleryService.search(select,query);
+        log.debug("gallery search 컨트롤러 실행 : {}",list.toString());
+        return list;
+    }
+
+
     //댓글
 
 }

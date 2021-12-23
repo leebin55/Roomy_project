@@ -9,6 +9,7 @@ import com.roomy.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -120,7 +121,16 @@ public class GalleryServiceImpl implements BoardService {
 
     @Override
     public List<BoardVO> search(String select, String query) {
-        return null;
+        List<BoardVO> list = new ArrayList<>();
+
+        if(select.equals("0")) { // 제목만 선택했으면
+            list = galleryRepository.findByTitle(query,1);
+        } else if(select.equals("1")) { // 제목+내용 선택했으면
+            list = galleryRepository.findByTitleAndContent(query,1);
+        } else if(select.equals("2")) { // 내용만 선택했으면
+            list = galleryRepository.findByContent(query,1);
+        }
+        return list;
     }
 }
 // 조회수 계속 증가 막기

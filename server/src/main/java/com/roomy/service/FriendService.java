@@ -2,6 +2,7 @@ package com.roomy.service;
 
 import com.roomy.dto.CheckFollowDTO;
 import com.roomy.model.FollowVO;
+import com.roomy.model.UserVO;
 
 
 import java.util.List;
@@ -27,4 +28,9 @@ public interface FriendService {
     Boolean checkFollow(String userId, String checkFollowUserId);
 
     CheckFollowDTO checkFollowAndUser(String loggedUserId,String roomUserId);
+
+    // 팔로우한 회원 정보조회
+    List<UserVO> findAllFollowWithUserInfo(String userId);
+    // 나를 팔로우한 회원 정보죄회
+    List<UserVO> findAllFollowerWithUserInfo(String userId);
 }
