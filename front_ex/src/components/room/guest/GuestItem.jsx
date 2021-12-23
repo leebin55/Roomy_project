@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-function GuestItem({ data, fetchList }) {
+function GuestItem({ data, index, fetchList }) {
   const [updating, setUpdating] = useState(false);
   const [update_content, setUpdate_content] = useState();
   const { userId } = useParams();
@@ -16,6 +16,9 @@ function GuestItem({ data, fetchList }) {
         `http://localhost:8080/room/${userId}/guest/${data.guestSeq}`,
         {
           method: "DELETE",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "include",
         }
       ).then((res) => {
         if (res?.ok) {
@@ -45,6 +48,9 @@ function GuestItem({ data, fetchList }) {
   const guestUpdate = async () => {
     await fetch(`http://localhost:8080/room/${userId}/guest/${data.guestSeq}`, {
       method: "PUT",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -66,7 +72,7 @@ function GuestItem({ data, fetchList }) {
       <section className="guest-head">
         <p>
           <span>NO.</span>
-          {data.guestSeq}
+          {index + 1}
         </p>
         <p>{data.guestWriterName}</p>
         <p>&#127968;</p>

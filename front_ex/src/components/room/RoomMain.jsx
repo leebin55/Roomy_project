@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function RoomMain() {
-  const [content, setContent] = useState(''); // 입력한 방명록 작성 내용
+  const [content, setContent] = useState(""); // 입력한 방명록 작성 내용
   const [pp, setPp] = useState(false); // 입력한 방명록 공개여부
   const [guest_list, setGuest_list] = useState([]);
   const { userId } = useParams();
@@ -25,14 +25,17 @@ function RoomMain() {
   };
 
   const guestInsert = async () => {
-    if (content.trim() === '') {
-      alert('방명록을 입력하세요');
+    if (content.trim() === "") {
+      alert("방명록을 입력하세요");
       return;
     }
     await fetch(`http://localhost:8080/room/${userId}/guest`, {
-      method: 'POST',
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "include",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         guestContent: content,
@@ -40,7 +43,7 @@ function RoomMain() {
       }),
     });
     setPp(false);
-    setContent('');
+    setContent("");
     fetchGuest();
   };
 
@@ -71,7 +74,7 @@ function RoomMain() {
         </div>
         <div className="guest-write">
           <div className="guest-write-private" onClick={() => guestPrivate()}>
-            {pp ? '비공개' : '공개'}
+            {pp ? "비공개" : "공개"}
           </div>
           <textarea
             name="guest-write-content"

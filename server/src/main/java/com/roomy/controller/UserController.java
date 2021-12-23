@@ -13,7 +13,6 @@ import com.roomy.service.FileService;
 
 import com.roomy.service.UserService;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -46,29 +45,9 @@ public class UserController {
     // 회원가입
     // 뷰에서 정보넣고 회원가입하면 기능됨
     @PostMapping("/join")
-    public String join(@RequestBody UserVO userVO){
-
-        UserVO member = new UserVO();
-        // 회원 추가
-
-        member.setUserRank(1);
-        member.setUserId(userVO.getUserId());
-        // bCryptPAsswordEncoder가 비번암호화 하는 거임
-        member.setUserPassword(bCryptPasswordEncoder.encode(userVO.getUserPassword()));
-        member.setUserBirth(userVO.getUserBirth());
-        member.setUserEmail(userVO.getUserEmail());
-        member.setUserName(userVO.getUserName());
-        member.setUserGender(userVO.getUserGender());
-
-        userRepository.save(member);
-
-        // 회원가입하면 미니홈피도 생성되게
-        RoomVO roomVO = RoomVO.builder().userId(userVO.getUserId()).roomName(userVO.getUserName() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
-        roomRepository.save(roomVO);
-
-        log.debug("roomVO {}", roomVO.toString());
-
-        return userVO.getUserId();
+    public void join(@RequestBody UserVO userVO){
+        log.debug("join 컨트롤러 실행 {}", userVO.toString());
+        userService.insert(userVO);
     }
 
     @PostMapping("/login")
@@ -83,12 +62,11 @@ public class UserController {
         }
         log.debug("로그인 컨트롤러 {}", userVO.toString());
 
+        // 유저 id와 유저 이름만 담아둠
         SessionDTO sessionDTO = new SessionDTO();
         sessionDTO.setUserId(member.getUserId());
         sessionDTO.setUserName(member.getUserName());
-
-        // <<수정필요>> session 에 뭐뭐 담을지
-        // 유저이름 등도 프론트에서 필요하기 때문에 일단 전부 다 담아둠
+        
         session.setAttribute("USER", sessionDTO);
 
         return ResponseEntity.status(200).body("하");
@@ -96,7 +74,7 @@ public class UserController {
 
     // 정상적인 사용자인지 확인 / 현재 로그인 중인 회원 정보 가져오기
     @PostMapping("/login-ok")
-    public SessionDTO login_ok(HttpSession session) {
+    public SessionDTO loginOk(HttpSession session) {
         log.debug("loginOK 컨트롤러 실행 {}", session.getAttribute("USER"));
 
         SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
@@ -105,7 +83,6 @@ public class UserController {
         }
         return sessionDTO;
     }
-
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {

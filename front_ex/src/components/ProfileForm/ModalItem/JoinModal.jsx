@@ -59,7 +59,6 @@ function JoinModal() {
         if (res?.ok) {
           alert("가입완료! 로그인을 진행해주세요.");
           loginClick();
-          console.log("가입완료", res);
         }
       });
     }
