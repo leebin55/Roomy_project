@@ -56,7 +56,7 @@ function Room() {
       // Unfollow 실행 > table에서 delete
       axiosInstance.delete(`/friend/unfollow`, {
         data: {
-          userId: 'testId', // 로그인한 유저
+          // userId: 'testId', // 로그인한 유저
           followUserId: userId, // 미니홈피 주인
         },
       });
@@ -65,7 +65,7 @@ function Room() {
     setCheckFollow(true);
     // follow 실행
     axiosInstance.post(`/friend/follow`, {
-      userId: 'testId', // 로그인한 유저
+      //  userId: 'testId', // 로그인한 유저
       followUserId: userId, // 미니홈피 주인
     });
   };

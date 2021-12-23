@@ -1,15 +1,20 @@
 package com.roomy.service.impl;
 
 import com.roomy.dto.CheckFollowDTO;
+import com.roomy.dto.UserSimpleInfoDTO;
 import com.roomy.model.FollowVO;
 import com.roomy.model.FollowerVO;
+import com.roomy.model.UserVO;
 import com.roomy.repository.FollowRepository;
 import com.roomy.repository.FollowerRepository;
+import com.roomy.repository.UserRepository;
 import com.roomy.service.FriendService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -18,10 +23,12 @@ public class FriendServiceImpl implements FriendService {
 
     private final FollowRepository followRepository;
     private final FollowerRepository followerRepository;
+    private final UserRepository userRepository;
 
-    public FriendServiceImpl(FollowRepository followRepository, FollowerRepository followerRepository) {
+    public FriendServiceImpl(FollowRepository followRepository, FollowerRepository followerRepository, UserRepository userRepository) {
         this.followRepository = followRepository;
         this.followerRepository = followerRepository;
+        this.userRepository = userRepository;
     }
 
     // 팔로우 (친구추가)
@@ -102,6 +109,35 @@ public class FriendServiceImpl implements FriendService {
             checkDTO.setCheckFollow(existResult);
         }
         return checkDTO;
+    }
+
+    @Override
+    public List<UserVO> findAllFollowWithUserInfo(String roomUserId) {
+        List<UserVO> userInfoList= new ArrayList<>();
+
+        List<String> followUserIdList=this.findAllFollow(roomUserId);
+        log.debug("followUserIdList : {}",followUserIdList.toString());
+        for(String userId : followUserIdList){
+            UserVO userInfo = new UserVO();
+            userInfo=userRepository.findById(userId).get();
+           userInfoList.add(userInfo);
+        }
+
+        return userInfoList;
+    }
+
+    @Override
+    public List<UserVO> findAllFollowerWithUserInfo(String roomUserId) {
+        List<UserVO> userInfoList= new ArrayList<>();
+
+        List<String> followerUserIdList=this.findAllFollower(roomUserId);
+        log.debug("followerUserIdList : {}",followerUserIdList.toString());
+        for(String userId : followerUserIdList){
+            UserVO userInfo = new UserVO();
+            userInfo=userRepository.findById(userId).get();
+            userInfoList.add(userInfo);
+        }
+        return userInfoList;
     }
 
 

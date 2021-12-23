@@ -84,11 +84,11 @@ public class BoardServiceImplV1 implements BoardService {
         List<BoardVO> list = null;
 
         if(select.equals("0")) { // 제목만 선택했으면
-            list = boardRepository.findByTitle(query);
+            list = boardRepository.findByTitle(query,2);
         } else if(select.equals("1")) { // 제목+내용 선택했으면
-            list = boardRepository.findByTitleAndContent(query);
+            list = boardRepository.findByTitleAndContent(query,2);
         } else if(select.equals("2")) { // 내용만 선택했으면
-            list = boardRepository.findByContent(query);
+            list = boardRepository.findByContent(query,2);
         }
         return list;
     }

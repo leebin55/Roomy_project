@@ -7,10 +7,9 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import axios from 'axios';
+import axiosInstance from '../../utils/AxiosInstance';
 import { useNavigate } from 'react-router-dom';
 
 export default function Feed({ gallery, index }) {
@@ -22,8 +21,8 @@ export default function Feed({ gallery, index }) {
   const heartClickedEvent = () => {
     setHeartClicked(!heartClicked);
     try {
-      axios
-        .post('http://localhost:8080/room/gallery/like', {
+      axiosInstance
+        .post(`/room/${gallery.boardUserId}/gallery/like`, {
           userId: gallery.boardUserId,
           boardSeq: gallery.boardSeq,
         })
@@ -39,15 +38,20 @@ export default function Feed({ gallery, index }) {
   const imageClick = (event) => {
     //alert(event.target.alt);
     const board_seq = event.target.alt;
-    navigate(`/room/gallery/${board_seq}`);
+    navigate(`/room/${gallery.boardUserId}/gallery/${board_seq}`);
   };
   return (
     <div className="feed-card">
       <Card sx={{ width: 600 }}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
+            <Avatar sx={{ width: 50, height: 50 }} aria-label="recipe">
+              <input
+                type="image"
+                src={gallery.imgURL[0]}
+                alt="feed"
+                style={{ width: '100%' }}
+              />
             </Avatar>
           }
           title={gallery.boardTitle}
@@ -55,7 +59,7 @@ export default function Feed({ gallery, index }) {
 
         <CardMedia
           component="img"
-          height="400"
+          height="600"
           image={gallery.imgURL[0]}
           alt={gallery.boardSeq}
           onClick={imageClick}

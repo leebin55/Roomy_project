@@ -44,7 +44,7 @@ function GallerySingle({ gallery, index }) {
   };
   // 사진을 클릭했을 때
   const clickImg = (event) => {
-    navigate(`/room/gallery/${event.target.alt}`);
+    navigate(`/room/${userId}/gallery/${event.target.alt}`);
     // 원래 위에처럼  url로 이동하려고 했지만
     // 글을 수정할 때 Editor 에서 변수를 못가져와서
     // GalleryList  에서 Detail 부분을 부른다.

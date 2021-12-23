@@ -20,7 +20,9 @@ public interface UserRepository extends JpaRepository<UserVO, String> {
 
     //회원 아이디로 프로필 사진만 리턴
 
-    @Query(value="select u.userProfile from UserVO u where u.userId =:userId")
+    @Query(value="select userProfile from UserVO where userId =:userId")
     String getProfileByUserId(@Param(value = "userId")String userId);
+
+
 }
 
