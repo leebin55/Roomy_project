@@ -47,7 +47,7 @@ public class GalleryController {
         log.debug("userId : {}", userId);
         List<BoardVO> boardList = galleryService.readBoardList(userId);
         List<BoardVO> boardImgList= fileService.selectAllWithImage(boardList);
-        log.debug("select all : {}",boardList.toString());
+     //   log.debug("select all : {}",boardList.toString());
         return boardImgList;
     }
 

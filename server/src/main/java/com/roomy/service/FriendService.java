@@ -1,5 +1,6 @@
 package com.roomy.service;
 
+import com.roomy.dto.CheckFollowDTO;
 import com.roomy.model.FollowVO;
 
 
@@ -24,4 +25,6 @@ public interface FriendService {
     // userId(로그인한 유저)가 checkFollowUserId (확인하고싶은 유저) 데이터가 있는지 확인
     // 있으면 follow상태 없으면 follow 안한 상태
     Boolean checkFollow(String userId, String checkFollowUserId);
+
+    CheckFollowDTO checkFollowAndUser(String loggedUserId,String roomUserId);
 }

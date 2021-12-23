@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import '../../../css/gallery/Gallery.css';
+import axiosInstance from '../../../utils/AxiosInstance';
 
 function Gallery() {
   // url 에서 boardState= 을 뽑아오기 위해서(GalleryContextProvider 이용하기 위해)
@@ -29,6 +30,10 @@ function Gallery() {
   const [isUpdate, setIsUpdate] = useState(false);
   const { userId } = useParams();
 
+  // 로그인한 유저와 room 주인 아이디 확인 (본인만 글쓰기 가능)
+  const checkUser = async () => {
+    await axiosInstance.get(`/room/${userId}/`);
+  };
   useEffect(() => {
     // board_state와  board_seq 가 존재하면
     //isUpdate는  true

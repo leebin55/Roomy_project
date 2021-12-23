@@ -5,7 +5,7 @@ import SelectBox from './main/SelectBox';
 import { useParams } from 'react-router-dom';
 
 function LeftSide({ roomData, userInfo }) {
-  // select Box (follow 가 기본값으로 설정)> followSelct 가 false면 follower가 select
+  // select Box (follow 가 기본값으로 설정)> followSelect 가 false면 follower가 select
   const [followSelect, setFollowSelect] = useState('true');
   const [followList, setFollowList] = useState([]);
   const [followerList, setFollowerList] = useState([]);
