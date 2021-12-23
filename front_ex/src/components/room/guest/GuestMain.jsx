@@ -14,15 +14,17 @@ function GuestMain() {
   const fetchList = async () => {
     const response = await fetch(`http://localhost:8080/room/${userId}/guest`);
     const data = await response.json();
-    setGuest_list(data.reverse());
+    setGuest_list(data);
   };
 
   return (
     <div className="guest-container">
       <section className="guest-list">
         {guest_list.length > 0 ? (
-          guest_list.map((item) => {
-            return <GuestItem data={item} fetchList={fetchList} />;
+          guest_list.map((item, index) => {
+            return (
+              <GuestItem data={item} index={index} fetchList={fetchList} />
+            );
           })
         ) : (
           <div className="guest-item-box">

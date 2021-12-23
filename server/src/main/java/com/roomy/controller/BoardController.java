@@ -53,18 +53,18 @@ public class BoardController {
         // 미니홈피 주인회원만 글을 쓸 수 있도록
         // 현재 접속중인 회원과 미니홈피 주인회원이 일치하는지 확인
         // <<수정필요>> 일치하지 않으면 어떻게 처리할 것인지
-        UserVO userVO = (UserVO) session.getAttribute("USER");
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
 
         // 세션에 user 가 없으면
-        if(userVO == null) {
+        if(sessionDTO == null) {
             log.debug("세션에 user 없음");
             return "로그인이 필요합니다";
         }
-        if(!(userVO.getUserId().equals(userId))) {
-            log.debug("회원불일치 세션은 {} url은 {}", userVO.getUserId(), userId);
+        if(!(sessionDTO.getUserId().equals(userId))) {
+            log.debug("회원불일치 세션은 {} url은 {}", sessionDTO.getUserId(), userId);
             return "미니홈피 주인만 글을 쓸 수 있습니다";
         }
-        boardVO.setBoardUserId(userVO.getUserId());
+        boardVO.setBoardUserId(sessionDTO.getUserId());
         boardService.insert(boardVO);
         return "OK";
     }

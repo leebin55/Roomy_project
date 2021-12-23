@@ -1,6 +1,8 @@
 package com.roomy.service.impl;
 
 import com.roomy.model.UserVO;
+import com.roomy.model.RoomVO;
+import com.roomy.repository.RoomRepository;
 import com.roomy.repository.UserRepository;
 import com.roomy.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +17,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoomRepository roomRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoomRepository roomRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.roomRepository = roomRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -34,7 +38,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insert(UserVO userVO) {
+        userVO.setUserRank(1);
+        // bCryptPAsswordEncoder = 비밀번호 암호화 하는 것
+        userVO.setUserPassword(bCryptPasswordEncoder.encode(userVO.getUserPassword()));
+        userRepository.save(userVO);
 
+        // 회원가입하면 미니홈피도 생성되게
+        RoomVO roomVO = RoomVO.builder().userId(userVO.getUserId()).roomName(userVO.getUserName() + " 님의 미니홈피에 오신 걸 환영합니다").roomIntroduce("소개글이 없습니다").build();
+        roomRepository.save(roomVO);
     }
 
     @Override

@@ -55,11 +55,12 @@ div.room-right-header {
   z-index: 1;
   top: 50px;
   left: 30px;
+  width: 80%;
   font-size: 20px;
   font-weight: bold;
 }
 div.room-right-header button {
-  margin-left: 200px;
+  margin-left: auto;
   border: 1px solid #ddd;
   padding: 0 20px;
   font-size: 18px;

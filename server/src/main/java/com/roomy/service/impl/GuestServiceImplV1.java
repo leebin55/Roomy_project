@@ -21,10 +21,22 @@ public class GuestServiceImplV1 implements GuestService {
     }
 
     @Override
-    public List<GuestVO> selectAll() {
-        List<GuestVO> guestList = guestRepository.findAll();
+    public List<GuestVO> allList(String userId) {
+        List<GuestVO> guestList = guestRepository.findAllByUserIdOrderByGuestSeqDesc(userId);
 
         return guestList;
+    }
+
+    // 방명록 쓴 사람의 id 찾기 (필요없을듯)
+    @Override
+    public String findWriter(Long guestSeq) {
+        String writerId = guestRepository.findGuestWriterIdByGuestSeq(guestSeq);
+        return writerId;
+    }
+
+    @Override
+    public List<GuestVO> selectAll() {
+        return null;
     }
 
     @Override
@@ -39,19 +51,19 @@ public class GuestServiceImplV1 implements GuestService {
         LocalDateTime localDateTime = LocalDateTime.now();
         String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-        guestVO.setGuestWriterName("서녕");
         guestVO.setGuestCreateAt(dateTime);
         guestVO.setGuestUpdateAt(dateTime);
-        guestVO.setUserId("testid");
-        guestVO.setGuestWriterId("sy");
 
         log.debug(guestVO.toString());
         guestRepository.save(guestVO);
     }
 
     @Override
-    public void update(GuestVO vo) {
-        guestRepository.save(vo);
+    public void update(GuestVO guestVO) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String dateTime = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        guestVO.setGuestUpdateAt(dateTime);
+        guestRepository.save(guestVO);
     }
 
     @Override
@@ -60,8 +72,8 @@ public class GuestServiceImplV1 implements GuestService {
     }
 
     @Override
-    public List<GuestVO> mainList() {
-        List<GuestVO> list = guestRepository.findTop4ByOrderByGuestSeqDesc();
+    public List<GuestVO> mainList(String userId) {
+        List<GuestVO> list = guestRepository.findTop4ByUserIdOrderByGuestSeqDesc(userId);
         return list;
     }
 }
