@@ -33,6 +33,9 @@ public class TodoVO {
 
     private LocalDateTime updatedAt;
 
+    @Column(name = "todo_user_id", columnDefinition = "VARCHAR(20)")
+    private String userId;
+
 //    @Builder
 //    public Todo(String content, LocalDateTime createdAt) {
 //        this.content = content;

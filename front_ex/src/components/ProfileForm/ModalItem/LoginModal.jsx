@@ -3,7 +3,7 @@ import '../../../css/userForm/LoginModal.css';
 import { useLoginContext } from '../../../context/LoginContextProvider';
 
 function LoginModal() {
-  const { setModal, setCheck_login, setUserProfile } = useLoginContext();
+  const { setModal, setCheck_login } = useLoginContext();
   // 로그인폼에 입력한 id, 비밀번호
   const [user, setUser] = useState({ userId: '', userPassword: '' });
 
@@ -33,7 +33,6 @@ function LoginModal() {
       setModal({ login: false, join: false, find: false });
       const result = await res.json();
       console.log('data확인 : ', result);
-      setUserProfile(result.userProfile);
     }
   };
 

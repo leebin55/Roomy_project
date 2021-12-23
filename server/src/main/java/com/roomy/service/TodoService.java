@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface TodoService {
 
-//    public Todo updateOk(Long id, Todo todo);
-    public List<TodoVO> getTodoList();
+    public List<TodoVO> getTodoList(String userId);
 
 }

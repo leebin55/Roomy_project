@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserVO> login(HttpSession session, @RequestBody UserVO userVO){
+    public ResponseEntity<?> login(HttpSession session, @RequestBody UserVO userVO){
 
         // RequestBody로 받아온 아이디를 검사
         UserVO member = userRepository.findById(userVO.getUserId())
@@ -91,7 +91,7 @@ public class UserController {
         // 유저이름 등도 프론트에서 필요하기 때문에 일단 전부 다 담아둠
         session.setAttribute("USER", sessionDTO);
 
-        return ResponseEntity.status(200).body(member);
+        return ResponseEntity.status(200).body("하");
     }
 
     // 정상적인 사용자인지 확인 / 현재 로그인 중인 회원 정보 가져오기
@@ -171,6 +171,13 @@ public class UserController {
         return userVO;
     }
 
+    // 회원아이디로 회원 프로필 사진만 가져오기
+    @GetMapping("/profile/{userId}")
+    public String getUserProfile(@PathVariable("userId") String userId){
+        log.debug("프로필 조회 : {}", userRepository.getProfileByUserId(userId));
+        return userRepository.getProfileByUserId(userId);
+
+    }
 
     // 로그인
     // postman으로 하면 토큰생성된거 보이는데 좀더 공부해야함
