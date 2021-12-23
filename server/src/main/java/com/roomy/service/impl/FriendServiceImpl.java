@@ -69,13 +69,13 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public List<String> findAllFollow(String userId) {
 
-        return  followRepository.findFollowList(userId);
+        return  followRepository.findFollowListByUserId(userId);
     }
 
     // 팔로워 조회 (나를 친구추가한)
     @Override
     public List<String> findAllFollower(String userId) {
-        return followerRepository.findFollowerList(userId);
+        return followerRepository.findFollowerListByUserId(userId);
     }
 
     @Override

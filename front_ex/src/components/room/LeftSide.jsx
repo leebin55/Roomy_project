@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../css/LeftSide.css';
 import axiosInstance from '../../utils/AxiosInstance';
 import SelectBox from './main/SelectBox';
+import { useParams } from 'react-router-dom';
 
 function LeftSide({ roomData, userInfo }) {
   // select Box (follow 가 기본값으로 설정)> followSelct 가 false면 follower가 select
@@ -9,7 +10,11 @@ function LeftSide({ roomData, userInfo }) {
   const [followList, setFollowList] = useState([]);
   const [followerList, setFollowerList] = useState([]);
   const [selectBoxMenu, setSelectBoxMenu] = useState([]); // selectBox Menu List
-  const userId = userInfo.userId;
+  /** userInfo를 넘겨 받지만 처음 랜더링 할때는 userInfo에 아직 값이 안담겨 있음 > LeftSide의 return 문에서는 사용가능
+   * 그전에는 아직 값이 안담겨 있음> userParam을 이용해서 가져옴
+   */
+  //   const userId = userInfo.userId;
+  const { userId } = useParams();
 
   //selectBox 위의 follow 나 follwer 버튼 클릭
   const selectBtnClick = (event) => {
