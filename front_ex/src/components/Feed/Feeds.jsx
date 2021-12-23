@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Feed from "./Feed";
-import SearchIcon from "@mui/icons-material/Search";
+// import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import "../../css/Feeds.css";
 
@@ -30,15 +30,6 @@ function Feeds() {
 
   return (
     <div>
-      <div className="search-box">
-        <SearchIcon />
-        <select>
-          <option>미니홈피명</option>
-          <option>회원이름</option>
-        </select>
-        <input placeholder="검색어를 입력하세요" />
-        <button>검색</button>
-      </div>
       {galleryList.map((gallery, index) => (
         <Feed gallery={gallery} index={index} />
       ))}

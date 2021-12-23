@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import '../css/userForm/ProfileBox.css';
-import { useNavigate } from 'react-router-dom';
-import MainModal from './ProfileForm/MainModal';
-import { useLoginContext } from '../context/LoginContextProvider';
-import '../css/userForm/Logout.css';
-import ProfileUpdateModal from './ProfileForm/ProfileUpdateModal';
-import axiosInstance from '../utils/AxiosInstance';
+import { useState, useEffect } from "react";
+import "../css/userForm/ProfileBox.css";
+import { useNavigate } from "react-router-dom";
+import MainModal from "./ProfileForm/MainModal";
+import { useLoginContext } from "../context/LoginContextProvider";
+import "../css/userForm/Logout.css";
+import ProfileUpdateModal from "./ProfileForm/ProfileUpdateModal";
+import axiosInstance from "../utils/AxiosInstance";
 
 function ProfileBox() {
   const navigate = useNavigate();
@@ -24,16 +24,16 @@ function ProfileBox() {
   } = useLoginContext();
 
   const logout = () => {
-    if (window.confirm('로그아웃 하시겠습니까?')) {
-      fetch('http://localhost:8080/user/logout', {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'include',
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      fetch("http://localhost:8080/user/logout", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "include",
       }).then((res) => {
         if (res.status === 200) {
           setCheck_login(false);
-          setUserProfile('');
+          setUserProfile("");
           setUser({ userId: null, userName: null });
         }
       });
@@ -49,13 +49,13 @@ function ProfileBox() {
   // 현재 로그인된 user 정보 가져오기 (이름, 미니홈피가기 url 등)
   const fetchSession = async () => {
     const res = await fetch(`http://localhost:8080/user/login-ok`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'include',
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "include",
     });
     const data = await res.json();
     if (data) {
@@ -90,12 +90,12 @@ function ProfileBox() {
           <div className="logoutHeader">
             {!userProfile ? (
               <>
-                {' '}
+                {" "}
                 <img className="logo" src="img/logo.svg" alt="profile_img" />
               </>
             ) : (
               <>
-                {' '}
+                {" "}
                 <img className="logo" src={userProfile} alt="profile_img" />
               </>
             )}

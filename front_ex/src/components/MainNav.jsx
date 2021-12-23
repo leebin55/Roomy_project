@@ -6,8 +6,9 @@ function MainNav() {
   return (
     <nav className="main-nav">
       <NavLink to="/">Home</NavLink>
-      <NavLink to="/game">Game</NavLink>
-      <NavLink to="/news">News</NavLink>
+      <NavLink to="/search">Search</NavLink>
+      {/* <NavLink to="/game">Game</NavLink>
+      <NavLink to="/news">News</NavLink> */}
     </nav>
   );
 }

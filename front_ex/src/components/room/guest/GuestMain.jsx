@@ -17,13 +17,20 @@ function GuestMain() {
     setGuest_list(data);
   };
 
+  // No 표시 하기 위해 리스트 개수 세기
+  let list_length = guest_list.length;
+
   return (
     <div className="guest-container">
       <section className="guest-list">
         {guest_list.length > 0 ? (
-          guest_list.map((item, index) => {
+          guest_list.map((item) => {
             return (
-              <GuestItem data={item} index={index} fetchList={fetchList} />
+              <GuestItem
+                data={item}
+                index={--list_length}
+                fetchList={fetchList}
+              />
             );
           })
         ) : (
