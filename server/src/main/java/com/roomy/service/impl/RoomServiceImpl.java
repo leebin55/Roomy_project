@@ -37,7 +37,7 @@ public class RoomServiceImpl implements RoomService {
         if(select.equals("0")) { // 미니홈피명으로 검색
             list = roomRepository.findByRoomName(query);
         } else if(select.equals("1")) { // 회원이름으로 검색
-
+            return null;
 //            list = roomRepository.findByUserName(query);
         }
         return list;
