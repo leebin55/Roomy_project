@@ -1,10 +1,15 @@
 package com.roomy.controller;
 
+import com.roomy.dto.CheckFollowDTO;
+import com.roomy.dto.SessionDTO;
 import com.roomy.model.FollowVO;
 import com.roomy.service.FriendService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -20,30 +25,32 @@ public class FriendController {
 
 
     // userId 가 또다른 회원 checkUserId 를 follow 했는지 확인
-    @GetMapping("/{checkUserId}/checkfollow")
-    public Boolean checkFollow(@PathVariable("checkUserId") String checkUserId,
-                               @RequestParam String userId){
+    @GetMapping("/{roomUserId}/checkfollow")
+    public CheckFollowDTO checkFollow(HttpSession session,
+                                      @PathVariable("roomUserId")String roomUserId){
         // true : tbl_follow에 데이터 존재 > userId가 checkUserId를 팔로우한 상태
         // false : 데이터 없음 > 팔로우 안한 상태
-        // userId 가 follow 주체( 로그인한 회원(userId) 과 해당 룸 회원 아이디(checkUserId) 비교 )
+        // loggedUser 가 follow 주체( 로그인한 회원(loggedUser) 과 해당 룸 회원 아이디(roomUserId) 비교 )
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+        String loggedUserId = sessionDTO.getUserId();
+        log.debug("checkFollow :{}", friendService.checkFollowAndUser(loggedUserId,roomUserId));
+       return friendService.checkFollowAndUser(loggedUserId, roomUserId);
 
-        boolean result = friendService.checkFollow(userId,checkUserId);
-        log.debug("follow 체크 실행 {}", result);
-        return result;
     }
 
+
     // 해당 회원의 follow 조회
-    @GetMapping("/follow/{userId}")
-    public List<String> getFollowList(@PathVariable("userId")String userId){
-        List<String> followList = friendService.findAllFollow(userId);
+    @GetMapping("/follow/{roomUserId}")
+    public List<String> getFollowList(@PathVariable("roomUserId")String roomUserId){
+        List<String> followList = friendService.findAllFollow(roomUserId);
         log.debug("follow 리스트 조회 : {}",followList.toString());
         return followList;
     }
 
     // 해당 회원의 follower 조회
-    @GetMapping("/follower/{userId}")
-    public List<String> getFollowerList(@PathVariable("userId")String userId){
-        List<String> followerList = friendService.findAllFollower(userId);
+    @GetMapping("/follower/{roomUserId}")
+    public List<String> getFollowerList(@PathVariable("roomUserId")String roomUserId){
+        List<String> followerList = friendService.findAllFollower(roomUserId);
         log.debug("follower 리스트 조회 : {}",followerList.toString());
         return followerList;
     }

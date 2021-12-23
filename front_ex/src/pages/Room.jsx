@@ -11,6 +11,8 @@ function Room() {
   const [roomData, setRoomData] = useState({});
   const [userInfo, setUserInfo] = useState('');
   const [checkFollow, setCheckFollow] = useState(false);
+  // 맨위 follow버튼 보이기 (기본값 true) > 로그인한 user와 room 주인이 같을때만 false
+  const [showFollowBtn, setShowFollowBtn] = useState(true);
 
   //------------------------------------------------------------------
   // axios 여러개 한번에 받아오기
@@ -21,11 +23,10 @@ function Room() {
   const getRoomInfo = () => axiosInstance.get(`/room/${userId}`);
 
   // Follow / Unfollow => 로그인한 아이디가 room의 주인이 아닐때 follow 했는지 안했는지 확인
-  const checkFollowInfo = () => {
-    // 로그인한 회원 정보를 담아야 되는데 아직 어디서 가져와야될지 몰라서 testId로 임시로 진행
-    // axios 실행전에  로그인한 UserId와 room 주인 회원 아이디가 먼저 다른지 확인하고 실행 해야됨
-    return axiosInstance.get(`/friend/${userId}/checkfollow?userId=testId`);
-  };
+  // server의 session 에서 로그인한 아이디 확인
+  const checkFollowInfo = () =>
+    axiosInstance.get(`/friend/${userId}/checkfollow`);
+
   useEffect(() => {
     // multiple concurrent requests
     Promise.all([getUserProfile(), getRoomInfo(), checkFollowInfo()]).then(
@@ -35,8 +36,14 @@ function Room() {
         //   const roomInfo = res[1].data;
         setUserInfo(res[0].data);
         setRoomData(res[1].data);
-        setCheckFollow(res[2].data); // follow 했는지 확인 true: follow 한상태
-        //   console.log(res[0].data.userProfile);
+        console.log(res[2].data);
+        // 로그인한 유저와 room주인의 아이디가 다를때
+        if (res[2].data.sameUser) {
+          //
+          setShowFollowBtn(false);
+          return;
+        }
+        setCheckFollow(res[2].data.checkFollow); // follow 했는지 확인 true: follow 한상태
       }
     );
   }, []);
@@ -78,10 +85,14 @@ function Room() {
         <div className="room-right-1">
           <div className="room-right-header">
             <p className="room-name">{roomData.roomName}</p>
-            {checkFollow ? (
-              <button onClick={buttonClick}>✖ UNFOLLOW</button>
-            ) : (
-              <button onClick={buttonClick}>➕ FOLLOW </button>
+            {showFollowBtn && (
+              <>
+                {checkFollow ? (
+                  <button onClick={buttonClick}>✖ UNFOLLOW</button>
+                ) : (
+                  <button onClick={buttonClick}>➕ FOLLOW </button>
+                )}
+              </>
             )}
           </div>
           <div className="room-right-2">

@@ -1,5 +1,6 @@
 package com.roomy.service.impl;
 
+import com.roomy.dto.CheckFollowDTO;
 import com.roomy.model.FollowVO;
 import com.roomy.model.FollowerVO;
 import com.roomy.repository.FollowRepository;
@@ -80,6 +81,28 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public Boolean checkFollow(String userId, String checkFollowUserId) {
-        return followRepository.existsByUserIdAndAndFollowUserId(userId,checkFollowUserId);
+
+            return followRepository.existsByUserIdAndAndFollowUserId(userId, checkFollowUserId);
+
     }
+
+    @Override
+    public CheckFollowDTO checkFollowAndUser(String loggedUser, String roomUserId){
+
+        CheckFollowDTO checkDTO = new CheckFollowDTO();
+
+        if(loggedUser.equals(roomUserId)){
+            // userId == checkFollowUserId
+            checkDTO.setSameUser(true);
+
+        }else {
+            // 서로 다른 회원일경우
+            Boolean existResult = this.checkFollow(loggedUser,roomUserId);
+            checkDTO.setSameUser(false);
+            checkDTO.setCheckFollow(existResult);
+        }
+        return checkDTO;
+    }
+
+
 }
