@@ -33,11 +33,12 @@ public class MainController {
         return null;
     }
 
+    // 미니홈피 검색
     @GetMapping("/search")
-    public List<RoomVO> search(@RequestParam String query, @RequestParam String select) {
-        log.debug("미니홈피 search 컨트롤러 실행");
-//        List<RoomVO> list =
-        return null;
+    public List<RoomVO> search(@RequestParam String select, @RequestParam String query) {
+        log.debug("미니홈피 search 컨트롤러 실행 select는 {}, query는 {}");
+        List<RoomVO> list = roomService.search(select, query);
+        return list;
     }
 
 
