@@ -22,6 +22,13 @@ function PwCtrl() {
     setUserPassword(e.target.value);
   };
   const findByPwSubmit = async () => {
+    if (findPw.userName === "") {
+      alert("이름을 입력해주세요.");
+      return false;
+    } else if (findPw.userId === "") {
+      alert("아이디를 입력해주세요.");
+      return false;
+    }
     const response = await fetch(
       `http://localhost:8080/user/username/${findPw.userName}/userid/${findPw.userId}`
     );
@@ -34,7 +41,7 @@ function PwCtrl() {
       setFindData(result);
       //   console.log(findData);
     } else {
-      alert("인증 실패");
+      alert("입력한 정보는 비밀번호를 찾을 수 없습니다.");
       setSuccess(false);
     }
   };

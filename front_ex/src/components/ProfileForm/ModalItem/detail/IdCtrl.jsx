@@ -15,7 +15,14 @@ function IdCtrl() {
     // console.log(findUser);
   };
   const findByIdSubmit = async () => {
-    axios
+    if (findUser.userName === "") {
+      alert("이름을 입력해주세요.");
+      return false;
+    } else if (findUser.userBirth === "") {
+      alert("생년월일을 입력해주세요.");
+      return false;
+    }
+    await axios
       .get(
         `http://localhost:8080/user/username/${findUser.userName}/birth/${findUser.userBirth}`
       )
@@ -23,6 +30,8 @@ function IdCtrl() {
         //console.log(res);
         if (res.status === 200) {
           setFindId(res.data);
+          alert("인증성공 아이디를 찾았습니다.");
+          //   console.log(res);
         }
       });
   };
