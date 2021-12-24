@@ -13,7 +13,7 @@ function JoinModal() {
     username: "",
     email: "",
     birth: "",
-    userGender: "",
+    gender: "",
   });
 
   // 성별 고르기
@@ -27,20 +27,30 @@ function JoinModal() {
   };
 
   const joinSubmit = async () => {
-    if (join.userName === "") {
+    if (join.username === "") {
       alert("이름을 입력해주세요.");
-    } else if (join.userBirth === "") {
+      return false;
+    } else if (join.birth === "") {
       alert("생년월일을 입력해주세요.");
+      return false;
     } else if (join.userId === "") {
       alert("아이디를 입력해주세요.");
-    } else if (join.userEmail === "") {
+      return false;
+    } else if (join.email === "") {
       alert("이메일을 입력해주세요.");
+      return false;
     } else if (join.password === "") {
       alert("비밀번호를 입력해주세요.");
+      return false;
     } else if (join.re_password === "") {
       alert("확인 비밀번호를 입력해주세요.");
-    } else if (join.userGender === 0) {
+      return false;
+    } else if (join.password !== join.re_password) {
+      alert("비밀번호와 확인 비밀번호를 확인해주세요.");
+      return false;
+    } else if (join.gender === "") {
       alert("성별을 체크해주세요.");
+      return false;
     } else if (window.confirm("입력하신 정보로 정말 가입하시겠습니까?")) {
       await fetch("http://localhost:8080/user/join", {
         method: "POST",
@@ -59,6 +69,7 @@ function JoinModal() {
         if (res?.ok) {
           alert("가입완료! 로그인을 진행해주세요.");
           loginClick();
+          //   console.log("가입완료", res);
         }
       });
     }
@@ -78,7 +89,7 @@ function JoinModal() {
 
         <label>성별</label>
         <select className="selectSex" onChange={onSelect}>
-          <option value="0">성별</option>
+          <option value="">성별</option>
           <option value="1">남성</option>
           <option value="2">여성</option>
         </select>
@@ -87,12 +98,18 @@ function JoinModal() {
         <input placeholder="아이디" name="userId" onChange={onItemChange} />
 
         <label>비밀번호</label>
-        <input placeholder="비밀번호" name="password" onChange={onItemChange} />
+        <input
+          placeholder="비밀번호"
+          name="password"
+          type="password"
+          onChange={onItemChange}
+        />
 
         <label>비밀번호 확인</label>
         <input
           placeholder="비밀번호 확인"
           name="re_password"
+          type="password"
           onChange={onItemChange}
         />
 
