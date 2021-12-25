@@ -5,8 +5,6 @@ import com.roomy.dto.SessionDTO;
 import com.roomy.model.FollowVO;
 import com.roomy.model.UserVO;
 import com.roomy.service.FriendService;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,14 +27,20 @@ public class FriendController {
     @GetMapping("/{roomUserId}/checkfollow")
     public CheckFollowDTO checkFollow(HttpSession session,
                                       @PathVariable("roomUserId")String roomUserId){
+        CheckFollowDTO checkFollowDTO= new CheckFollowDTO();
         // true : tbl_follow에 데이터 존재 > userId가 checkUserId를 팔로우한 상태
         // false : 데이터 없음 > 팔로우 안한 상태
         // loggedUser 가 follow 주체( 로그인한 회원(loggedUser) 과 해당 룸 회원 아이디(roomUserId) 비교 )
         SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
-        String loggedUserId = sessionDTO.getUserId();
-        log.debug("checkFollow :{}", friendService.checkFollowAndUser(loggedUserId,roomUserId));
-       return friendService.checkFollowAndUser(loggedUserId, roomUserId);
-
+        if(sessionDTO!=null){
+            String loggedUserId = sessionDTO.getUserId();
+            checkFollowDTO= friendService.checkFollowAndUser(loggedUserId, roomUserId);
+            log.debug("checkFollow :{}", friendService.checkFollowAndUser(loggedUserId,roomUserId));
+            return checkFollowDTO;
+        }
+        //sameUser true로 넘기면 follow 확인안함
+        checkFollowDTO.setSameUser(true);
+        return checkFollowDTO;
     }
 
 
@@ -80,19 +84,25 @@ public class FriendController {
         // String 으로 followUserId만 받으면 follow 실행 : {"followUserId":"testId"}
         // Session 에서 로그인한 User가져오고 follow의 userId 에 set
         SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
-        String loggedUserId = sessionDTO.getUserId();
-        log.debug("follow 실행 : {}",follow.toString());
-        follow.setUserId(loggedUserId);
-        friendService.followFriend(follow);
+        if(sessionDTO!=null){
+            String loggedUserId = sessionDTO.getUserId();
+            log.debug("follow 실행 : {}",follow.toString());
+            follow.setUserId(loggedUserId);
+            friendService.followFriend(follow);
+        }
+
     }
 
     // Unfollow
     @DeleteMapping("/unfollow")
     public void  Unfollow(HttpSession session,@RequestBody FollowVO follow){
         SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
-        String loggedUserId = sessionDTO.getUserId();
-        follow.setUserId(loggedUserId);
-        log.debug("unfollow 실행 : {}",follow.toString());
-        friendService.unfollowFriend(follow);
+        if(sessionDTO != null){
+            String loggedUserId = sessionDTO.getUserId();
+            follow.setUserId(loggedUserId);
+            log.debug("unfollow 실행 : {}",follow.toString());
+            friendService.unfollowFriend(follow);
+        }
+
     }
 }

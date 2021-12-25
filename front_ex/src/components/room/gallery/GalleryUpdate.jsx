@@ -54,24 +54,34 @@ function GalleryUpdate({ boardSeq, userId }) {
     );
     try {
       await axios
-        .put('http://localhost:8080/room/gallery/update', {
-          ...galleryInfo,
-          boardContent: content,
-          boardTitle: title,
-          boardUpdateAt: moment().format('YYYY-MM-DD HH:mm'),
-          imgURL: saveURL,
-        })
+        .put(
+          `http://localhost:8080/room/${userId}/gallery/${galleryInfo.boardSeq}`,
+          {
+            ...galleryInfo,
+            boardContent: content,
+            boardTitle: title,
+            boardUpdateAt: moment().format('YYYY-MM-DD HH:mm'),
+            imgURL: saveURL,
+          }
+        )
         .then((res) => {
           if (res.status === 200) {
             // setTitle('');
             // setContent('');
             // navigate('/room/gallery');
             // setGalleryImgList([]);
-            navigate(`/room/gallery/${boardSeq}`);
+            navigate(`/room/${userId}/gallery/${boardSeq}`);
+            return;
           }
         });
     } catch (error) {
-      alert('갤러리 수정 실패');
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error);
+      if (error.response.status === 400) {
+        alert(error.response.data);
+        navigate(`/room/${userId}/gallery/${boardSeq}`);
+      }
       throw error;
     }
   };

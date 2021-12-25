@@ -1,5 +1,6 @@
 package com.roomy.controller;
 
+import com.roomy.dto.SessionDTO;
 import com.roomy.model.BoardVO;
 import com.roomy.model.LikeVO;
 import com.roomy.service.BoardService;
@@ -7,12 +8,16 @@ import com.roomy.service.FileService;
 import com.roomy.service.LikeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequestMapping("/room")
@@ -43,73 +48,112 @@ public class GalleryController {
 
     // room 에서 갤러리 목록에 들어가면 갤러리 맨 처음 보여주는 리스트 return
     @GetMapping("/{userId}/gallery")
-    public List<BoardVO> list(@PathVariable("userId") String userId){
+    public ResponseEntity<?> list(@PathVariable("userId") String userId){
         log.debug("userId : {}", userId);
         List<BoardVO> boardList = galleryService.readBoardList(userId);
         List<BoardVO> boardImgList= fileService.selectAllWithImage(boardList);
      //   log.debug("select all : {}",boardList.toString());
-        return boardImgList;
+        return ResponseEntity.ok(boardImgList);
     }
 
     // 게시물 번호(seq)로 찾아 해당 게시물 return
     @GetMapping("/{userId}/gallery/detail")
-    public BoardVO detail(@PathVariable("userId") String userId,@RequestParam Long board_seq ){
+    public ResponseEntity<?> detail(@PathVariable("userId") String userId,@RequestParam Long board_seq ){
         BoardVO boardVO = galleryService.findById(board_seq);
+        if(boardVO == null){
+            //400 오류
+            return ResponseEntity.badRequest().body("해당 게시물이 존재하지 않습니다.");
+        }
         // 해당 게시물 클릭 할 때마다 board_hit +1 조회수 증가
         boardVO.setBoardHit(boardVO.getBoardHit()+1);
         log.debug("findbyId : {}" , boardVO.toString());
-        return boardVO;
+        return ResponseEntity.ok(boardVO);
     }
 
 
 
     // 갤러리 등록할 때 post 로  데이터 받아오고 ok를 넘겨줌
-    @PostMapping("/{userId}/gallery/write")
-    public String write(@PathVariable("userId") String userId,@RequestBody  BoardVO boardVO ) {
-        log.debug("controller_boardVO : {}",boardVO.toString());
-        galleryService.insert(boardVO);
-        return "ok";
-
+    //{userId}/gallery/write 에서 수정 > /{userId}/gallery  (url에 행위넣지 말기)
+    // url은 똑같더라도 httpmethod : get post 가 다르기 때문에 url 겹쳐도 문제되지 않음
+    @PostMapping("/{userId}/gallery")
+    public  ResponseEntity<?> write(HttpSession session, @PathVariable("userId") String userId, @RequestBody  BoardVO boardVO ) {
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+        if(sessionDTO != null){
+            log.debug("controller_boardVO : {}",boardVO.toString());
+            galleryService.insert(boardVO);
+            return ResponseEntity.ok(boardVO);
+        }
+        Map<String,String> msg = new HashMap<>();
+        msg.put("message","게시판 글쓰기 권한이 없습니다.");
+         return ResponseEntity.badRequest().body(msg);
     }
 
     // editor 에서 이미지를 등록하면 base64로 변경됨 그래서 url 로 바꿔줌
+    // 글쓸때 똑같은 이미지를 등록하면 그대로 사용하기 위해 Put 사용
     @PutMapping("/{userId}/gallery/img")
-    public String img(@PathVariable("userId") String userId,@RequestParam("img") MultipartFile img){
+    public ResponseEntity<?> img(@PathVariable("userId") String userId,@RequestParam("img") MultipartFile img){
       log.debug("받아온 파일 이름 {}",img.getOriginalFilename());
       String newFileName = fileService.uploadFile(img);
       log.debug("보낼 url {}:", newFileName);
-        return  newFileName;
+        return ResponseEntity.ok(newFileName);
     }
 
     // 갤러리 게시글 수정
-    @PutMapping("/{userId}/gallery/update")
-    public void update(@PathVariable("userId") String userId,@RequestBody BoardVO boardVO){
-        galleryService.insert(boardVO);
+    @PutMapping("/{userId}/gallery/{boardSeq}")
+    public ResponseEntity<?> update(HttpSession session,@PathVariable("userId") String userId,@RequestBody BoardVO boardVO){
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
 
+        if(sessionDTO != null ){
+            log.debug("update logged user : {}", sessionDTO.toString());
+            String loggedUserId = sessionDTO.getUserId();
+            if(loggedUserId == userId){
+                return ResponseEntity.ok(loggedUserId);
+            }
+            return ResponseEntity.badRequest().body("해당 글의 수정권한이 없습니다.");
+        }
+        return ResponseEntity.badRequest().body("로그인을 해주세요");
     }
 
     //삭제
-    @GetMapping("/{userId}/gallery/delete/{board_seq}")
-    public void delete(@PathVariable("userId") String userId,@PathVariable("board_seq") Long board_seq){
-        galleryService.delete(board_seq);
+    // URL : /{userId}/gallery/delete/{board_seq} > REST 를 제대로 적용하지 않음
+    //  url 은 자원을 표현하는데 중점 > delete 같은 행위에 대한 표현이 들어가는것은 맞지않다.
+    @DeleteMapping("/{userId}/gallery/{board_seq}")
+    public ResponseEntity<?> delete(HttpSession session,@PathVariable("userId") String userId,@PathVariable("board_seq") Long board_seq){
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+        if(sessionDTO == null){
+            return ResponseEntity.badRequest().body("로그인을 해주세요");
+        }
+        String loggedUser = sessionDTO.getUserId();
+        if(loggedUser == userId){
+            return ResponseEntity.ok("board_seq");
+        }
+        return ResponseEntity.badRequest().body("삭제권한이 없습니다.");
 
     }
 
     //좋아요 클릭 할때 실행되는 method
     @PostMapping("/{userId}/gallery/like")
-    public int like(@PathVariable("userId") String userId,@RequestBody LikeVO likeVO){
-        log.debug("likeVO {} ",likeVO.toString());
-        int likeNum = likeService.insertOrDelete(likeVO);
-
-        return likeNum;
+    public ResponseEntity<?> like(HttpSession session, @PathVariable("userId") String userId,@RequestBody LikeVO likeVO){
+        
+        SessionDTO sessionDTO= (SessionDTO) session.getAttribute("USER");
+        if(sessionDTO!=null){
+            log.debug("likeVO {} ",likeVO.toString());
+            int likeNum = likeService.insertOrDelete(likeVO);
+            return ResponseEntity.ok(likeNum);
+        }
+        //로그인 안되있을때
+        return ResponseEntity.badRequest().body("로그인을 먼저 해주세요");
     }
 
 
     @PutMapping("/{userId}/gallery/beforeCheck")
     // gallery 리스트가 뜰때 좋아요를 이전에 눌렀는지 처음 한번만 확인하는 method
-    public Boolean beforeLikeCheck(@PathVariable("userId") String userId, @RequestBody LikeVO likeVO){
-        return likeService.likeCheck(likeVO);
-
+    public Boolean beforeLikeCheck(HttpSession session,@PathVariable("userId") String userId, @RequestBody LikeVO likeVO){
+        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+        if(sessionDTO != null){
+            return likeService.likeCheck(likeVO);
+        }
+        return null;
     }
 
     @GetMapping("/{userId}/gallery/{board_seq}/search")
