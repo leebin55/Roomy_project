@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../css/Search.css";
 
 // 메인화면 - 미니홈피 검색 페이지
 function SearchMain() {
+  const navigate = useNavigate();
+
   const [searchResult, setSearchResult] = useState([]); // 검색 결과 리스트
   const [isRoomName, setIsRoomName] = useState(true); // 미니홈피명으로 검색하는지
   const [search, setSearch] = useState({ select: 0, query: "" });
@@ -33,7 +36,18 @@ function SearchMain() {
 
   const searchList = () =>
     searchResult.map((item) => {
-      return <div className="search-result">{item.roomName}</div>;
+      return (
+        <div className="search-result">
+          <p
+            className="search-result-room"
+            onClick={() => navigate(`/room/${item.userId}`)}
+          >
+            {item.roomName}
+          </p>
+          <p>{item.roomIntroduce}</p>
+          <p>{item.userId}</p>
+        </div>
+      );
     });
 
   return (
@@ -60,8 +74,8 @@ function SearchMain() {
       <section className="search-result-box">
         {/*
 		  미니홈피명으로 검색했고, 검색결과가 있으면 검색결과 리스트 출력
-		  미니홈피명으로 검색하지 않았으면(회원 이름으로 검색했으면) 준비중입니다 출력
 		  미니홈피명으로 검색했고, 검색결과가 없으면 일치하는 미니홈피가 없습니다 출력
+		  미니홈피명으로 검색하지 않았으면(회원 이름으로 검색했으면) 준비중입니다 출력
 		   */}
         {isRoomName && searchResult.length > 0 ? (
           searchList()

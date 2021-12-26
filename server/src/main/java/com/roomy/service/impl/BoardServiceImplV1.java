@@ -80,15 +80,15 @@ public class BoardServiceImplV1 implements BoardService {
     }
 
     @Override
-    public List<BoardVO> search(String select, String query) {
+    public List<BoardVO> search(String userId, String select, String query) {
         List<BoardVO> list = null;
 
         if(select.equals("0")) { // 제목만 선택했으면
-            list = boardRepository.findByTitle(query,2);
+            list = boardRepository.findByTitle(userId, query,2);
         } else if(select.equals("1")) { // 제목+내용 선택했으면
-            list = boardRepository.findByTitleAndContent(query,2);
+            list = boardRepository.findByTitleAndContent(userId, query,2);
         } else if(select.equals("2")) { // 내용만 선택했으면
-            list = boardRepository.findByContent(query,2);
+            list = boardRepository.findByContent(userId, query,2);
         }
         return list;
     }

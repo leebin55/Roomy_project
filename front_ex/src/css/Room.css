@@ -146,23 +146,55 @@ section.room-main-nav {
 /* -------------------- RoomMain -------------------- */
 
 .main-top {
-  display: flex;
   width: 100%;
-  height: 35%;
+  height: 25%;
+  padding: 10px;
+  text-align: start;
+}
+
+.main-recent-title {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: rgb(38, 146, 235);
+}
+
+.main-top hr {
+  width: 50%;
+  border: 1px solid #ddd;
+}
+
+.main-top-box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
 }
 
 .main-recent-box,
 .main-list-box {
-  width: 50%;
+  width: 47%;
   height: 100%;
-  padding: 10px;
-  border: 1px solid #eee;
+  text-align: start;
+  /* border: 1px solid #eee; */
+}
+
+.main-list-box table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+}
+
+.main-list-box table tr td {
+  border-top: 1px dashed lightgray;
+  border-bottom: 1px dashed lightgray;
+  width: 50%;
+  height: 25%;
 }
 
 .main-bottom {
   width: 100%;
-  height: 60%;
-  margin-top: 30px;
+  height: 65%;
+  margin-top: 50px;
   align-items: center;
   border: 1px solid #eee;
 }
@@ -171,6 +203,7 @@ section.room-main-nav {
   display: flex;
   width: 90%;
   margin: auto;
+  margin-top: 20px;
   max-height: 180px;
   justify-content: left;
   margin-bottom: 15px;
@@ -210,6 +243,7 @@ section.room-main-nav {
   display: flex;
   width: 100%;
   height: 80px;
+  margin-top: 30px;
   padding: 0px;
   justify-content: center;
   align-items: center;

@@ -102,12 +102,12 @@ public class BoardController {
         boardService.delete(board_seq);
     }
 
-    @GetMapping("/{userId}/board/{board_seq}/search")
-    public List<BoardVO> search(@RequestParam String query, @RequestParam String select) {
+    @GetMapping("/{userId}/board/search")
+    public List<BoardVO> search(@PathVariable String userId, @RequestParam String query, @RequestParam String select) {
         // select : select box 에서 제목, 제목+내용, 내용 중 뭘 선택했는지
         // query : 검색어
         log.debug("board search 컨트롤러 실행");
-        List<BoardVO> list = boardService.search(select,query);
+        List<BoardVO> list = boardService.search(userId,select,query);
         return list;
     }
 

@@ -95,7 +95,7 @@ function BoardList() {
       {/* <div className="board-page-box">
         <div>1</div>
       </div> */}
-      <div className="search-box">
+      <div className="board-search-box">
         <select value={select} onChange={selectHandler}>
           <option value="0">제목만</option>
           <option value="1">제목+내용</option>

@@ -113,10 +113,10 @@ public class GalleryController {
     }
 
     @GetMapping("/{userId}/gallery/{board_seq}/search")
-    public List<BoardVO> search(@RequestParam String query, @RequestParam String select) {
+    public List<BoardVO> search(@PathVariable String userId, @RequestParam String query, @RequestParam String select) {
         // select : select box 에서 제목, 제목+내용, 내용 중 뭘 선택했는지
         // query : 검색어
-        List<BoardVO> list = galleryService.search(select,query);
+        List<BoardVO> list = galleryService.search(userId, select,query);
         log.debug("gallery search 컨트롤러 실행 : {}",list.toString());
         return list;
     }
