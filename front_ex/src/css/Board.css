@@ -54,24 +54,25 @@
   border: 1px solid black;
 }
 
-.search-box {
+.board-search-box {
   width: 100%;
   text-align: center;
 }
 
-.search-box select {
+.board-search-box select {
   height: 25px;
   outline: none;
   border: 1px solid lightgray;
 }
 
-.search-box input {
+.board-search-box input {
   width: 250px;
   height: 25px;
   margin: 15px;
+  outline: none;
 }
 
-.search-box button {
+.board-search-box button {
   width: 50px;
   height: 25px;
   border: 1px solid lightgray;

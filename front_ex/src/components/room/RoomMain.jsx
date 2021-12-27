@@ -54,8 +54,40 @@ function RoomMain() {
   return (
     <>
       <section className="main-top">
-        <div className="main-recent-box"></div>
-        <div className="main-list-box"></div>
+        <p className="main-recent-title">최근 게시물</p>
+        <hr />
+        <section className="main-top-box">
+          <div className="main-recent-box">
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+          </div>
+          <div className="main-list-box">
+            <table>
+              <tr>
+                <td>
+                  게시판 <span></span>
+                </td>
+                <td>
+                  사진첩 <span></span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  할일 <span></span>
+                </td>
+                <td>
+                  방명록 <span></span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </section>
       </section>
       <section className="main-bottom">
         <div className="main-guest">

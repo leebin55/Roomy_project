@@ -6,7 +6,7 @@ function MainNav() {
   return (
     <nav className="main-nav">
       <NavLink to="/">Home</NavLink>
-      <NavLink to="/search">Search</NavLink>
+      <NavLink to="/search">미니홈피 찾기</NavLink>
       {/* <NavLink to="/game">Game</NavLink>
       <NavLink to="/news">News</NavLink> */}
     </nav>

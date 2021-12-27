@@ -24,16 +24,16 @@ public interface BoardRepository extends JpaRepository<BoardVO,Long> {
     List<BoardVO> findTop10ByBoardCodeOrderByBoardSeqDesc(int boardCode);
 
     // 제목만 검색
-    @Query("SELECT b FROM BoardVO b WHERE b.boardTitle LIKE %:query% AND b.boardCode =:boardCode ORDER BY b.boardSeq DESC")
-    List<BoardVO> findByTitle(String query, @Param(value = "boardCode") int boardCode);
+    @Query("SELECT b FROM BoardVO b WHERE b.boardUserId =:userId AND b.boardTitle LIKE %:query% AND b.boardCode =:boardCode ORDER BY b.boardSeq DESC")
+    List<BoardVO> findByTitle(String userId, String query, @Param(value = "boardCode") int boardCode);
 
     // 제목+내용 검색
-    @Query("SELECT b FROM BoardVO b WHERE (b.boardTitle LIKE %:query% OR b.boardContent LIKE %:query%) AND b.boardCode=:boardCode ORDER BY b.boardSeq DESC")
-    List<BoardVO> findByTitleAndContent(String query, @Param(value = "boardCode") int boardCode);
+    @Query("SELECT b FROM BoardVO b WHERE b.boardUserId =:userId AND (b.boardTitle LIKE %:query% OR b.boardContent LIKE %:query%) AND b.boardCode=:boardCode ORDER BY b.boardSeq DESC")
+    List<BoardVO> findByTitleAndContent(String userId, String query, @Param(value = "boardCode") int boardCode);
 
     // 내용만 검색
-    @Query("SELECT b FROM BoardVO b WHERE b.boardContent LIKE %:query% AND b.boardCode =:boardCode  ORDER BY b.boardSeq DESC")
-    List<BoardVO> findByContent(String query, @Param(value = "boardCode") int boardCode);
+    @Query("SELECT b FROM BoardVO b WHERE b.boardUserId =:userId AND b.boardContent LIKE %:query% AND b.boardCode =:boardCode  ORDER BY b.boardSeq DESC")
+    List<BoardVO> findByContent(String userId, String query, @Param(value = "boardCode") int boardCode);
 
 //    페이지네이션
 //    Page<BoardVO> findAllByBoardCodeOrderByBoardSeqDesc(int boardCode, Pageable pageable);
