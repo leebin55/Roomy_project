@@ -21,7 +21,7 @@ public class LikeVO {
     @Column(name="like_board_seq")
     private Long boardSeq;
 
-    // 좋아요 누른 회원 Seq
+    // 좋아요 누른 회원 Id
     @Column(name="like_user_id")
     private String userId;
 

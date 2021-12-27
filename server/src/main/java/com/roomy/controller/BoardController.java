@@ -77,6 +77,11 @@ public class BoardController {
 
         SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
 
+        if(sessionDTO == null) {
+            log.debug("sessionDTO null");
+            return null;
+        }
+
         // 좋아요 눌렀는지 여부 확인 위해 likeVO 생성하고 게시물번호, 유저번호 넣어줌
         LikeVO likeVO = new LikeVO();
         likeVO.setBoardSeq(board_seq);
@@ -85,6 +90,8 @@ public class BoardController {
         Boolean check = likeService.likeCheck(likeVO);
 
         boardVO.setCheckLike(check);
+
+        boardService.viewCount(boardVO);
 
         log.debug(boardVO.toString());
         return boardVO;

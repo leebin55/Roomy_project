@@ -1,65 +1,65 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 
 function RoomNav({ userId }) {
   return (
     <nav className="room-main-nav">
       <NavLink
         className={({ isActive }) =>
-          'room-nav-box' + (isActive ? ' room-nav-click' : '')
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to={'/room/' + userId}
+        to={"/room/" + userId}
       >
-        Home
+        HOME
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          'room-nav-box' + (isActive ? ' room-nav-click' : '')
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to={'/room/' + userId + '/board'}
+        to={"/room/" + userId + "/board"}
       >
-        Board
+        게시판
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          'room-nav-box' + (isActive ? ' room-nav-click' : '')
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to={'/room/' + userId + '/gallery'}
+        to={"/room/" + userId + "/gallery"}
       >
-        Gallery
+        사진첩
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          'room-nav-box' + (isActive ? ' room-nav-click' : '')
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to={'/room/' + userId + '/todo'}
+        to={"/room/" + userId + "/todo"}
       >
-        Todo
+        할일
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          'room-nav-box' + (isActive ? ' room-nav-click' : '')
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to={'/room/' + userId + '/guest'}
+        to={"/room/" + userId + "/guest"}
       >
-        Guest
+        방명록
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          'room-nav-box' + (isActive ? ' room-nav-click' : '')
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to={'/room/' + userId + '/friendlist'}
+        to={"/room/" + userId + "/friendlist"}
       >
-        Friend
+        친구관리
       </NavLink>
       <NavLink
         className={({ isActive }) =>
-          'room-nav-box' + (isActive ? ' room-nav-click' : '')
+          "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        to={'/room/' + userId + '/setting'}
+        to={"/room/" + userId + "/setting"}
       >
-        Setting
+        설정
       </NavLink>
 
       <NavLink className="room-nav-box" to="/">

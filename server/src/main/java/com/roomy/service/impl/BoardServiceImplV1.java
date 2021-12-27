@@ -60,6 +60,7 @@ public class BoardServiceImplV1 implements BoardService {
         boardVO.setBoardCreateAt(dateTime);
         boardVO.setBoardUpdateAt(dateTime);
 //        덜씀
+        boardVO.setBoardHit(0);
 
         boardRepository.save(boardVO);
     }
@@ -92,4 +93,13 @@ public class BoardServiceImplV1 implements BoardService {
         }
         return list;
     }
+
+    // 조회수 1 증가
+    @Override
+    public void viewCount(BoardVO boardVO) {
+        boardVO.setBoardHit(boardVO.getBoardHit()+1);
+        boardRepository.save(boardVO);
+    }
+
+
 }
