@@ -80,7 +80,7 @@ function RoomMain() {
               </tr>
               <tr>
                 <td>
-                  할일 <span></span>
+                  할 일 <span></span>
                 </td>
                 <td>
                   방명록 <span></span>

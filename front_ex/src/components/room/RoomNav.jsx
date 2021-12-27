@@ -35,7 +35,7 @@ function RoomNav({ userId }) {
         }
         to={"/room/" + userId + "/todo"}
       >
-        할일
+        할 일
       </NavLink>
       <NavLink
         className={({ isActive }) =>
