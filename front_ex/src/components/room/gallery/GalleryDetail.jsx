@@ -62,7 +62,7 @@ function GalleryDetail() {
     if (result) {
       try {
         axiosInstance
-          .get(`/room/${userId}/gallery/delete/${galleryInfo.boardSeq}`)
+          .delete(`/room/${userId}/gallery/${galleryInfo.boardSeq}`)
           .then((res) => {
             if (res.status === 200) {
               alert('삭제되었습니다.');

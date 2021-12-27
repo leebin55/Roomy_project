@@ -28,6 +28,10 @@ public class GalleryServiceImpl implements BoardService {
     // 피드에서 조회(10개만 부르기)
     @Override
     public List<BoardVO> selectAll() {
+        /** boardVO 에 img  가 여러개 있는 형태
+         * jpa join 공부 후 수정할 예정
+         * 현재 코드의 문제점 > board 한번 select 쿼리 실행 후 불러온 데이터 수만큼
+         * 또다시 쿼리문 진행 */
         // boardVO 에서  imgURL 은 테이블에 저장되지 않음 > 그래서 따로 불러줌
         List<BoardVO> list = galleryRepository.findTop10ByBoardCodeOrderByBoardSeqDesc(1); // 아직 이미지는 list 에 담기지않음
         // 이미지가 담기지 않은 리스트를 보내서 루프를 돌면서 해당 board 에 이미지 리스트를 추가하여 리턴

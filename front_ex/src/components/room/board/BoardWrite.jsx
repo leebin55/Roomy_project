@@ -1,14 +1,14 @@
-import { React, useState, useRef, useEffect } from "react";
-import QuillEditor from "./QuillEditor";
-import QuillToolbar from "./QuillToolbar";
-import { useNavigate, useParams } from "react-router-dom";
-import "../../../css/Board.css";
+import { React, useState, useRef, useEffect } from 'react';
+import QuillEditor from './QuillEditor';
+import QuillToolbar from './QuillToolbar';
+import { useNavigate, useParams } from 'react-router-dom';
+import '../../../css/Board.css';
 
 function BoardWrite({ upData }) {
   const navigate = useNavigate();
-  const [select, setSelect] = useState("0");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [select, setSelect] = useState('0');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const boardTitle = useRef();
   const { userId } = useParams();
 
@@ -21,20 +21,20 @@ function BoardWrite({ upData }) {
   };
 
   const writeSubmit = async () => {
-    if (title.trim() === "") {
-      alert("제목을 입력하세요");
+    if (title.trim() === '') {
+      alert('제목을 입력하세요');
       boardTitle.current.focus();
       return;
-    } else if (content.trim() === "") {
-      alert("내용을 입력하세요");
+    } else if (content.trim() === '') {
+      alert('내용을 입력하세요');
       return;
     }
 
     if (upData != null) {
       await fetch(`http://localhost:8080/room/${userId}/board`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           boardSeq: upData.boardSeq,
@@ -54,12 +54,12 @@ function BoardWrite({ upData }) {
       });
     } else {
       await fetch(`http://localhost:8080/room/${userId}/board`, {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "include",
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           boardTitle: title,
@@ -105,9 +105,9 @@ function BoardWrite({ upData }) {
         />
       </div>
       <div className="board-write-content">
-        <QuillToolbar toolbarId={"qb"} />
+        <QuillToolbar toolbarId={'qb'} />
         <QuillEditor
-          toolbarId={"qb"}
+          toolbarId={'qb'}
           content={content}
           setContent={setContent}
         />
