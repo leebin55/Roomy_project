@@ -48,7 +48,6 @@ public class GalleryServiceImpl implements BoardService {
         return list;
     }
 
-
     @Override
     public BoardVO findById(Long board_seq) {
         //값이 없으면 NoSuchElementException (Optional)
@@ -135,6 +134,11 @@ public class GalleryServiceImpl implements BoardService {
             list = galleryRepository.findByContent(userId, query,1);
         }
         return list;
+    }
+
+    @Override
+    public void viewCount(BoardVO boardVO) {
+
     }
 }
 // 조회수 계속 증가 막기

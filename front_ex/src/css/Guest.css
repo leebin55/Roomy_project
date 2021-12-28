@@ -36,8 +36,9 @@
   overflow: auto;
 }
 
-.guest-img {
+.guest-img-box {
   width: 25%;
+  height: 100%;
 }
 
 .guest-content {

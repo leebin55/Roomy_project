@@ -15,5 +15,8 @@ public interface BoardService extends GenericService<BoardVO, Long> {
 
     public List<BoardVO> readBoardList (String userId);
 
+    public void viewCount(BoardVO boardVO);
+
+
 
 }

@@ -16,6 +16,11 @@ function RoomMain() {
     setGuest_list(data);
   };
 
+  // 미니홈피 메인화면 상단 최신글 부분 (미완성)
+  // const fetchNewPost = async () => {
+  //   const res = await fetch(`http://localhost:8080/room/${userId}/`)
+  // }
+
   const guestPrivate = () => {
     setPp((pp) => !pp);
   };
@@ -75,7 +80,7 @@ function RoomMain() {
               </tr>
               <tr>
                 <td>
-                  할일 <span></span>
+                  할 일 <span></span>
                 </td>
                 <td>
                   방명록 <span></span>

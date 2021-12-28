@@ -1,7 +1,12 @@
+header {
+  height: 15vh;
+  line-height: 15vh;
+}
+
 header .logo {
-  width: 500px;
-  height: 80px;
-  margin-top: 20px;
+  width: 15%;
+  height: 80%;
+  margin-top: 15px;
 }
 
 /** profile box 와 feed 부분 과 오른쪽 사이드 인기 미니 홈페이지 가로로 정렬*/
@@ -9,11 +14,6 @@ header .logo {
   display: flex;
   width: 1300px;
   margin: 40px auto;
-}
-
-header {
-  height: 15vh;
-  line-height: 15vh;
 }
 
 .section-left,

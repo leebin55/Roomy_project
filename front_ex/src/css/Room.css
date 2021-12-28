@@ -24,7 +24,7 @@ div.room-left-1,
 div.room-right-1 {
   height: 700px;
   padding-top: 30px;
-  background-color: rgb(121, 185, 204);
+  background-color: #6dafc9;
   border: none;
 }
 
@@ -126,7 +126,7 @@ section.room-main-nav {
 
 .room-nav-box {
   position: relative;
-  width: 80px;
+  width: 90px;
   height: 40px;
   line-height: 40px;
   margin-bottom: 10px;
@@ -135,6 +135,7 @@ section.room-main-nav {
   border: 1px solid black;
   border-left: none;
   border-radius: 10px;
+  color: rgb(68, 67, 67);
 }
 
 .room-nav-click {

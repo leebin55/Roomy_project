@@ -10,7 +10,7 @@ function Main() {
   return (
     <div>
       <header>
-        <img className="logo" src="img/cyworld.jpg" />
+        <img className="logo" src="img/logo1.png" />
       </header>
       <MainNav />
       <div className="main-container">

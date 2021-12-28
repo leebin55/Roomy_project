@@ -88,7 +88,7 @@ function GuestItem({ data, index, fetchList }) {
         </p>
       </section>
       <section className="guest-body">
-        <div className="guest-img"></div>
+        <div className="guest-img-box"></div>
         <div className="guest-content">
           {updating ? (
             <textarea

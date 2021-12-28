@@ -52,7 +52,7 @@ public class BoardVO {
 
     // 조회수
     @ColumnDefault("0")
-    private int boardHit=0;
+    private int boardHit;
 
     // table 생성시에 들어가지않는 데이터
     @Transient 
