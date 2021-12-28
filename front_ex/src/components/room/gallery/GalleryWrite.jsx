@@ -41,18 +41,18 @@ function GalleryWrite({ isWrite, setIsWrite, userId }) {
             boardUserId: userId,
           })
           .then((res) => {
-            if (res.data === 'ok') {
-              // console.log(galleryImgList);
-              // console.log('save: ', saveURL);
-              alert('글 등록 완료');
-              setTitle('');
-              setContent('');
-              setGalleryImgList([]);
-              setIsWrite(!isWrite);
-              return;
-            }
+            // console.log(galleryImgList);
+            // console.log('save: ', saveURL);
+            alert('글 등록 완료');
+            setTitle('');
+            setContent('');
+            setGalleryImgList([]);
+            setIsWrite(!isWrite);
+            return;
           });
-      } catch (error) {}
+      } catch (error) {
+        alert(error.response.data);
+      }
     } //if end
     else {
       if (saveURL.length < 1) {

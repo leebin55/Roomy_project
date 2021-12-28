@@ -28,15 +28,14 @@ function GalleryUpdate({ boardSeq, userId }) {
           `http://localhost:8080/room/${userId}/gallery/detail?board_seq=${boardSeq}`
         )
         .then(async (res) => {
-          if (res.status === 200) {
-            //res.data 에서 안빼오고
-            //setGalleryInfo에 넣어서 galleryInfo.boardContent
-            // 로 값을 넣어주면 값이 제대로 들어가지 않음
-            // 순차적으로 코드가 실행되지 않는다
-            setContent(res.data.boardContent);
-            setTitle(res.data.boardTitle);
-            setGalleryInfo(res.data);
-          } // end if
+          //res.data 에서 안빼오고
+          //setGalleryInfo에 넣어서 galleryInfo.boardContent
+          // 로 값을 넣어주면 값이 제대로 들어가지 않음
+          // 순차적으로 코드가 실행되지 않는다
+          setContent(res.data.boardContent);
+          setTitle(res.data.boardTitle);
+          setGalleryInfo(res.data);
+          // end if
         }); // end then
     } catch (error) {
       alert('데이터를 불러올수 없음.');
@@ -48,39 +47,40 @@ function GalleryUpdate({ boardSeq, userId }) {
     viewGalleryInfo();
   }, []);
 
+  const navigateGallery = (result) => {
+    console.log(result);
+    navigate(`/room/${userId}/gallery/${boardSeq}`);
+  };
+
   const updateClick = async () => {
     const saveURL = galleryImgList.filter((gallery) =>
       content.includes(gallery)
     );
     try {
-      await axios
-        .put(
-          `http://localhost:8080/room/${userId}/gallery/${galleryInfo.boardSeq}`,
-          {
-            ...galleryInfo,
-            boardContent: content,
-            boardTitle: title,
-            boardUpdateAt: moment().format('YYYY-MM-DD HH:mm'),
-            imgURL: saveURL,
-          }
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            // setTitle('');
-            // setContent('');
-            // navigate('/room/gallery');
-            // setGalleryImgList([]);
-            navigate(`/room/${userId}/gallery/${boardSeq}`);
-            return;
-          }
-        });
+      const result = await axios.put(
+        `http://localhost:8080/room/${userId}/gallery/${galleryInfo.boardSeq}`,
+        {
+          ...galleryInfo,
+          boardContent: content,
+          boardTitle: title,
+          boardUpdateAt: moment().format('YYYY-MM-DD HH:mm'),
+          imgURL: saveURL,
+        }
+      );
+
+      // setTitle('');
+      // setContent('');
+      // navigate('/room/gallery');
+      // setGalleryImgList([]);
+      navigateGallery(result);
     } catch (error) {
       console.log(error.response.data);
       console.log(error.response.status);
       console.log(error);
       if (error.response.status === 400) {
         alert(error.response.data);
-        navigate(`/room/${userId}/gallery/${boardSeq}`);
+        // navigate(`/room/${userId}/gallery/${boardSeq}`);
+        navigateGallery();
       }
       throw error;
     }
@@ -90,7 +90,13 @@ function GalleryUpdate({ boardSeq, userId }) {
     <div>
       <div>
         <label>Title : </label>
-        <input name="board_title" value={title} />
+        <input
+          name="board_title"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
         <button
           onClick={() => {
             setIsUpdate(false);

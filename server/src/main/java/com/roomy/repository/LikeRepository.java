@@ -12,7 +12,7 @@ import java.util.List;
 public interface LikeRepository extends JpaRepository<LikeVO,Long> {
 
     // board 와 user seq 로 해당 데이터가 존재 하는지 확인
-   boolean existsByBoardSeqAndUserId(Long board_seq, String userId);
+    boolean existsByBoardSeqAndUserId(Long board_seq, String userId);
 
     @Query(value = "SELECT likeSeq FROM LikeVO " +
             "WHERE boardSeq = :board_seq " +

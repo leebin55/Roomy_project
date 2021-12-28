@@ -35,12 +35,7 @@ public class LikeServiceImpl implements LikeService {
         boolean checkExist = likeRepository
                 .existsByBoardSeqAndUserId(board_seq, user_id);
         log.debug("exists: {}", checkExist);
-//        if (checkExist == false) {
 
-//        } else {
-//            long like_seq = findByUserSeqAndBoardSeq(board_seq, user_seq);
-//            delete(like_seq);
-//        }
         return checkExist;
     }
 
@@ -96,5 +91,4 @@ public class LikeServiceImpl implements LikeService {
         return likeRepository.findByUserIdAndBoardSeq(user_id, board_seq);
     }
 }
-
 

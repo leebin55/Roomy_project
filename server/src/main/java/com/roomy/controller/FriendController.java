@@ -101,8 +101,7 @@ public class FriendController {
             String loggedUserId = sessionDTO.getUserId();
             follow.setUserId(loggedUserId);
             log.debug("unfollow 실행 : {}",follow.toString());
-            friendService.unfollowFriend(follow);
-        }
+            friendService.unfollowFriend(follow);         }
 
     }
 }

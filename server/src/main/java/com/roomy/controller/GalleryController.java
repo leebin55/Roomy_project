@@ -100,60 +100,60 @@ public class GalleryController {
 
     // 갤러리 게시글 수정
     @PutMapping("/{userId}/gallery/{boardSeq}")
-    public ResponseEntity<?> update(HttpSession session,@PathVariable("userId") String userId,@RequestBody BoardVO boardVO){
-        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+    public ResponseEntity<?> update(@PathVariable("userId") String userId,@RequestBody BoardVO boardVO){
 
-        if(sessionDTO != null ){
-            log.debug("update logged user : {}", sessionDTO.toString());
-            String loggedUserId = sessionDTO.getUserId();
-            if(loggedUserId == userId){
-                return ResponseEntity.ok(loggedUserId);
-            }
-            return ResponseEntity.badRequest().body("해당 글의 수정권한이 없습니다.");
-        }
-        return ResponseEntity.badRequest().body("로그인을 해주세요");
+//        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+//
+//        if(sessionDTO != null ){
+//            log.debug("update logged user : {}", sessionDTO.toString());
+          //  String loggedUserId = sessionDTO.getUserId();
+//            if(loggedUserId == userId){
+                galleryService.insert(boardVO);
+                return ResponseEntity.ok(boardVO.getBoardSeq());
+//            }
+//            return ResponseEntity.badRequest().body("해당 글의 수정권한이 없습니다.");
+//        }
+//        return ResponseEntity.badRequest().body("로그인을 해주세요");
     }
 
     //삭제
     // URL : /{userId}/gallery/delete/{board_seq} > REST 를 제대로 적용하지 않음
     //  url 은 자원을 표현하는데 중점 > delete 같은 행위에 대한 표현이 들어가는것은 맞지않다.
     @DeleteMapping("/{userId}/gallery/{board_seq}")
-    public ResponseEntity<?> delete(HttpSession session,@PathVariable("userId") String userId,@PathVariable("board_seq") Long board_seq){
-        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
-        if(sessionDTO == null){
-            return ResponseEntity.badRequest().body("로그인을 해주세요");
-        }
-        String loggedUser = sessionDTO.getUserId();
-        if(loggedUser == userId){
+    public ResponseEntity<?> delete(@PathVariable("userId") String userId,@PathVariable("board_seq") Long board_seq){
+//        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
+//        if(sessionDTO == null){
+//            return ResponseEntity.badRequest().body("로그인을 해주세요");
+//        }
+//        String loggedUser = sessionDTO.getUserId();
+//        if(loggedUser == userId){
+                galleryService.delete(board_seq);
             return ResponseEntity.ok("board_seq");
-        }
-        return ResponseEntity.badRequest().body("삭제권한이 없습니다.");
+//        }
+//        return ResponseEntity.badRequest().body("삭제권한이 없습니다.");
 
     }
 
     //좋아요 클릭 할때 실행되는 method
     @PostMapping("/{userId}/gallery/like")
-    public ResponseEntity<?> like(HttpSession session, @PathVariable("userId") String userId,@RequestBody LikeVO likeVO){
-        
-        SessionDTO sessionDTO= (SessionDTO) session.getAttribute("USER");
-        if(sessionDTO!=null){
-            log.debug("likeVO {} ",likeVO.toString());
+    public ResponseEntity<?> like(@PathVariable("userId") String userId,@RequestBody LikeVO likeVO){
+//
+//        SessionDTO sessionDTO= (SessionDTO) session.getAttribute("USER");
+//        if(sessionDTO!=null){
+//            log.debug("likeVO {} ",likeVO.toString());
             int likeNum = likeService.insertOrDelete(likeVO);
             return ResponseEntity.ok(likeNum);
-        }
-        //로그인 안되있을때
-        return ResponseEntity.badRequest().body("로그인을 먼저 해주세요");
+//        }
+//        //로그인 안되있을때
+//        return ResponseEntity.badRequest().body("로그인을 먼저 해주세요");
     }
 
 
-    @PutMapping("/{userId}/gallery/beforeCheck")
+    // put > get 으로 변경 왜 put으로 썻는지 쏘리!!
+    @GetMapping("/{userId}/gallery/beforeCheck")
     // gallery 리스트가 뜰때 좋아요를 이전에 눌렀는지 처음 한번만 확인하는 method
-    public Boolean beforeLikeCheck(HttpSession session,@PathVariable("userId") String userId, @RequestBody LikeVO likeVO){
-        SessionDTO sessionDTO = (SessionDTO) session.getAttribute("USER");
-        if(sessionDTO != null){
+    public Boolean beforeLikeCheck(@PathVariable("userId") String userId, @RequestBody LikeVO likeVO){
             return likeService.likeCheck(likeVO);
-        }
-        return null;
     }
 
     @GetMapping("/{userId}/gallery/{board_seq}/search")
