@@ -17,7 +17,6 @@ spring:
     hibernate:
       ddl-auto: update
       jdbc:
-        batch_size: 100
       order_insert: true
       order_update: true
 
@@ -28,10 +27,11 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        default_batch_fetch_size: 100
         format_sql: true
         show_sql: true
-    defer-datasource-initialization: true
-  sql.init.mode: always
+ #   defer-datasource-initialization: true
+ # sql.init.mode: always
 
 
   ############ DB Connection

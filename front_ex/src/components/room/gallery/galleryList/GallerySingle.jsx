@@ -39,6 +39,7 @@ function GallerySingle({ gallery, index }) {
           setLikeNum(res.data);
         });
     } catch (error) {
+      alert(error.response.data);
       throw error;
     }
   };

@@ -64,12 +64,11 @@ function GalleryDetail() {
         axiosInstance
           .delete(`/room/${userId}/gallery/${galleryInfo.boardSeq}`)
           .then((res) => {
-            if (res.status === 200) {
-              alert('삭제되었습니다.');
-              navigate('/room/gallery');
-            }
+            alert(`${res.data} 번 글이 삭제되었습니다.`);
+            navigate('/room/gallery');
           });
       } catch (error) {
+        alert(error.response.data);
         throw error;
       }
     } else {
@@ -83,7 +82,7 @@ function GalleryDetail() {
         <div className="gallery-detail-header">
           <button
             onClick={() => {
-              navigate('/room/gallery');
+              navigate(`/room/${userId}/gallery`);
             }}
           >
             뒤로
