@@ -4,12 +4,11 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 
 function RoomNav({ userId }) {
   return (
-    <nav>
+    <nav className="room-main-nav">
       <NavLink
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        exact
         to={"/room/" + userId}
       >
         HOME
@@ -18,7 +17,6 @@ function RoomNav({ userId }) {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        exact
         to={"/room/" + userId + "/board"}
       >
         게시판
@@ -27,7 +25,6 @@ function RoomNav({ userId }) {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        exact
         to={"/room/" + userId + "/gallery"}
       >
         사진첩
@@ -36,7 +33,6 @@ function RoomNav({ userId }) {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        exact
         to={"/room/" + userId + "/todo"}
       >
         할 일
@@ -45,7 +41,6 @@ function RoomNav({ userId }) {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        exact
         to={"/room/" + userId + "/guest"}
       >
         방명록
@@ -54,7 +49,6 @@ function RoomNav({ userId }) {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        exact
         to={"/room/" + userId + "/friendlist"}
       >
         친구관리
@@ -63,7 +57,6 @@ function RoomNav({ userId }) {
         className={({ isActive }) =>
           "room-nav-box" + (isActive ? " room-nav-click" : "")
         }
-        exact
         to={"/room/" + userId + "/setting"}
       >
         설정

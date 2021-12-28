@@ -64,15 +64,15 @@ function App() {
           {/* <Route path="game" element={<Game />} /> */}
           {/* <Route path="news" element={<News />} /> */}
         </Route>
-        <Route exact path="/room/:userId" element={<Room />}>
-          <Route exact index element={<RoomMain />} />
-          <Route exact path="board/*" element={<Board />} />
-          <Route exact path="todo" element={<Todo />} />
-          <Route exact path="gallery" element={<Gallery />} />
-          <Route exact path="gallery/:board_seq" element={<GalleryDetail />} />
-          <Route exact path="guest" element={<GuestMain />} />
-          <Route exact path="friendlist" element={<FriendMain />} />
-          <Route exact path="setting" element={<Setting />} />
+        <Route path="/room/:userId" element={<Room />}>
+          <Route index element={<RoomMain />} />
+          <Route path="board/*" element={<Board />} />
+          <Route path="todo" element={<Todo />} />
+          <Route path="gallery" element={<Gallery />} />
+          <Route path="gallery/:board_seq" element={<GalleryDetail />} />
+          <Route path="guest" element={<GuestMain />} />
+          <Route path="friendlist" element={<FriendMain />} />
+          <Route path="setting" element={<Setting />} />
         </Route>
       </Routes>
     </div>
