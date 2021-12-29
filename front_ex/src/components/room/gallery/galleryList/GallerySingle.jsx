@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../../../utils/AxiosInstance';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ImageListItem from "@mui/material/ImageListItem";
+import ImageListItemBar from "@mui/material/ImageListItemBar";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../../utils/AxiosInstance";
+import { useParams } from "react-router-dom";
 
 function GallerySingle({ gallery, index }) {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ function GallerySingle({ gallery, index }) {
 
   const [isLike, setIsLike] = useState(false);
   // 좋아요 수 ( 하트를 클릭 하면 바로 좋아요수도 바뀌기 때문에 따로 변수 만듬)
-  const [likeNum, setLikeNum] = useState('');
+  const [likeNum, setLikeNum] = useState("");
 
   //화면이 실행될 때 likeNum에 gallery.boardLike 값으로
   useEffect(() => {
@@ -31,7 +31,7 @@ function GallerySingle({ gallery, index }) {
     try {
       axiosInstance
         .post(`/room/${userId}/gallery/like`, {
-          userSeq: gallery.boardUserSeq,
+          userId: "testid",
           boardSeq: gallery.boardSeq,
         })
         .then((res) => {
