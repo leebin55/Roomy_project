@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../../utils/AxiosInstance';
-import '../../../css/gallery/GalleryDetail.css';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../../utils/AxiosInstance";
+import "../../../css/gallery/GalleryDetail.css";
 
 function GalleryDetail() {
   const navigate = useNavigate();
   //http://localhost:3000/room/gallery/2 에 board_seq 값 가져오기
   const { userId, board_seq } = useParams();
   const [galleryInfo, setGalleryInfo] = useState({
-    boardCode: '',
-    boardContent: '',
-    boardCreateAt: '',
-    boardLike: '',
-    boardPrivate: '',
-    boardSeq: '',
-    boardTitle: '',
-    boardUpdateAt: '',
-    boardUserSeq: '',
+    boardCode: "",
+    boardContent: "",
+    boardCreateAt: "",
+    boardLike: "",
+    boardPrivate: "",
+    boardSeq: "",
+    boardTitle: "",
+    boardUpdateAt: "",
+    boardUserSeq: "",
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function GalleryDetail() {
           }
         });
     } catch (error) {
-      alert('데이터를 불러올수 없음.');
+      alert("데이터를 불러올수 없음.");
       throw error;
     }
   };
@@ -58,14 +58,16 @@ function GalleryDetail() {
     // } catch (error) {}
   };
   const deleteClick = async () => {
-    const result = window.confirm('삭제하시겠습니까?');
+    const result = window.confirm("삭제하시겠습니까?");
     if (result) {
       try {
         axiosInstance
           .delete(`/room/${userId}/gallery/${galleryInfo.boardSeq}`)
           .then((res) => {
+
             alert(`${res.data} 번 글이 삭제되었습니다.`);
-            navigate('/room/gallery');
+            navigate(`/room/${userId}/gallery`);
+
           });
       } catch (error) {
         alert(error.response.data);

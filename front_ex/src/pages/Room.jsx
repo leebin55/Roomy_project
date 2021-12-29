@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
-import { LeftSide } from '../components/room/RoomComps';
-import axiosInstance from '../utils/AxiosInstance';
-import RoomNav from '../components/room/RoomNav';
-import '../css/Room.css';
+import React, { useEffect, useState } from "react";
+import { Outlet, useParams } from "react-router-dom";
+import { LeftSide } from "../components/room/RoomComps";
+import axiosInstance from "../utils/AxiosInstance";
+import RoomNav from "../components/room/RoomNav";
+import "../css/Room.css";
 
 function Room() {
   // 현재 접속해있는 미니홈피 주인회원id URL에서 잘라오기
   const { userId } = useParams();
   const [roomData, setRoomData] = useState({});
-  const [userInfo, setUserInfo] = useState('');
+  const [userInfo, setUserInfo] = useState("");
   const [checkFollow, setCheckFollow] = useState(false);
   // 맨위 follow버튼 보이기 (기본값 true) > 로그인한 user와 room 주인이 같을때만 false
   const [showFollowBtn, setShowFollowBtn] = useState(true);
