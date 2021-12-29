@@ -31,7 +31,7 @@ function GallerySingle({ gallery, index }) {
     try {
       axiosInstance
         .post(`/room/${userId}/gallery/like`, {
-          userSeq: gallery.boardUserSeq,
+          userId: "testid",
           boardSeq: gallery.boardSeq,
         })
         .then((res) => {

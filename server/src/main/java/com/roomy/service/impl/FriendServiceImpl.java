@@ -1,7 +1,6 @@
 package com.roomy.service.impl;
 
 import com.roomy.dto.CheckFollowDTO;
-import com.roomy.dto.UserSimpleInfoDTO;
 import com.roomy.model.FollowVO;
 import com.roomy.model.FollowerVO;
 import com.roomy.model.UserVO;
@@ -10,7 +9,6 @@ import com.roomy.repository.FollowerRepository;
 import com.roomy.repository.UserRepository;
 import com.roomy.service.FriendService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
