@@ -11,6 +11,8 @@ function GalleryList({ userId }) {
   }, []);
 
   // server 에서 gallery 리스트를 가져옴
+  // 리스트 가져올때 로그인한 유저가 눌렀는지 확인하는 데이터도 같이 가져오기
+  // dto 만들기
   const viewGalleryList = async () => {
     try {
       await axiosInstance.get(`/room/${userId}/gallery`).then((res) => {
